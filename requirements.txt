@@ -1,0 +1,29 @@
+# Core learner environment for modules 00-07.
+# Versions are pinned so your output matches the expected output in the modules.
+# Heavier stacks (PyTorch, transformers, vector databases) are installed per-module
+# so that beginners are not asked to download several gigabytes on day one.
+
+# --- Numeric and data ---
+numpy==2.1.3
+pandas==2.2.3
+scipy==1.14.1
+
+# --- Classical machine learning ---
+scikit-learn==1.5.2
+
+# --- Visualisation ---
+matplotlib==3.9.2
+seaborn==0.13.2
+plotly==5.24.1
+
+# --- Notebooks ---
+jupyterlab==4.3.1
+notebook==7.2.2
+ipykernel==6.29.5
+ipywidgets==8.1.5
+
+# --- Utilities ---
+python-dotenv==1.0.1
+tqdm==4.67.0
+requests==2.32.3
+pyyaml==6.0.2

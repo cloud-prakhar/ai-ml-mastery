@@ -1,0 +1,69 @@
+# Local services for the hands-on modules.
+#   docker compose up -d      start
+#   docker compose down       stop
+#   docker compose down -v    stop and delete data
+#
+# Nothing here is needed before module 15. Modules 00-14 run with Python alone.
+#
+# SECURITY: these credentials are for LOCAL DEVELOPMENT ONLY. They are weak on purpose
+# so that nobody is tempted to reuse a "real-looking" secret. Never expose these ports
+# publicly and never reuse this configuration anywhere else.
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: aiml-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-aimlmastery}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-locally-only}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  chroma:
+    image: chromadb/chroma:0.5.20
+    container_name: aiml-chroma
+    ports:
+      - "127.0.0.1:8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      IS_PERSISTENT: "TRUE"
+      ANONYMIZED_TELEMETRY: "FALSE"
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    container_name: aiml-qdrant
+    ports:
+      - "127.0.0.1:6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    profiles: ["vector-alt"]      # start with: docker compose --profile vector-alt up -d
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.18.0
+    container_name: aiml-mlflow
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --default-artifact-root /mlflow/artifacts
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes:
+      - mlflow_data:/mlflow
+    profiles: ["mlops"]           # start with: docker compose --profile mlops up -d
+
+volumes:
+  postgres_data:
+  chroma_data:
+  qdrant_data:
+  mlflow_data:

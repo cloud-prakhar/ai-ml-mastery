@@ -1,0 +1,46 @@
+[project]
+name = "ai-ml-mastery"
+version = "0.1.0"
+description = "A complete beginner-to-production AI and Machine Learning learning repository"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+keywords = ["ai", "machine-learning", "deep-learning", "llm", "rag", "mlops", "education"]
+
+# NOTE: this repository is teaching content, not a distributable package.
+# There is deliberately no [build-system] or [tool.setuptools] section - the file
+# exists to hold shared tool configuration (ruff, pytest, mypy) in one place.
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+# Beginner-friendly but real: correctness, imports, bugbears, comprehensions, simplification.
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "T20"]
+ignore = [
+    "E501",  # line length is handled by the formatter
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Notebooks and teaching scripts legitimately use module-level statements and prints.
+"notebooks/*" = ["E402"]
+"labs/*" = ["T201"]          # teaching scripts print their results on purpose
+"*/labs/*" = ["T201"]
+"scripts/*" = ["T201"]      # CLI tools print to the terminal by design
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: tests that take more than a few seconds",
+    "gpu: tests that require a GPU (skipped by default in CI)",
+    "network: tests that require network access",
+]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

@@ -1,0 +1,10 @@
+# Contributor tooling. Learners do not need this file.
+-r requirements.txt
+
+pytest==8.3.3
+pytest-cov==6.0.0
+ruff==0.7.4
+mypy==1.13.0
+pre-commit==4.0.1
+pip-audit==2.7.3
+nbstripout==0.8.1
