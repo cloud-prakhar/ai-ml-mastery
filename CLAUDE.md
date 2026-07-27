@@ -124,7 +124,9 @@ Every module and topic file carries a difficulty label (🟢🟡🔴🟣) and an
 - Type hints where practical. Meaningful names. Comments that explain *why*, not *what*.
 - Validate inputs. Handle errors. Log where it helps a learner debug.
 - **Never hardcode secrets.** Read from environment variables; document them in `.env.example`.
-- Pin dependency versions in every example that installs anything.
+- Pin dependency versions in every example that installs anything, and **install the pinned
+  set into a clean virtual environment before committing**. Your machine already having a
+  compatible version is not evidence that the pins resolve.
 - Set random seeds where determinism helps the learner match the expected output.
 - **Show the expected output.** A code block without its output is half a lesson.
 - Keep datasets small. Do not require an expensive GPU unless the file is explicitly marked 🟣.

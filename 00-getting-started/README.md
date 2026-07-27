@@ -632,7 +632,7 @@ Environment check for ai-ml-mastery
   PASS  pandas 2.2.3 - tabular data handling
   PASS  scikit-learn 1.5.2 - classical machine-learning models
   PASS  matplotlib 3.9.2 - plotting
-  PASS  jupyterlab 4.3.1 - notebook interface
+  PASS  jupyterlab 4.6.2 - notebook interface
   PASS  git version 2.43.0
 
 Everything checks out. You are ready to start.

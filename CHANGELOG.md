@@ -28,6 +28,15 @@ This repository versions **content**, not software, so releases are milestones r
   on a case-sensitive filesystem, so the specified lowercase `CLAUDE.md` was never auto-loaded.
 
 ### Fixed
+- **CI was failing: unresolvable dependency pins.** `jupyterlab==4.3.1` and `notebook==7.2.2`
+  are mutually incompatible — `notebook 7.2.2` requires `jupyterlab<4.3`. The install step failed,
+  taking every downstream step with it. The pinned set had never been installed into a clean
+  environment; the local machine happened to have compatible versions already present.
+  Now `jupyterlab==4.6.2` + `notebook==7.6.1`, verified by a clean-venv install.
+- **12 known vulnerabilities in pinned dependencies** (7 in JupyterLab, which learners run as a
+  local server; plus `notebook`, `python-dotenv`, `requests`). `pip-audit` was `continue-on-error`,
+  so CI reported them and shipped anyway. All four packages bumped to patched versions;
+  `pip-audit` now reports **no known vulnerabilities**.
 - **Dead link:** `huggingface.co/docs/tokenizers/index` returned HTTP 404. Replaced with the
   current `huggingface.co/docs/tokenizers/main/en/index` (verified 200).
 - **`CLAUDE.md` / `claude.md` collision:** consolidated into a single uppercase `CLAUDE.md`.
@@ -56,7 +65,19 @@ This repository versions **content**, not software, so releases are milestones r
   and does not guarantee.
 - **`Makefile`:** added `make links-external`.
 
+### Added
+- **CI job `learner-install`:** installs `requirements.txt` *alone* on Python 3.10 and 3.12 — the
+  path a learner actually takes. Previous CI only installed `requirements-dev.txt`, so a break in
+  the learner-facing file could pass unnoticed.
+- **CI job `scheduled-audit`:** `pip-audit` as a blocking weekly gate. It stays advisory on pull
+  requests so a newly published CVE cannot block an unrelated documentation fix, but vulnerable
+  pins now fail a run rather than being silently shipped.
+
 ### Verification
+Clean-venv reproduction of every CI step against the final pinned set: install, `check_links.py`,
+`ruff check .` (with the pinned ruff 0.7.4), `pytest -q`, `verify_setup.py`, `pip-audit` — all exit 0.
+Every pin confirmed to support Python 3.10 via its `requires-python` metadata.
+
 All 99 external URLs HTTP-checked: 92 returned success, 7 returned HTTP 429 (Read the Docs and
 related hosts rate-limiting automated requests — canonical URLs that resolve in a browser), 0 dead.
 

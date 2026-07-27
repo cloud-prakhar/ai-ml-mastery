@@ -42,6 +42,29 @@ jobs:
       - name: Verify the learner setup script runs
         run: python scripts/verify_setup.py
 
+  learner-install:
+    # CI installs requirements-dev.txt, which pulls in requirements.txt. This job
+    # checks the path a *learner* actually takes - requirements.txt on its own -
+    # so a broken pin there cannot slip through unnoticed.
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install exactly what a learner installs
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run the learner environment check
+        run: python scripts/verify_setup.py
+
   external-links:
     # Network checks are slow and depend on third-party availability, so they run
     # on a schedule and on demand - never as a gate on an ordinary pull request.
@@ -57,3 +80,18 @@ jobs:
 
       - name: HTTP-check every external URL
         run: python scripts/check_links.py --external
+
+  scheduled-audit:
+    # Blocking dependency audit. Advisory on pull requests (above) so a newly
+    # published CVE cannot block an unrelated docs fix, but failing here weekly
+    # so vulnerable pins are actually fixed rather than quietly shipped.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pip-audit==2.7.3
+      - name: Audit pinned dependencies
+        run: pip-audit --requirement requirements.txt

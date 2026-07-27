@@ -16,13 +16,13 @@ dependencies:
   - scikit-learn=1.5.2
   - matplotlib=3.9.2
   - seaborn=0.13.2
-  - jupyterlab=4.3.1
+  - jupyterlab=4.6.2
   - ipykernel=6.29.5
   - ipywidgets=8.1.5
   - pyyaml=6.0.2
-  - requests=2.32.3
+  - requests=2.33.0
   - tqdm=4.67.0
   - pip
   - pip:
       - plotly==5.24.1
-      - python-dotenv==1.0.1
+      - python-dotenv==1.2.2

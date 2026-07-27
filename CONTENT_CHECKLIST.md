@@ -36,6 +36,8 @@ noise. But if you skip an item, say why in the pull request.
 - [ ] There is a 💻 runnable code example
 - [ ] **The code actually runs** — you executed it, you did not assume
 - [ ] Dependencies are listed with pinned versions
+- [ ] **The pinned set installs into a clean virtual environment** — pins that were never
+      installed together are pins you have not tested
 - [ ] **Expected output is shown**
 - [ ] Random seeds are set where determinism helps the learner match the output
 - [ ] Datasets are small; no expensive GPU required unless the file is marked 🟣
