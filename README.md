@@ -6,8 +6,8 @@ Start with "what is a variable", finish with "here is my multi-tenant RAG platfo
 how I evaluate it, and here is the threat model." Every concept is explained three times — as a story, as
 engineering, and as a production system.
 
-> **Repository status:** 🚧 Under active construction. Phase 1 (blueprint), the
-> **Getting Started** module and the **Interview Preparation** question banks are complete. Everything else is a defined backlog entry —
+> **Repository status:** 🚧 Under active construction. Phase 1 (blueprint), **Getting Started**,
+> **Python Foundations** and the **Interview Preparation** question banks are complete. Everything else is a defined backlog entry —
 > see [`IMPLEMENTATION_TRACKER.md`](IMPLEMENTATION_TRACKER.md) for exactly what exists today.
 > We deliberately publish *no* shallow placeholder content.
 
@@ -131,7 +131,7 @@ Full ordering, dependencies and effort bands: **[`ROADMAP.md`](ROADMAP.md)**.
 | # | Module | What it covers |
 | --- | --- | --- |
 | 00 | **[Getting Started](00-getting-started/README.md)** ✅ | Terminal, Git, Python, environments, Jupyter, Colab, Docker, VS Code |
-| 01 | [Python Foundations](01-python-foundations/README.md) | Language core → NumPy, pandas, Matplotlib, scikit-learn |
+| 01 | **[Python Foundations](01-python-foundations/README.md)** ✅ | Language core → NumPy, pandas, Matplotlib, scikit-learn — *all 14 topics* |
 | 02 | [Mathematics for AI](02-mathematics-for-ai/README.md) | Linear algebra, calculus, probability, statistics, optimisation |
 | 03 | [Data Foundations](03-data-foundations/README.md) | Data lifecycle, cleaning, splits, leakage, storage, pipelines |
 | 04 | [AI Foundations](04-ai-foundations/README.md) | What AI is, AI vs ML vs DL vs GenAI, history, symbolic AI |

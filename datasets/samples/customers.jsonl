@@ -1,0 +1,40 @@
+{"contact": {"country": "SE"}, "customer_id": "c001", "plan": "pro", "region": "us-east", "tags": ["support-heavy"], "usage": {"requests_last_30d": 31703, "storage_gb": 10.74}}
+{"contact": {"country": "IN"}, "customer_id": "c002", "plan": "free", "region": "eu-west", "tags": ["trial"], "usage": {"requests_last_30d": 37177, "storage_gb": 22.99}}
+{"contact": {"country": "US"}, "customer_id": "c003", "plan": "pro", "region": "ap-south", "tags": [], "usage": {"requests_last_30d": 3218, "storage_gb": 3.09}}
+{"contact": {"country": "SE"}, "customer_id": "c004", "plan": "pro", "region": "eu-west", "tags": ["support-heavy"], "usage": {"requests_last_30d": 42638, "storage_gb": 0.33}}
+{"contact": {"country": "SE"}, "customer_id": "c005", "plan": "enterprise", "region": "us-east", "tags": [], "usage": {"requests_last_30d": 33576, "storage_gb": 21.81}}
+{"contact": {"country": "US"}, "customer_id": "c006", "plan": "free", "region": "us-east", "tags": ["trial"], "usage": {"requests_last_30d": 6052, "storage_gb": 0.79}}
+{"contact": {"country": "IE"}, "customer_id": "c007", "plan": "pro", "region": "ap-south", "tags": ["expansion"], "usage": {"requests_last_30d": 12722, "storage_gb": 24.17}}
+{"contact": {"country": "IE"}, "customer_id": "c008", "plan": "free", "region": "us-east", "tags": [], "usage": {"requests_last_30d": 34974, "storage_gb": 29.16}}
+{"contact": {"country": "SE"}, "customer_id": "c009", "plan": "free", "region": "us-east", "tags": ["expansion"], "usage": {"requests_last_30d": 13909, "storage_gb": 20.6}}
+{"contact": {"country": "IE"}, "customer_id": "c010", "plan": "pro", "region": "eu-west", "tags": [], "usage": {"requests_last_30d": 40961, "storage_gb": 3.42}}
+{"contact": {"country": "US"}, "customer_id": "c011", "plan": "free", "region": "us-east", "tags": ["churn-risk"], "usage": {"requests_last_30d": 38844, "storage_gb": 24.62}}
+{"customer_id": "c012", "plan": "enterprise", "region": "ap-south", "tags": [], "usage": {"requests_last_30d": 20312, "storage_gb": 35.73}}
+{"customer_id": "c013", "plan": "enterprise", "region": "eu-west", "tags": [], "usage": {"requests_last_30d": 38937, "storage_gb": 39.92}}
+{"contact": {"country": "US"}, "customer_id": "c014", "plan": "free", "region": "us-east", "tags": ["churn-risk"], "usage": {"requests_last_30d": 3587, "storage_gb": 36.64}}
+{"contact": {"country": "IN"}, "customer_id": "c015", "plan": "enterprise", "region": "eu-north", "tags": [], "usage": {"requests_last_30d": 20699, "storage_gb": 15.93}}
+{"contact": {"country": "US"}, "customer_id": "c016", "plan": "free", "region": "eu-west", "tags": ["support-heavy"], "usage": {"requests_last_30d": 39166, "storage_gb": 16.31}}
+{"contact": {"country": "SE"}, "customer_id": "c017", "plan": "pro", "region": "eu-north", "tags": [], "usage": {"requests_last_30d": 21352, "storage_gb": 8.85}}
+{"contact": {"country": "IE"}, "customer_id": "c018", "plan": "enterprise", "region": "eu-north", "tags": ["expansion"], "usage": {"requests_last_30d": 40063, "storage_gb": 5.82}}
+{"contact": {"country": "US"}, "customer_id": "c019", "plan": "enterprise", "region": "eu-west", "tags": ["churn-risk"], "usage": {"requests_last_30d": 3919, "storage_gb": 19.3}}
+{"customer_id": "c020", "plan": "pro", "region": "eu-north", "tags": ["churn-risk"], "usage": {"requests_last_30d": 11884, "storage_gb": 3.31}}
+{"contact": {"country": "SE"}, "customer_id": "c021", "plan": "enterprise", "region": "us-east", "tags": ["churn-risk"], "usage": {"requests_last_30d": 49099, "storage_gb": 15.46}}
+{"contact": {"country": "IE"}, "customer_id": "c022", "plan": "pro", "region": "eu-north", "tags": [], "usage": {"requests_last_30d": 11079, "storage_gb": 4.08}}
+{"contact": {"country": "US"}, "customer_id": "c023", "plan": "free", "region": "eu-west", "tags": ["trial"], "usage": {"requests_last_30d": 18464, "storage_gb": 30.39}}
+{"customer_id": "c024", "plan": "free", "region": "eu-north", "tags": [], "usage": {"requests_last_30d": 16308, "storage_gb": 14.16}}
+{"customer_id": "c025", "plan": "enterprise", "region": "us-east", "tags": [], "usage": {"requests_last_30d": 48618, "storage_gb": 19.93}}
+{"customer_id": "c026", "plan": "pro", "region": "eu-north", "tags": ["churn-risk"], "usage": {"requests_last_30d": 30660, "storage_gb": 4.21}}
+{"contact": {"country": "SE"}, "customer_id": "c027", "plan": "pro", "region": "us-east", "tags": [], "usage": {"requests_last_30d": 11997, "storage_gb": 37.12}}
+{"contact": {"country": "SE"}, "customer_id": "c028", "plan": "pro", "region": "ap-south", "tags": ["expansion"], "usage": {"requests_last_30d": 31471, "storage_gb": 37.04}}
+{"contact": {"country": "IE"}, "customer_id": "c029", "plan": "free", "region": "ap-south", "tags": ["churn-risk"], "usage": {"requests_last_30d": 14633, "storage_gb": 32.95}}
+{"contact": {"country": "IE"}, "customer_id": "c030", "plan": "pro", "region": "eu-west", "tags": ["expansion"], "usage": {"requests_last_30d": 44123, "storage_gb": 35.55}}
+{"contact": {"country": "SE"}, "customer_id": "c031", "plan": "free", "region": "ap-south", "tags": [], "usage": {"requests_last_30d": 17103, "storage_gb": 36.79}}
+{"contact": {"country": "US"}, "customer_id": "c032", "plan": "free", "region": "eu-west", "tags": [], "usage": {"requests_last_30d": 49446, "storage_gb": 34.47}}
+{"customer_id": "c033", "plan": "pro", "region": "ap-south", "tags": ["churn-risk"], "usage": {"requests_last_30d": 26894, "storage_gb": 6.08}}
+{"customer_id": "c034", "plan": "pro", "region": "us-east", "tags": ["trial"], "usage": {"requests_last_30d": 49243, "storage_gb": 37.83}}
+{"customer_id": "c035", "plan": "free", "region": "ap-south", "tags": ["trial"], "usage": {"requests_last_30d": 36323, "storage_gb": 5.53}}
+{"contact": {"country": "IE"}, "customer_id": "c036", "plan": "pro", "region": "eu-west", "tags": [], "usage": {"requests_last_30d": 35279, "storage_gb": 14.87}}
+{"contact": {"country": "US"}, "customer_id": "c037", "plan": "enterprise", "region": "us-east", "tags": ["churn-risk"], "usage": {"requests_last_30d": 21667, "storage_gb": 26.98}}
+{"customer_id": "c038", "plan": "enterprise", "region": "ap-south", "tags": [], "usage": {"requests_last_30d": 41346, "storage_gb": 11.22}}
+{"contact": {"country": "US"}, "customer_id": "c039", "plan": "pro", "region": "eu-west", "tags": ["trial"], "usage": {"requests_last_30d": 994, "storage_gb": 30.2}}
+{"contact": {"country": "US"}, "customer_id": "c040", "plan": "pro", "region": "eu-north", "tags": ["support-heavy"], "usage": {"requests_last_30d": 4136, "storage_gb": 32.55}}

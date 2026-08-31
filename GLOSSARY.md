@@ -70,6 +70,10 @@ statistical bias, sharing an unfortunate name. → [26 Responsible AI](26-respon
 **BM25** — A classic keyword-ranking function used in search engines and as the sparse half of
 hybrid retrieval. → [16 RAG](16-rag/README.md)
 
+**Broadcasting** — NumPy applying an operation between different-shaped arrays by virtually
+stretching size-1 dimensions. Shapes are compared from the right.
+→ [01 Python Foundations](01-python-foundations/11-numpy-essentials.md)
+
 ## C
 
 **Chunking** — Splitting documents into retrievable pieces before embedding them. The single most
@@ -80,6 +84,10 @@ captions near each other in a shared embedding space. → [09 Computer Vision](0
 
 **CNN (Convolutional Neural Network)** — A network that uses sliding filters to detect local
 patterns, which made modern computer vision work. → [09 Computer Vision](09-computer-vision/README.md)
+
+**Context manager** — A Python object used with `with` that guarantees cleanup runs even if the
+block raises. `torch.no_grad()` is one.
+→ [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
 
 **Context window** — The maximum number of tokens a language model can attend to at once. Prompt
 plus retrieved documents plus output must all fit inside it.
@@ -98,11 +106,19 @@ does not depend on one lucky split. → [07 Model Evaluation](07-model-evaluatio
 producing scores that collapse in production. The most expensive beginner mistake.
 → [03 Data Foundations](03-data-foundations/README.md)
 
+**Decorator** — A Python function that wraps another function to add behaviour without editing it.
+`@decorator` is exactly `f = decorator(f)`.
+→ [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
+
 **Diffusion model** — A generative model that learns to reverse a gradual noising process, used
 for most current image generation. → [12 Generative AI](12-generative-ai/README.md)
 
 **Drift** — When live data (data drift) or the input-output relationship (concept drift) moves away
 from what the model was trained on. → [29 MLOps](29-mlops/README.md)
+
+**dtype** — The single fixed type every element of a NumPy array shares. Assigning a float into
+an integer array truncates it silently.
+→ [01 Python Foundations](01-python-foundations/11-numpy-essentials.md)
 
 **DPO (Direct Preference Optimization)** — Aligning a model directly on preference pairs, without
 training a separate reward model as RLHF does. → [17 Fine-Tuning](17-fine-tuning/README.md)
@@ -111,6 +127,10 @@ training a separate reward model as RLHF does. → [17 Fine-Tuning](17-fine-tuni
 path. A regularisation technique. → [08 Deep Learning](08-deep-learning/README.md)
 
 ## E
+
+**DataFrame** — pandas' labelled two-dimensional table: named columns, an index, and a different
+dtype allowed per column.
+→ [01 Python Foundations](01-python-foundations/12-pandas-essentials.md)
 
 **Embedding** — A dense vector representing meaning, arranged so similar things sit close together.
 The GPS-coordinate-for-meaning idea.
@@ -140,6 +160,10 @@ gradients and optimiser states across devices to fit larger models.
 
 **GAN (Generative Adversarial Network)** — Two networks trained against each other, a generator
 producing samples and a discriminator judging them. → [12 Generative AI](12-generative-ai/README.md)
+
+**Generator** — A Python function using `yield` that produces values one at a time on demand,
+holding constant memory. Single-pass: consuming it empties it.
+→ [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
 
 **Gradient descent** — Iteratively stepping parameters in the direction that reduces the loss.
 The engine underneath essentially all model training.
@@ -174,6 +198,10 @@ which action on which resource. → [33 Cloud AI Platforms](33-cloud-ai-platform
 **Inference** — Using a trained model to produce a prediction. Where nearly all production cost
 and latency lives.
 
+**Iterator** — The object that walks through an iterable, remembering its position. A `for` loop is
+`iter()` plus repeated `next()` until `StopIteration`.
+→ [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
+
 **KV cache (Key-Value cache)** — Stored attention keys and values from previous tokens, avoiding
 recomputation during generation. Often the dominant memory cost at serving time.
 → [11 Transformers](11-transformers/README.md)
@@ -181,6 +209,10 @@ recomputation during generation. Often the dominant memory cost at serving time.
 ## L
 
 **Latency** — Time from request to response. Distinguish average from p95 and p99; users feel the tail.
+
+**Lazy evaluation** — Producing values only when they are asked for, rather than all at once. What
+lets a data loader stream a dataset larger than memory.
+→ [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
 
 **Learning rate** — How large a step gradient descent takes. Too high diverges, too low crawls.
 → [02 Mathematics for AI](02-mathematics-for-ai/README.md)
@@ -227,6 +259,10 @@ placed near the top. → [07 Model Evaluation](07-model-evaluation/README.md)
 **ONNX (Open Neural Network Exchange)** — An open format for exchanging models between frameworks
 and runtimes. → [32 Model Optimization](32-model-optimization/README.md)
 
+**ndarray** — NumPy's n-dimensional array: one contiguous block of memory, one dtype, one shape.
+The substrate under pandas, scikit-learn and PyTorch.
+→ [01 Python Foundations](01-python-foundations/11-numpy-essentials.md)
+
 **Overfitting** — Learning the training data's noise rather than its pattern; excellent training
 scores, poor real-world scores. → [07 Model Evaluation](07-model-evaluation/README.md)
 
@@ -237,6 +273,10 @@ to reduce dimensionality. → [02 Mathematics for AI](02-mathematics-for-ai/READ
 
 **PEFT (Parameter-Efficient Fine-Tuning)** — The family of methods (LoRA, adapters, prefix tuning)
 that adapt a model by training a small fraction of parameters. → [17 Fine-Tuning](17-fine-tuning/README.md)
+
+**Pipeline** — A scikit-learn object chaining preprocessing steps with an estimator, fitting
+every step on training data only. Makes preprocessing leakage structurally impossible.
+→ [01 Python Foundations](01-python-foundations/14-your-first-scikit-learn-model.md)
 
 **Precision** — Of the items you flagged positive, what fraction really were. Pair it with recall
 or it is meaningless. → [07 Model Evaluation](07-model-evaluation/README.md)
@@ -258,6 +298,10 @@ fine-tuning feasible on modest hardware. → [17 Fine-Tuning](17-fine-tuning/REA
 
 **RAG (Retrieval-Augmented Generation)** — Retrieving relevant documents and putting them in the
 prompt so the model answers from real sources rather than memory. → [16 RAG](16-rag/README.md)
+
+**R² (coefficient of determination)** — The fraction of variance a regression model explains
+beyond predicting the mean. 0 equals the mean baseline; negative is worse than it.
+→ [07 Model Evaluation](07-model-evaluation/README.md)
 
 **Recall** — Of the items that really were positive, what fraction you found.
 → [07 Model Evaluation](07-model-evaluation/README.md)

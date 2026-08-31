@@ -1,0 +1,63 @@
+review_id,text,label,rating,source
+r001,A waste of an afternoon - the dialogue is flat throughout.,negative,2,kiosk
+r002,"Frustrating from the start - the second half, unfortunately, falls apart.",negative,2,web
+r003,"A waste of an afternoon - calling it ""ambitious"" is being generous.",negative,1,web
+r004,"Genuinely impressed - the pacing, surprisingly, never drags.",positive,4,mobile
+r005,Worth every minute - I would happily watch it again.,positive,,kiosk
+r006,Genuinely impressed - the sound design carries the whole thing.,positive,4,mobile
+r007,Genuinely impressed - the sound design carries the whole thing.,POSITIVE,5,web
+r008,Exactly what I needed - it respects the audience.,positive,5,web
+r009,Disappointing - I checked the time twice.,negative,1,mobile
+r010,I wanted to like this - I checked the time twice.,negative,1,web
+r011,Better than I expected - the sound design carries the whole thing.,positive,5,kiosk
+r012,  A waste of an afternoon - nothing lands the way it should.  ,negative,2,web
+r013,Genuinely impressed - I would happily watch it again.,positive,5,web
+r014,Exactly what I needed - I would happily watch it again.,positive,5,kiosk
+r015,Exactly what I needed - the sound design carries the whole thing.,positive,4,web
+r016,"A waste of an afternoon - the second half, unfortunately, falls apart.",negative,1,mobile
+r017,Disappointing - nothing lands the way it should.,negative,1,mobile
+r018,Worth every minute - it respects the audience.,positive,5,kiosk
+r019,"A real improvement - the pacing, surprisingly, never drags.",positive,,web
+r020,Genuinely impressed - I would happily watch it again.,positive,4,mobile
+r021,A waste of an afternoon - I checked the time twice.,negative,2,mobile
+r022,Better than I expected - I would happily watch it again.,positive,5,mobile
+r023,"A waste of an afternoon - the second half, unfortunately, falls apart.",NEGATIVE,2,web
+r024,Frustrating from the start - I checked the time twice.,negative,1,mobile
+r025,A real improvement - it respects the audience.,positive,4,web
+r026,Genuinely impressed - the sound design carries the whole thing.,positive,4,mobile
+r027,Genuinely impressed - I would happily watch it again.,positive,4,web
+r028,Worth every minute - I would happily watch it again.,positive,5,kiosk
+r029,Not what was advertised - I checked the time twice.,negative,2,kiosk
+r030,A real improvement - the sound design carries the whole thing.,positive,4,mobile
+r031,  A real improvement - I would happily watch it again.  ,positive,5,web
+r032,"Worth every minute - the ending is what people mean when they say ""earned"".",positive,5,web
+r033,Frustrating from the start - nothing lands the way it should.,negative,1,kiosk
+r034,"Not what was advertised - the second half, unfortunately, falls apart.",negative,2,web
+r035,"Exactly what I needed - the ending is what people mean when they say ""earned"".",positive,4,kiosk
+r036,Better than I expected - it respects the audience.,positive,4,kiosk
+r037,Better than I expected - the sound design carries the whole thing.,positive,5,web
+r038,Worth every minute - it respects the audience.,positive,,mobile
+r039,Disappointing - the dialogue is flat throughout.,negative,2,web
+r040,Better than I expected - the sound design carries the whole thing.,positive,5,web
+r041,Worth every minute - it respects the audience.,positive,4,web
+r042,A real improvement - it respects the audience.,positive,4,kiosk
+r043,"Exactly what I needed - the ending is what people mean when they say ""earned"".",positive,4,web
+r044,A real improvement - it respects the audience.,POSITIVE,4,mobile
+r045,Worth every minute - it respects the audience.,positive,5,mobile
+r046,"Frustrating from the start - the second half, unfortunately, falls apart.",negative,2,mobile
+r047,Frustrating from the start - the dialogue is flat throughout.,negative,1,kiosk
+r048,Genuinely impressed - I would happily watch it again.,positive,4,web
+r049,Genuinely impressed - the sound design carries the whole thing.,positive,4,kiosk
+r050,A waste of an afternoon - the dialogue is flat throughout.,negative,1,web
+r051,"Frustrating from the start - calling it ""ambitious"" is being generous.",negative,2,web
+r052,Frustrating from the start - nothing lands the way it should.,negative,,kiosk
+r053,"Exactly what I needed - the pacing, surprisingly, never drags.",positive,5,mobile
+r054,Disappointing - the dialogue is flat throughout.,negative,1,mobile
+r055,I wanted to like this - the dialogue is flat throughout.,negative,2,mobile
+r056,"Exactly what I needed - the ending is what people mean when they say ""earned"".",positive,5,mobile
+r057,"Worth every minute - the ending is what people mean when they say ""earned"".",positive,4,mobile
+r058,Disappointing - nothing lands the way it should.,negative,2,web
+r059,"Exactly what I needed - the pacing, surprisingly, never drags.",positive,5,web
+r060,Not what was advertised - I checked the time twice.,negative,2,web
+r004,"Genuinely impressed - the pacing, surprisingly, never drags.",positive,4,mobile
+r018,Worth every minute - it respects the audience.,positive,5,kiosk

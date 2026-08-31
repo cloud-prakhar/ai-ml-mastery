@@ -12,11 +12,12 @@ The honest state of this repository. Updated with **every** content change.
 
 | Category | ✅ | 🚧 | 📋 | Total |
 | --- | --- | --- | --- | --- |
-| Curriculum modules | 2 | 0 | 41 | 43 |
+| Curriculum modules | 3 | 0 | 40 | 43 |
 | Projects | 0 | 0 | 40 | 40 |
 | Root documents | 17 | 0 | 0 | 17 |
 | Templates | 3 | 0 | 0 | 3 |
-| Scripts | 3 | 0 | 0 | 3 |
+| Sample datasets | 4 | 0 | 0 | 4 |
+| Scripts | 5 | 0 | 0 | 5 |
 
 **What "📋 backlog" means here:** the module has a `README.md` containing real learning objectives,
 a full planned topic list, prerequisites and a definition of done. It is a specification, not a stub.
@@ -54,6 +55,9 @@ There is deliberately **no shallow filler content** in this repository.
 | `scripts/generate_module_readmes.py` | ✅ |
 | `scripts/verify_setup.py` | ✅ |
 | `scripts/check_links.py` | ✅ |
+| `scripts/check_examples.py` | ✅ runs every documented example and checks its output |
+| `scripts/make_sample_datasets.py` | ✅ generates the committed sample datasets, reproducibly |
+| `datasets/samples/` | ✅ 4 synthetic datasets with dataset cards and tests |
 
 ---
 
@@ -62,8 +66,8 @@ There is deliberately **no shallow filler content** in this repository.
 | Module | Status | Notes |
 | --- | --- | --- |
 | [00 Getting Started](00-getting-started/README.md) | ✅ | Fully authored: OS setup, terminal, Git, Python, environments, Jupyter, Colab, Docker, VS Code, troubleshooting, lab, quiz |
-| [01 Python Foundations](01-python-foundations/README.md) | 📋 | **Next to build** |
-| [02 Mathematics for AI](02-mathematics-for-ai/README.md) | 📋 | Then this |
+| [01 Python Foundations](01-python-foundations/README.md) | ✅ | **Complete: all 14 topics authored and verified**, plus a 74-question quiz with explained answers and 6 assignments. Every documented example is executed by CI. |
+| [02 Mathematics for AI](02-mathematics-for-ai/README.md) | 📋 | **Next to build** |
 | [03 Data Foundations](03-data-foundations/README.md) | 📋 | |
 | [04 AI Foundations](04-ai-foundations/README.md) | 📋 | |
 

@@ -1,6 +1,6 @@
 # Common tasks. Run `make help` to see everything.
 .DEFAULT_GOAL := help
-.PHONY: help setup verify test lint format links links-external check clean modules up down
+.PHONY: help setup verify test lint format links links-external examples datasets check clean modules up down
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -33,10 +33,16 @@ links: ## Validate internal Markdown links (fast, offline)
 links-external: ## Also HTTP-check every external URL (slow, needs network)
 	python scripts/check_links.py --external
 
+examples: ## Run every documented code example and check its stated output
+	python scripts/check_examples.py
+
+datasets: ## Verify the committed sample datasets still match their generator
+	python scripts/make_sample_datasets.py --check
+
 modules: ## Regenerate module backlog READMEs (skips authored modules)
 	python scripts/generate_module_readmes.py
 
-check: lint test links ## Run everything CI runs
+check: lint test links examples datasets ## Run everything CI runs
 
 up: ## Start local services (vector store, PostgreSQL, MLflow)
 	docker compose up -d
