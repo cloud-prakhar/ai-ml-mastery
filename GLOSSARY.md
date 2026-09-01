@@ -57,6 +57,10 @@ by applying the chain rule backwards through the network. → [08 Deep Learning]
 **Batch** — A group of samples processed together in one training step. Larger batches are more
 stable and more memory-hungry. → [08 Deep Learning](08-deep-learning/README.md)
 
+**Bayes' theorem** — Updating a belief with evidence: posterior is proportional to likelihood
+times prior. The base rate dominates for rare events.
+→ [02 Mathematics for AI](02-mathematics-for-ai/06-probability.md)
+
 **BERT (Bidirectional Encoder Representations from Transformers)** — An encoder-only transformer
 trained by masked-token prediction, strong at understanding tasks rather than generation.
 → [11 Transformers](11-transformers/README.md)
@@ -76,6 +80,10 @@ stretching size-1 dimensions. Shapes are compared from the right.
 
 ## C
 
+**Cardinality** — The number of distinct values in a column. High cardinality rules out one-hot
+encoding and pushes you toward hashing, target encoding or embeddings.
+→ [03 Data Foundations](03-data-foundations/04-encoding-and-data-validation.md)
+
 **Chunking** — Splitting documents into retrievable pieces before embedding them. The single most
 under-rated determinant of RAG quality. → [16 RAG](16-rag/README.md)
 
@@ -84,6 +92,10 @@ captions near each other in a shared embedding space. → [09 Computer Vision](0
 
 **CNN (Convolutional Neural Network)** — A network that uses sliding filters to detect local
 patterns, which made modern computer vision work. → [09 Computer Vision](09-computer-vision/README.md)
+
+**Condition number** — The ratio of largest to smallest eigenvalue, measuring how elongated a
+loss surface or how ill-behaved a matrix inverse is. Large means numerically untrustworthy.
+→ [02 Mathematics for AI](02-mathematics-for-ai/02-linear-algebra-vectors-and-matrices.md)
 
 **Context manager** — A Python object used with `with` that guarantees cleanup runs even if the
 block raises. `torch.no_grad()` is one.
@@ -101,6 +113,10 @@ their magnitudes. The default metric for embedding search.
 does not depend on one lucky split. → [07 Model Evaluation](07-model-evaluation/README.md)
 
 ## D
+
+**Data lake / lakehouse** — A lake stores raw data of any shape with schema applied on read; a
+lakehouse adds transactions and schema enforcement over lake storage.
+→ [03 Data Foundations](03-data-foundations/08-storage-sql-nosql-warehouses-and-lakes.md)
 
 **Data leakage** — Information from the test set (or from the future) sneaking into training,
 producing scores that collapse in production. The most expensive beginner mistake.
@@ -132,9 +148,17 @@ path. A regularisation technique. → [08 Deep Learning](08-deep-learning/README
 dtype allowed per column.
 → [01 Python Foundations](01-python-foundations/12-pandas-essentials.md)
 
+**ELT / ETL** — Extract-Load-Transform keeps raw data and transforms inside the warehouse;
+Extract-Transform-Load transforms first. ELT lets you fix a bug by re-running SQL.
+→ [03 Data Foundations](03-data-foundations/09-batch-versus-stream-processing.md)
+
 **Embedding** — A dense vector representing meaning, arranged so similar things sit close together.
 The GPS-coordinate-for-meaning idea.
 → [15 Embeddings and Vector Search](15-embeddings-and-vector-search/README.md)
+
+**Eigenvector** — A vector a matrix only scales, never rotates. Its eigenvalue is the scale
+factor; the eigenvectors of a covariance matrix are PCA's components.
+→ [02 Mathematics for AI](02-mathematics-for-ai/03-norms-eigenvalues-and-pca.md)
 
 **Epoch** — One full pass over the training dataset.
 
@@ -145,6 +169,10 @@ classes are imbalanced. → [07 Model Evaluation](07-model-evaluation/README.md)
 
 **FAISS (Facebook AI Similarity Search)** — A library for efficient similarity search over dense
 vectors. → [15 Embeddings and Vector Search](15-embeddings-and-vector-search/README.md)
+
+**Feature store** — Infrastructure providing one feature definition with both an offline path for
+training and an online path for serving, preventing train/serve skew.
+→ [03 Data Foundations](03-data-foundations/07-synthetic-data-augmentation-and-feature-stores.md)
 
 **Fine-tuning** — Continuing to train a pretrained model on your own data so it adapts to your
 task, domain or style. → [17 Fine-Tuning](17-fine-tuning/README.md)
@@ -164,6 +192,10 @@ producing samples and a discriminator judging them. → [12 Generative AI](12-ge
 **Generator** — A Python function using `yield` that produces values one at a time on demand,
 holding constant memory. Single-pass: consuming it empties it.
 → [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
+
+**Gradient** — The vector of partial derivatives. It points in the direction of steepest
+*increase*, which is why training subtracts it.
+→ [02 Mathematics for AI](02-mathematics-for-ai/04-calculus-derivatives-and-gradients.md)
 
 **Gradient descent** — Iteratively stepping parameters in the direction that reduces the loss.
 The engine underneath essentially all model training.
@@ -195,6 +227,10 @@ as opposed to a weight the model learns. → [07 Model Evaluation](07-model-eval
 **IAM (Identity and Access Management)** — The cloud subsystem controlling who and what may do
 which action on which resource. → [33 Cloud AI Platforms](33-cloud-ai-platforms/README.md)
 
+**Idempotency** — A step that produces the same result however many times it runs, making
+duplicate delivery harmless rather than impossible.
+→ [03 Data Foundations](03-data-foundations/09-batch-versus-stream-processing.md)
+
 **Inference** — Using a trained model to produce a prediction. Where nearly all production cost
 and latency lives.
 
@@ -217,6 +253,10 @@ lets a data loader stream a dataset larger than memory.
 **Learning rate** — How large a step gradient descent takes. Too high diverges, too low crawls.
 → [02 Mathematics for AI](02-mathematics-for-ai/README.md)
 
+**Learning-rate warmup** — Ramping the learning rate up over the first steps, because early
+gradients and adaptive-optimiser moment estimates are unreliable.
+→ [02 Mathematics for AI](02-mathematics-for-ai/09-optimisation-algorithms.md)
+
 **LIME (Local Interpretable Model-agnostic Explanations)** — Explains a single prediction by fitting
 a simple model around it locally. → [27 Explainable AI](27-explainable-ai/README.md)
 
@@ -234,12 +274,20 @@ weights, cutting memory cost dramatically. → [17 Fine-Tuning](17-fine-tuning/R
 
 ## M
 
+**MCAR / MAR / MNAR** — Why data is missing: completely at random, at random given other
+columns, or not at random. **Imputation cannot fix MNAR.**
+→ [03 Data Foundations](03-data-foundations/03-cleaning-missing-duplicates-outliers.md)
+
 **MAE / MSE / RMSE (Mean Absolute Error / Mean Squared Error / Root Mean Squared Error)** —
 Regression error metrics. MSE and RMSE punish large errors harder than MAE.
 → [07 Model Evaluation](07-model-evaluation/README.md)
 
 **MDP (Markov Decision Process)** — The formal framing of reinforcement learning: states, actions,
 transitions, rewards. → [19 Reinforcement Learning](19-reinforcement-learning/README.md)
+
+**MLE (Maximum Likelihood Estimation)** — Choosing parameters that make the observed data most
+probable. Minimising MSE is MLE under Gaussian errors; cross-entropy under Bernoulli.
+→ [02 Mathematics for AI](02-mathematics-for-ai/06-probability.md)
 
 **MLOps (Machine Learning Operations)** — Engineering practice for the model lifecycle: tracking,
 versioning, deployment, monitoring, retraining. → [29 MLOps](29-mlops/README.md)
@@ -277,6 +325,14 @@ that adapt a model by training a small fraction of parameters. → [17 Fine-Tuni
 **Pipeline** — A scikit-learn object chaining preprocessing steps with an estimator, fitting
 every step on training data only. Makes preprocessing leakage structurally impossible.
 → [01 Python Foundations](01-python-foundations/14-your-first-scikit-learn-model.md)
+
+**p-value** — The probability of data at least as extreme as observed, *assuming the null
+hypothesis is true*. Not the probability that the null is true.
+→ [02 Mathematics for AI](02-mathematics-for-ai/08-hypothesis-testing-and-ab-testing.md)
+
+**Point-in-time correctness** — Building a training row using only feature values known at that
+row's prediction time. Implemented with an as-of join.
+→ [03 Data Foundations](03-data-foundations/07-synthetic-data-augmentation-and-feature-stores.md)
 
 **Precision** — Of the items you flagged positive, what fraction really were. Pair it with recall
 or it is meaningless. → [07 Model Evaluation](07-model-evaluation/README.md)
@@ -329,6 +385,14 @@ dataset per step. → [02 Mathematics for AI](02-mathematics-for-ai/README.md)
 **Self-attention** — Each token computing how much to attend to every other token in the sequence.
 The core transformer operation. → [11 Transformers](11-transformers/README.md)
 
+**Schema on read / on write** — A lake interprets structure at query time; a warehouse validates
+it at load time. Schema on read defers problems rather than removing them.
+→ [03 Data Foundations](03-data-foundations/08-storage-sql-nosql-warehouses-and-lakes.md)
+
+**Standard error** — The standard deviation of a sample statistic, `σ/√n` for a mean. Halving it
+requires four times the data.
+→ [02 Mathematics for AI](02-mathematics-for-ai/07-descriptive-statistics-and-sampling.md)
+
 **SFT (Supervised Fine-Tuning)** — Fine-tuning on labelled instruction-response pairs.
 → [17 Fine-Tuning](17-fine-tuning/README.md)
 
@@ -347,6 +411,10 @@ in a document against how rare they are overall.
 **Token** — The unit a language model actually processes: roughly a word-piece, not a word.
 Billing, context limits and latency are all counted in tokens.
 → [11 Transformers](11-transformers/README.md)
+
+**Train/serve skew** — Training and serving features computed by different code that has drifted
+apart. Nothing errors; accuracy quietly degrades and the model is blamed.
+→ [03 Data Foundations](03-data-foundations/07-synthetic-data-augmentation-and-feature-stores.md)
 
 **Transfer learning** — Starting from a model trained on one task and adapting it to another.
 

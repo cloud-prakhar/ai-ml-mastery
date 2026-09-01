@@ -30,7 +30,7 @@ jobs:
         run: python scripts/check_links.py
 
       - name: Verify every documented code example produces its stated output
-        run: python scripts/check_examples.py
+        run: python scripts/check_examples.py --strict
 
       - name: Verify the committed sample datasets match their generator
         run: python scripts/make_sample_datasets.py --check

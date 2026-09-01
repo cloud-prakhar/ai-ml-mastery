@@ -12,7 +12,7 @@ The honest state of this repository. Updated with **every** content change.
 
 | Category | ✅ | 🚧 | 📋 | Total |
 | --- | --- | --- | --- | --- |
-| Curriculum modules | 3 | 0 | 40 | 43 |
+| Curriculum modules | 5 | 0 | 38 | 43 |
 | Projects | 0 | 0 | 40 | 40 |
 | Root documents | 17 | 0 | 0 | 17 |
 | Templates | 3 | 0 | 0 | 3 |
@@ -67,9 +67,9 @@ There is deliberately **no shallow filler content** in this repository.
 | --- | --- | --- |
 | [00 Getting Started](00-getting-started/README.md) | ✅ | Fully authored: OS setup, terminal, Git, Python, environments, Jupyter, Colab, Docker, VS Code, troubleshooting, lab, quiz |
 | [01 Python Foundations](01-python-foundations/README.md) | ✅ | **Complete: all 14 topics authored and verified**, plus a 74-question quiz with explained answers and 6 assignments. Every documented example is executed by CI. |
-| [02 Mathematics for AI](02-mathematics-for-ai/README.md) | 📋 | **Next to build** |
-| [03 Data Foundations](03-data-foundations/README.md) | 📋 | |
-| [04 AI Foundations](04-ai-foundations/README.md) | 📋 | |
+| [02 Mathematics for AI](02-mathematics-for-ai/README.md) | ✅ | **Complete: all 9 topics authored and verified**, plus a 60-question quiz with explained answers and 4 assignments. Every example executed by CI. |
+| [03 Data Foundations](03-data-foundations/README.md) | ✅ | **Complete: all 9 topics authored and verified**, plus a 65-question quiz with explained answers and 4 assignments. Every example executed by CI. |
+| [04 AI Foundations](04-ai-foundations/README.md) | 📋 | **Next to build** |
 
 > **Also complete, built out of phase order on request:**
 > [38 Interview Preparation](38-interview-preparation/README.md) — 7 question banks, 126 questions

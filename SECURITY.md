@@ -53,6 +53,7 @@ a **🔐 Security Note**. Specifically:
 
 ### Unsafe patterns we always flag
 
+<!-- check-examples: skip -->
 ```python
 # ❌ Arbitrary code execution during deserialisation
 model = pickle.load(open(untrusted_path, "rb"))

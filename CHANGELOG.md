@@ -9,6 +9,88 @@ This repository versions **content**, not software, so releases are milestones r
 
 ## [Unreleased]
 
+### Added — module 03 Data Foundations, complete (all 9 topics)
+- `03-data-foundations/` authored as real content, every example executed and verified against the
+  committed sample datasets:
+  - Topic 1: Data Types and Modalities — structured to unstructured, seven modalities, everything
+    becomes numbers, and the storage ratio that makes a second of video ~1.2 million tabular rows
+  - Topic 2: Collection, Ingestion and Labelling — feedback-loop bias, validating at the boundary
+    with a quarantine reason, **label noise capping achievable accuracy**, and Cohen's kappa
+    exposing 90%+ raw agreement as near-zero real agreement
+  - Topic 3: Cleaning — MCAR/MAR/MNAR with a worked case where dropping MNAR rows understates the
+    mean by 18%, duplicates that are not byte-identical, **z-score masking** (30 contaminated points
+    in 200 and the z-score method finds none), and one outlier destroying min-max scaling
+  - Topic 4: Encoding and Validation — label encoding inventing an ordering, the dummy-variable
+    trap, unseen categories at inference, **naive target encoding manufacturing a 0.58 correlation
+    from pure noise**, schema checks, and PSI for drift
+  - Topic 5: Lineage, Versioning, Privacy and Leakage — content hashing, pointer files, **six kinds
+    of leakage each demonstrated**, pseudonymisation versus anonymisation, and k-anonymity failing
+    to the homogeneity attack
+  - Topic 6: Splits, Sampling and Class Imbalance — selection over 40 identical models inflating a
+    score by 3 points, stratification, group and time splits, the **gap required for rolling
+    features**, test-set sizing, and imbalance as a threshold problem rather than a modelling one
+  - Topic 7: Synthetic Data, Augmentation and Feature Stores — what synthetic data cannot teach,
+    label-preserving augmentation, train/serve skew, and **point-in-time correctness** where a naive
+    join imports a feature value from four months in the future
+  - Topic 8: Storage — OLTP versus OLAP, row versus columnar, SQL including window functions,
+    **parameterised queries** (the unsafe version returns every row), NoSQL trade-offs, lakes and
+    lakehouses, and why Parquet is the ML default
+  - Topic 9: Batch versus Stream Processing — ETL versus ELT, **Kafka as a replayable log**, event
+    time versus processing time, watermarks, and an idempotent partition-overwrite pipeline that is
+    byte-identical across three runs
+- 65-question quiz with a full explained answer for every question, and 4 assignments
+- **Corrections made after the outputs disagreed with the draft**: a group-leakage demonstration
+  where the group split initially scored *higher* than the random one (the simulation did not
+  actually create leakage, and was rebuilt so the label is unpredictable from the feature); a claim
+  that z-score outlier detection "almost misses" a single outlier when it scores 13.7; and an
+  automated leakage audit flagging a legitimate predictor, which is now taught as the expected
+  behaviour of such a check rather than hidden.
+
+### Added — module 02 Mathematics for AI, complete (all 9 topics)
+- `02-mathematics-for-ai/` authored as real content, every example executed and verified:
+  - Topic 1: Basic Mathematics — Σ and Π as loops, why log-space prevents underflow (a 1,000-token
+    product is exactly `0.0` in `float64`), the max-subtraction that makes softmax stable, sigmoid
+    saturation, and binary cross-entropy built from those pieces
+  - Topic 2: Vectors and Matrices — the dot product as alignment, **a layer is `activation(X @ W + b)`**,
+    shape errors read right-to-left, rank and multicollinearity, near-singular matrices inverting
+    without error, and `solve` over `inv`
+  - Topic 3: Norms, Eigenvalues and PCA — L1/L2 as Lasso/Ridge, cosine similarity ignoring document
+    length, SVD and low-rank approximation, PCA implemented from scratch and matched against
+    scikit-learn
+  - Topic 4: Derivatives and Gradients — central differences, the sigmoid derivative peaking at 0.25
+    (vanishing gradients, quantified), **the chain rule as backpropagation**, Jacobian and Hessian,
+    and gradient checking that catches a missing factor of 2
+  - Topic 5: Gradient Descent and Backpropagation — learning-rate failure modes, unscaled features
+    diverging at *every* usable rate, batch versus mini-batch versus pure SGD, and a two-layer
+    network solving XOR in twenty lines with no framework
+  - Topic 6: Probability — conditional probability, Bayes, **the base-rate problem collapsing
+    precision from 99% to 0.1%**, distributions, MLE deriving MSE, and MAP as regularisation
+  - Topic 7: Descriptive Statistics and Sampling — mean versus median, the NumPy/pandas `ddof`
+    disagreement, the CLT, what a confidence interval does *not* mean, bootstrapping, and why a
+    larger biased sample is more dangerous than a small one
+  - Topic 8: Hypothesis Testing and A/B Testing — p-values under a true null, paired versus unpaired
+    tests reaching opposite conclusions on the same data, power, effect size, sample-size planning,
+    and peeking taking false positives from 5% to 25%
+  - Topic 9: Optimisation Algorithms — convexity, momentum, AdaGrad/RMSProp/Adam, bias correction,
+    AdamW's decoupled decay, schedules and warmup, and Lasso zeroing noise features
+- 60-question quiz with a full explained answer for every question, and 4 assignments
+- **Several documented outputs deliberately contradict the tidy textbook story**, and the prose was
+  rewritten to match the measurements rather than the expectation: Adam finishes *last* on the
+  Rosenbrock benchmark while momentum wins; PCA explains a flat 26/25/25/24% on `housing.csv`
+  because its features are independent by construction; keeping 99.89% of variance still loses a
+  nearest neighbour.
+
+### Changed
+- **`scripts/check_examples.py` gained `--strict`**, which also executes fenced blocks that declare
+  no `**Output:**` and requires them not to crash. Previously such blocks were never run at all, so
+  an example broken by a library upgrade could ship unnoticed — which is exactly how an
+  `ndarray.ptp` call removed in NumPy 2.0 reached a draft of module 02.
+  - Added an HTML-comment form of the skip marker (`<!-- check-examples: skip -->`) so genuine
+    fragments can be excluded without cluttering rendered teaching material.
+  - `quizzes/` is now excluded at directory level: predict-the-output questions are fragments by
+    design and frequently broken on purpose.
+  - CI and `make examples` now run `--strict`.
+
 ### Added — module 01 Python Foundations, complete (all 14 topics)
 - `01-python-foundations/` authored as real content rather than a backlog entry:
   - Topic 1: Variables, Data Types and Operators — including why `0.1 + 0.2 != 0.3` and what it

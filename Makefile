@@ -34,7 +34,7 @@ links-external: ## Also HTTP-check every external URL (slow, needs network)
 	python scripts/check_links.py --external
 
 examples: ## Run every documented code example and check its stated output
-	python scripts/check_examples.py
+	python scripts/check_examples.py --strict
 
 datasets: ## Verify the committed sample datasets still match their generator
 	python scripts/make_sample_datasets.py --check

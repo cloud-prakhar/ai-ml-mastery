@@ -519,6 +519,7 @@ installation, and offers free GPU access.
 
 **Installing packages in Colab:** prefix with `!` to run a shell command:
 
+<!-- check-examples: skip -->
 ```python
 !pip install -q transformers==4.46.2
 ```
@@ -526,6 +527,7 @@ installation, and offers free GPU access.
 ⚠️ **Colab sessions are temporary.** Files disappear when the session ends. Download anything you
 want to keep, or mount Google Drive:
 
+<!-- check-examples: skip -->
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
