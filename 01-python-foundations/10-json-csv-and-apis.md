@@ -117,7 +117,9 @@ print(json.dumps({"score": float("nan")}))
 try:
     json.dumps({"score": float("nan")}, allow_nan=False)
 except ValueError as error:
-    print(f"   strict mode refuses it: {error}")
+    # Python 3.12 appends the offending value to this message; trim it so the
+    # output below is the same on every supported interpreter.
+    print(f"   strict mode refuses it: {str(error).split(':')[0]}")
 
 # 2. Dates are not serialisable at all
 try:
@@ -135,7 +137,7 @@ print(f"3. {original} -> {restored}")
 **Output:**
 ```
 {"score": NaN}
-   strict mode refuses it: Out of range float values are not JSON compliant: nan
+   strict mode refuses it: Out of range float values are not JSON compliant
 2. Object of type date is not JSON serializable
    fix: {"run_date": "2026-07-27"}
 3. {1: 'cat', 2: 'dog'} -> {'1': 'cat', '2': 'dog'}
@@ -265,7 +267,10 @@ print(f"naive split:  {line.split(',')}")
 import csv
 import io
 
-print(f"csv module:   {next(csv.reader(io.StringIO('\"The film, surprisingly, was great\",positive')))}")
+# The same line as it actually appears in a CSV file: the free-text field is quoted.
+csv_line = '"The film, surprisingly, was great",positive'
+
+print(f"csv module:   {next(csv.reader(io.StringIO(csv_line)))}")
 ```
 
 **Output:**

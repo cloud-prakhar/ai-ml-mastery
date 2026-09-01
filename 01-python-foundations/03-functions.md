@@ -287,7 +287,9 @@ def broken_increment():
     try:
         counter += 1          # Python sees an assignment -> treats counter as local
     except UnboundLocalError as error:
-        print(f"UnboundLocalError: {error}")
+        # Only the type is printed: Python 3.11 reworded this message, so the
+        # text differs between supported interpreters.
+        print(type(error).__name__)
 
 
 broken_increment()
@@ -295,8 +297,11 @@ broken_increment()
 
 **Output:**
 ```
-UnboundLocalError: cannot access local variable 'counter' where it is not associated with a value
+UnboundLocalError
 ```
+
+On Python 3.11 and newer the message reads `cannot access local variable 'counter' where it is not
+associated with a value`; on 3.10 it reads `local variable 'counter' referenced before assignment`.
 
 Python decides at compile time that `counter` is local, because the function assigns to it. Then
 `counter += 1` tries to read a local that has no value yet.

@@ -161,9 +161,15 @@ Before marking any phase complete, run all of these:
 
 ```bash
 python scripts/check_links.py      # verify every internal and external link
+python scripts/check_examples.py --strict   # every documented example matches its stated output
 pytest -q                          # run the test suite
 python scripts/generate_module_readmes.py   # refresh backlog entries (skips authored modules)
 ```
+
+`check_examples.py` is the gate continuous integration runs, and it runs there on **every supported
+interpreter — 3.10, 3.11 and 3.12**. Documented output must be identical on all three, so prefer a
+version-independent formulation over one that happens to match whichever interpreter you authored
+on. Locally you only have one; CI is what actually proves it.
 
 Then manually:
 

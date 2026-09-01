@@ -721,15 +721,17 @@ reviews = pd.read_csv("datasets/samples/reviews.csv")
 as_object = reviews["source"].memory_usage(deep=True)
 as_category = reviews["source"].astype("category").memory_usage(deep=True)
 
-print(f"source as object:   {as_object} bytes")
-print(f"source as category: {as_category} bytes")
+# The exact byte counts move between interpreter versions - CPython 3.12 shrank
+# the string object header - so report the saving in a band that holds everywhere.
+saving = 1 - as_category / as_object
+
+print(f"category saves more than {int(saving * 10) * 10}% of the memory")
 print(f"unique values: {reviews['source'].nunique()} out of {len(reviews)} rows")
 ```
 
 **Output:**
 ```
-source as object:   3449 bytes
-source as category: 463 bytes
+category saves more than 80% of the memory
 unique values: 3 out of 62 rows
 ```
 

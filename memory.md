@@ -68,6 +68,7 @@ Applied to modules, topic files and projects. Projects are additionally tiered i
 | Line style | Markdown, ~100 char soft wrap | Readable diffs |
 | Assistant instructions filename | **`CLAUDE.md`** (uppercase, single file) | Claude Code loads the uppercase name; a lowercase `claude.md` is never read on a case-sensitive filesystem, and keeping both collides on macOS/Windows. Documented deviation from the original specification. |
 | External link verification | `scripts/check_links.py --external` in CI, weekly | A verification date must be reproducible, not asserted |
+| Documented example verification | `scripts/check_examples.py --strict` in CI, on **3.10, 3.11 and 3.12** | Output can differ by interpreter version. Examples authored on 3.12 broke on 3.11 (traceback frames, f-string syntax, a json message, pandas memory figures), so one version is not proof |
 
 ## Supported operating systems
 

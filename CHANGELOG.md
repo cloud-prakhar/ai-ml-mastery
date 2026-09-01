@@ -9,6 +9,37 @@ This repository versions **content**, not software, so releases are milestones r
 
 ## [Unreleased]
 
+### Changed — continuous integration checks examples on every supported interpreter
+The `check` job pinned Python 3.11, so a break on 3.10 or 3.12 could not be seen. The workflow now
+splits by what a version can actually affect:
+- `check` (3.11) keeps the interpreter-independent gates — internal links, generated datasets,
+  `ruff`, the dependency audit and the setup script.
+- A new `examples` job runs `scripts/check_examples.py --strict` and `pytest -q` across a
+  **3.10 / 3.11 / 3.12** matrix, with `fail-fast: false` so a failure reports every version that
+  disagrees rather than only the first.
+
+This is the gap that let the fixes below ship broken, and it caught a fifth defect: the
+`UnboundLocalError` example in `01-python-foundations/03-functions.md` documented the message
+wording introduced in 3.11, which is wrong on 3.10.
+
+### Fixed — documented examples now match on every supported interpreter
+Continuous integration runs `scripts/check_examples.py --strict` on Python 3.11, while module 01 was
+authored on 3.12. Five examples depended on interpreter-version behaviour and disagreed with their
+documented output. Each is now version-independent, verified by running the full check under Python
+3.10, 3.11 and 3.12:
+- `01-python-foundations/03-functions.md` — the `UnboundLocalError` example printed a message that
+  Python 3.11 reworded. It now prints the exception type, with both wordings given in the prose.
+- `01-python-foundations/08-type-hints-dataclasses-logging-debugging.md` — the traceback-reading
+  example used a list comprehension, which Python 3.12 inlines (PEP 709) and 3.10/3.11 show as an
+  extra `<listcomp>` frame. Rewritten as an explicit loop, so the frames are identical everywhere;
+  the illustrated traceback and its line-number commentary were updated to match.
+- `01-python-foundations/10-json-csv-and-apis.md` — the `allow_nan=False` message gained a `: nan`
+  suffix in 3.12, so only the stable part is printed; and the `csv` example used a backslash inside
+  an f-string expression, a hard `SyntaxError` before 3.12, now lifted into a named variable.
+- `01-python-foundations/12-pandas-essentials.md` — `memory_usage(deep=True)` byte counts shift with
+  CPython's string-object header, which 3.12 shrank. The example now reports the saving as a band
+  that holds on every supported version.
+
 ### Added — module 03 Data Foundations, complete (all 9 topics)
 - `03-data-foundations/` authored as real content, every example executed and verified against the
   committed sample datasets:

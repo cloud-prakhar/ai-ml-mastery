@@ -604,7 +604,10 @@ Given this `pipeline.py`:
 ```python
 # check-examples: skip
 def load_scores(rows):
-    return [float(row["score"]) for row in rows]
+    scores = []
+    for row in rows:
+        scores.append(float(row["score"]))
+    return scores
 
 
 def summarise(rows):
@@ -619,15 +622,15 @@ Python prints:
 
 ```text
 Traceback (most recent call last):
-  File "pipeline.py", line 10, in <module>
+  File "pipeline.py", line 13, in <module>
     print(summarise([{"score": "0.9"}, {"value": "0.4"}]))
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "pipeline.py", line 6, in summarise
+  File "pipeline.py", line 9, in summarise
     scores = load_scores(rows)
              ^^^^^^^^^^^^^^^^^
-  File "pipeline.py", line 2, in load_scores
-    return [float(row["score"]) for row in rows]
-                  ~~~^^^^^^^^^
+  File "pipeline.py", line 4, in load_scores
+    scores.append(float(row["score"]))
+                        ~~~^^^^^^^^^
 KeyError: 'score'
 ```
 
@@ -637,7 +640,7 @@ which were added in 3.11.)*
 Read it like this:
 
 1. **The last line is *what* went wrong.** `KeyError: 'score'` — a dictionary was missing that key.
-2. **The bottom frame is *where*.** `line 2, in load_scores`.
+2. **The bottom frame is *where*.** `line 4, in load_scores`.
 3. **The frames above are *how you got there*** — `<module>` called `summarise` called
    `load_scores`. Newest last.
 4. **Your own files matter most.** In a real traceback most frames are library internals; scan
@@ -652,7 +655,10 @@ import tempfile
 from pathlib import Path
 
 source = '''def load_scores(rows):
-    return [float(row["score"]) for row in rows]
+    scores = []
+    for row in rows:
+        scores.append(float(row["score"]))
+    return scores
 
 
 def summarise(rows):
@@ -678,9 +684,9 @@ print(f"the error:  {lines[-1]}")
 
 **Output:**
 ```
-frame 0: line 10, in <module>
-frame 1: line 6, in summarise
-frame 2: line 2, in load_scores
+frame 0: line 13, in <module>
+frame 1: line 9, in summarise
+frame 2: line 4, in load_scores
 the error:  KeyError: 'score'
 ```
 

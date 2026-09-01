@@ -12,6 +12,9 @@ on:
 
 jobs:
   check:
+    # Gates whose result cannot depend on the interpreter: link structure, lint,
+    # generated datasets, dependency audit. One version is enough for these, and
+    # running them once keeps the matrix below cheap.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,17 +32,11 @@ jobs:
       - name: Validate internal Markdown links
         run: python scripts/check_links.py
 
-      - name: Verify every documented code example produces its stated output
-        run: python scripts/check_examples.py --strict
-
       - name: Verify the committed sample datasets match their generator
         run: python scripts/make_sample_datasets.py --check
 
       - name: Lint
         run: ruff check .
-
-      - name: Run tests
-        run: pytest -q
 
       - name: Audit dependencies for known vulnerabilities
         run: pip-audit --requirement requirements.txt
@@ -47,6 +44,40 @@ jobs:
 
       - name: Verify the learner setup script runs
         run: python scripts/verify_setup.py
+
+  examples:
+    # Documented output IS interpreter-dependent, and that is not hypothetical:
+    # examples authored on 3.12 broke CI on 3.11 because 3.12 inlines list
+    # comprehensions out of tracebacks (PEP 709), allows backslashes inside
+    # f-string expressions (PEP 701), reworded a json error, and shrank the
+    # string object header that pandas reports in memory_usage(deep=True).
+    #
+    # Every supported interpreter is checked, so a block that only breaks on the
+    # oldest or newest one cannot reach a learner. fail-fast is off because
+    # knowing WHICH versions disagree is most of the diagnosis.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Verify every documented code example produces its stated output
+        run: python scripts/check_examples.py --strict
+
+      - name: Run tests
+        run: pytest -q
 
   learner-install:
     # CI installs requirements-dev.txt, which pulls in requirements.txt. This job
