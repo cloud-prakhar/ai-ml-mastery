@@ -33,6 +33,7 @@ import re
 import subprocess
 import sys
 import textwrap
+import time
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -59,6 +60,11 @@ HTML_SKIP_MARKER = "<!-- check-examples: skip -->"
 
 TIMEOUT_SECONDS = 60
 
+# Hosted CI runners are markedly slower than a developer laptop. A block that takes 52 seconds
+# locally timed out on every GitHub runner while passing everywhere else, so anything above this
+# is reported long before it can reach the hard limit.
+SLOW_WARNING_SECONDS = 15
+
 
 def markdown_files(paths: list[str]) -> list[Path]:
     """Return the Markdown files to check, from arguments or the whole repository."""
@@ -74,7 +80,10 @@ def markdown_files(paths: list[str]) -> list[Path]:
 
     files = []
     for path in REPO_ROOT.rglob("*.md"):
-        if any(part in SKIP_DIRECTORIES for part in path.parts):
+        relative_parts = path.relative_to(REPO_ROOT).parts
+        # Any hidden directory (.git, .venv-sci, .venv-ci ...) holds tooling, not lessons;
+        # a virtual environment inside the repository otherwise gets its vendored READMEs run.
+        if any(part in SKIP_DIRECTORIES or part.startswith(".") for part in relative_parts[:-1]):
             continue
         if any(part in SKIP_FILE_DIRECTORIES for part in path.parts):
             continue
@@ -105,6 +114,7 @@ def check_file(path: Path, strict: bool = False) -> tuple[int, int]:
             continue
 
         checked += 1
+        started = time.perf_counter()
         try:
             result = subprocess.run(
                 [sys.executable, "-c", code],
@@ -117,6 +127,13 @@ def check_file(path: Path, strict: bool = False) -> tuple[int, int]:
             print(f"\n{path.relative_to(REPO_ROOT)} block {index}: TIMED OUT")
             failed += 1
             continue
+
+        elapsed = time.perf_counter() - started
+        if elapsed > SLOW_WARNING_SECONDS:
+            print(
+                f"\n{path.relative_to(REPO_ROOT)} block {index}: SLOW ({elapsed:.0f}s) - "
+                f"the timeout is {TIMEOUT_SECONDS}s and CI runners are slower than most laptops"
+            )
 
         if result.returncode != 0:
             print(f"\n{path.relative_to(REPO_ROOT)} block {index}: CRASHED")

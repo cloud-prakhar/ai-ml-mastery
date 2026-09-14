@@ -610,13 +610,15 @@ for name, candidate in [("correct", loss_and_gradient), ("buggy", wrong_gradient
         np.linalg.norm(analytic) + np.linalg.norm(numerical)
     )
     verdict = "PASS" if relative_error < 1e-7 else "FAIL"
-    print(f"{name:<9} relative error {relative_error:.3e}   {verdict}")
+    # A passing error is rounding noise whose exact digits vary by processor; report its band.
+    shown = "below 1e-7" if relative_error < 1e-7 else f"{relative_error:.3e}"
+    print(f"{name:<9} relative error {shown:<11}  {verdict}")
 ```
 
 **Output:**
 ```
-correct   relative error 1.434e-10   PASS
-buggy     relative error 3.333e-01   FAIL
+correct   relative error below 1e-7   PASS
+buggy     relative error 3.333e-01    FAIL
 ```
 
 **The buggy gradient still points downhill** — it is exactly half the right size — so training with

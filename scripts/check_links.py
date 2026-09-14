@@ -59,9 +59,12 @@ def markdown_files() -> list[Path]:
     """Return every Markdown file worth checking, excluding caches and templates."""
     files = []
     for path in REPO_ROOT.rglob("*.md"):
-        if any(part in SKIP_DIRECTORIES for part in path.parts):
+        relative_parts = path.relative_to(REPO_ROOT).parts
+        # Hidden directories (.git, .venv-sci ...) hold tooling. A virtual environment inside the
+        # repository otherwise contributes vendored package READMEs - and their dead links.
+        if any(part in SKIP_DIRECTORIES or part.startswith(".") for part in relative_parts[:-1]):
             continue
-        if any(part in SKIP_FILE_DIRECTORIES for part in path.parts):
+        if any(part in SKIP_FILE_DIRECTORIES for part in relative_parts):
             continue
         files.append(path)
     return sorted(files)

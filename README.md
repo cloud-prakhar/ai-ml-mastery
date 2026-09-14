@@ -7,8 +7,8 @@ how I evaluate it, and here is the threat model." Every concept is explained thr
 engineering, and as a production system.
 
 > **Repository status:** 🚧 Under active construction. Phase 1 (blueprint), **Getting Started**,
-> **Python Foundations**, **Mathematics for AI**, **Data Foundations** and the
-> **Interview Preparation** question banks are complete. Everything else is a defined backlog entry —
+> **Python Foundations**, **Mathematics for AI**, **Data Foundations**, **AI Foundations** — the whole
+> Level 0 foundation — plus **Machine Learning** and the **Interview Preparation** question banks are complete. Everything else is a defined backlog entry —
 > see [`IMPLEMENTATION_TRACKER.md`](IMPLEMENTATION_TRACKER.md) for exactly what exists today.
 > We deliberately publish *no* shallow placeholder content.
 
@@ -135,12 +135,12 @@ Full ordering, dependencies and effort bands: **[`ROADMAP.md`](ROADMAP.md)**.
 | 01 | **[Python Foundations](01-python-foundations/README.md)** ✅ | Language core → NumPy, pandas, Matplotlib, scikit-learn — *all 14 topics* |
 | 02 | **[Mathematics for AI](02-mathematics-for-ai/README.md)** ✅ | Linear algebra, calculus, probability, statistics, optimisation — *all 9 topics* |
 | 03 | **[Data Foundations](03-data-foundations/README.md)** ✅ | Data lifecycle, cleaning, splits, leakage, storage, pipelines — *all 9 topics* |
-| 04 | [AI Foundations](04-ai-foundations/README.md) | What AI is, AI vs ML vs DL vs GenAI, history, symbolic AI |
+| 04 | **[AI Foundations](04-ai-foundations/README.md)** ✅ | What AI is, AI vs ML vs DL vs GenAI, narrow vs general, symbolic AI, search, history — *all 6 topics* |
 
 ### Level 1 — Core Machine Learning 🟡
 | # | Module | What it covers |
 | --- | --- | --- |
-| 05 | [Machine Learning](05-machine-learning/README.md) | Supervised, unsupervised, ensembles, clustering, dimensionality reduction |
+| 05 | **[Machine Learning](05-machine-learning/README.md)** ✅ | Regression, classification, trees, boosting, clustering, dimensionality reduction, anomalies, semi- and self-supervised — *all 10 topics* |
 | 06 | [Feature Engineering](06-feature-engineering/README.md) | Selection, encoding, transformation, importance, leakage |
 | 07 | [Model Evaluation](07-model-evaluation/README.md) | Splits, cross-validation, bias-variance, every metric family |
 

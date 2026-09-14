@@ -200,12 +200,13 @@ rng = np.random.default_rng(0)
 
 def power(effect, n, trials=600, sigma=15.0):
     """Fraction of experiments that detect a real effect of this size."""
-    detected = 0
-    for _ in range(trials):
-        a = rng.normal(100, sigma, size=n)
-        b = rng.normal(100 + effect, sigma, size=n)
-        detected += stats.ttest_ind(a, b).pvalue < 0.05
-    return detected / trials
+    a = np.empty((trials, n))
+    b = np.empty((trials, n))
+    for i in range(trials):                    # one simulated experiment per row
+        a[i] = rng.normal(100, sigma, size=n)
+        b[i] = rng.normal(100 + effect, sigma, size=n)
+    pvalues = stats.ttest_ind(a, b, axis=1).pvalue   # all 600 tests in one vectorised call
+    return float(np.mean(pvalues < 0.05))
 
 
 print(f"{'effect':>8}{'n=50':>10}{'n=200':>10}{'n=800':>10}")
@@ -463,15 +464,26 @@ from scipy import stats
 rng = np.random.default_rng(11)
 
 
+def p_values_at(a, b, sizes):
+    """Student's t-test p-value using only the first n of each sample, for every n at once.
+
+    The same statistic as stats.ttest_ind(a[:n], b[:n]), computed from running sums so that
+    thousands of peeks cost one pass instead of thousands of separate calls.
+    """
+    sum_a, sum_b = np.cumsum(a)[sizes - 1], np.cumsum(b)[sizes - 1]
+    sq_a, sq_b = np.cumsum(a**2)[sizes - 1], np.cumsum(b**2)[sizes - 1]
+    var_a = (sq_a - sum_a**2 / sizes) / (sizes - 1)
+    var_b = (sq_b - sum_b**2 / sizes) / (sizes - 1)
+    t = (sum_a - sum_b) / sizes / np.sqrt((var_a + var_b) / sizes)
+    return 2 * stats.t.sf(np.abs(t), df=2 * sizes - 2)
+
+
 def experiment_with_peeking(peeks, n_total=4000):
     """A/A test - NO real effect. Stop early the first time p < 0.05."""
     a = rng.normal(0, 1, size=n_total)
     b = rng.normal(0, 1, size=n_total)
     checkpoints = np.linspace(n_total // peeks, n_total, peeks).astype(int)
-    for n in checkpoints:
-        if stats.ttest_ind(a[:n], b[:n]).pvalue < 0.05:
-            return True
-    return False
+    return bool((p_values_at(a, b, checkpoints) < 0.05).any())
 
 
 print(f"{'peeks':>7}{'false positive rate':>22}")

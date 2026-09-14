@@ -543,24 +543,29 @@ by_inverse = np.linalg.inv(A) @ b
 by_solve = np.linalg.solve(A, b)
 
 print(f"same answer to 8 decimals: {np.allclose(by_inverse, by_solve, atol=1e-8)}")
-print(f"largest disagreement:      {np.abs(by_inverse - by_solve).max():.2e}")
+print(f"largest disagreement below 1e-9: {np.abs(by_inverse - by_solve).max() < 1e-9}")
 print()
+# Residuals this small are rounding noise. Their exact digits depend on which CPU kernels the
+# linear-algebra library picks, so we check their size rather than print them.
 residual_inverse = np.abs(A @ by_inverse - b).max()
 residual_solve = np.abs(A @ by_solve - b).max()
-print(f"residual via inv():   {residual_inverse:.3e}")
-print(f"residual via solve(): {residual_solve:.3e}")
-print(f"solve is at least as accurate: {residual_solve <= residual_inverse}")
+print(f"residual via inv() below 1e-9:   {residual_inverse < 1e-9}")
+print(f"residual via solve() below 1e-9: {residual_solve < 1e-9}")
 ```
 
 **Output:**
 ```
 same answer to 8 decimals: True
-largest disagreement:      2.35e-12
+largest disagreement below 1e-9: True
 
-residual via inv():   3.385e-12
-residual via solve(): 1.621e-12
-solve is at least as accurate: True
+residual via inv() below 1e-9:   True
+residual via solve() below 1e-9: True
 ```
+
+**On a well-conditioned random matrix, both are accurate to rounding noise** — around 10⁻¹² here —
+and which of the two is marginally smaller changes from one processor to another. That is why the
+example checks the size instead of printing the digits: the repository's own continuous integration
+disagreed with a laptop about the third significant figure.
 
 `np.linalg.solve` factorises the matrix and solves directly. Computing an explicit inverse does
 strictly more work and accumulates more rounding error, and on an ill-conditioned matrix the gap

@@ -9,6 +9,85 @@ This repository versions **content**, not software, so releases are milestones r
 
 ## [Unreleased]
 
+### Added — module 05 Machine Learning, complete (all 10 topics)
+- `05-machine-learning/` authored as real content. Every example executed, verified by
+  `scripts/check_examples.py --strict`, and checked to produce identical output under a generic OpenBLAS
+  kernel so results do not depend on the processor:
+  - Topic 1: Types of Learning — supervised versus unsupervised on the same data, a batch model whose error
+    rises from 0.013 to 2.811 after drift, and a greedy bandit locked onto the worst option
+  - Topic 2: Parametric and Instance-Based Models — a linear model stuck at the same error from 50 to 20,000
+    rows, k-NN storing 40,000 numbers against 5, and **the best in-range model predicting 17.51 against a true
+    3.11 outside it**
+  - Topic 3: Regression — recovering the published coefficients of `housing.csv` (and missing the intercept
+    by 10, as an extrapolation), polynomial overfitting, and ridge, lasso and elastic net on near-duplicate
+    features, including **lasso's choice between them flipping with the seed**
+  - Topic 4: Classification — logistic regression, k-NN, naive Bayes and SVMs; scaling costing k-NN 3.7 points
+    and the RBF SVM 6.2; naive Bayes overconfidence from correlated features; **scaled logistic regression
+    beating every other model**
+  - Topic 5: Decision Trees and Random Forests — memorisation, four different root splits from ten resamples,
+    bagging, forests and extra trees, out-of-bag estimates, and **impurity importance crediting pure noise while
+    permutation importance hides 21 correlated real features**
+  - Topic 6: Boosting — the learning-rate trade-off (rate 1.0 ending worse than a coin), histogram boosting,
+    **early stopping costing two points on small data**, and XGBoost, LightGBM and CatBoost compared
+  - Topic 7: Clustering — five algorithms on blobs and moons with no algorithm winning both, choosing k, soft
+    assignments, and k-means on unscaled data scoring ARI 0.011
+  - Topic 8: Dimensionality Reduction — PCA in context, t-SNE preserving neighbourhoods while **its inter-cluster
+    distances change from 99 to 20 with perplexity alone**, UMAP, and ICA unmixing signals
+  - Topic 9: Anomaly Detection and Association Rules — detectors on the repository's sensor faults, where
+    **no detector found the stuck sensor even with a rolling-std feature, and a one-line rule found all three
+    windows**; contamination as an alarm budget; support, confidence and lift
+  - Topic 10: Semi- and Self-Supervised Learning — **self-training dropping accuracy from 78% to 56%**, label
+    spreading reaching 92% from 30 labels, and a pretext task that helps only when non-linear
+- `quizzes/05-machine-learning.md` (66 questions), `quizzes/answers/05-machine-learning.md`, and
+  `assignments/05-machine-learning.md` (4 assignments).
+- XGBoost, LightGBM, CatBoost and UMAP are shown as labelled reference code that is not executed; no dependency
+  was added. Recorded as a decision in `memory.md`.
+- Several drafts were corrected by their own outputs before publishing: timing and pickle-size prints replaced
+  with machine-independent comparisons; a rolling-std "fix" for the stuck sensor that did not work, now taught as
+  such; a linear pretext task that could not add information, now contrasted with a non-linear one; and the
+  boosting and tree examples cut from 69 s and 11 s to a few seconds per block.
+
+### Fixed — continuous integration failed on every runner while passing everywhere else
+The `examples` job failed on 3.10, 3.11 and 3.12 for every push since module 02, yet the same commit
+passed locally and in clean `python:3.10/3.11/3.12-slim` containers built from `requirements-dev.txt`.
+Timing each block on two cores found the cause: the peeking simulation in
+`02-mathematics-for-ai/08-hypothesis-testing-and-ab-testing.md` took **52 seconds** on a fast laptop,
+so on slower hosted runners it crossed the harness's 60-second per-block timeout.
+- That block and the power simulation in the same file now compute the t-test in vectorised form, with
+  identical random draws and **identical documented output**: 52 s → 1.6 s and 9 s → 0.2 s.
+- A second, latent failure was found by forcing a generic OpenBLAS kernel: `np.linalg` residuals printed
+  to three significant figures (`2.35e-12`) change with the processor. The `inv` versus `solve` example
+  in `02-linear-algebra-vectors-and-matrices.md` and the gradient check in
+  `04-calculus-derivatives-and-gradients.md` now report a band instead of roundoff digits, and the
+  linear-algebra prose explains why.
+- `scripts/check_examples.py` warns about any block slower than 15 seconds, and skips hidden
+  directories such as `.venv-*`, whose vendored READMEs it previously tried to execute.
+- Workflow actions moved to `actions/checkout@v5` and `actions/setup-python@v6`, which run on Node 24;
+  the Node 20 versions produced a deprecation annotation on every job.
+
+### Added — module 04 AI Foundations, complete (all 6 topics) — Phase 2 complete
+- `04-ai-foundations/` authored as real content, every example executed and verified:
+  - Topic 1: What Intelligence and AI Mean — four definitions, the rational agent, and a rule-based
+    versus learning thermostat where **learning stops when feedback stops**
+  - Topic 2: AI, ML, Deep Learning and Generative AI — rules versus Naive Bayes where the model's top
+    spam word is the **spurious "your"**, XOR defeating logistic regression, and a bigram generator
+  - Topic 3: Narrow AI, General AI and Superintelligence — a 96.1% digit classifier at 8.7% after a
+    two-pixel shift and **0% on inverted colours with median confidence still 1.00**
+  - Topic 4: Symbolic AI and Expert Systems — forward and backward chaining with a trace, brittleness,
+    MYCIN and XCON, and where rules remain the right choice
+  - Topic 5: Search, Planning, Reasoning and Perception — BFS versus A\* (32 versus 22 expansions for
+    the same optimal path), a STRIPS planner that proves impossibility, knowledge triples with
+    exceptions, closed- versus open-world, and a hand-made edge detector
+  - Topic 6: The Turing Test, History and AI Winters — ELIZA mis-parsing a negation, the perceptron
+    never learning XOR, a Mermaid timeline, and the causes of both winters
+- `quizzes/04-ai-foundations.md` (60 questions), `quizzes/answers/04-ai-foundations.md`, and
+  `assignments/04-ai-foundations.md` (3 assignments).
+- Glossary: A\*, Admissible heuristic, AI winter, ANI and ASI, Closed-world assumption, ELIZA effect,
+  Expert system, Forward and backward chaining, Knowledge graph, Perceptron, Symbolic AI, Turing Test.
+- Three candidate references were **not** added because their hosts return 403 to automated checks
+  (the Turing paper and ELIZA paper publisher pages, and MIT Press); Stanford Encyclopedia of Philosophy
+  entries are cited instead.
+
 ### Changed — continuous integration checks examples on every supported interpreter
 The `check` job pinned Python 3.11, so a break on 3.10 or 3.12 could not be seen. The workflow now
 splits by what a version can actually affect:

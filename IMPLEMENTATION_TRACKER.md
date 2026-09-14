@@ -4,7 +4,7 @@ The honest state of this repository. Updated with **every** content change.
 
 **Legend:** ✅ complete · 🚧 in progress · 📋 backlog (scoped, not written) · ⛔ blocked
 
-**Last updated:** 2026-07-27
+**Last updated:** 2026-09-14
 
 ---
 
@@ -12,7 +12,7 @@ The honest state of this repository. Updated with **every** content change.
 
 | Category | ✅ | 🚧 | 📋 | Total |
 | --- | --- | --- | --- | --- |
-| Curriculum modules | 5 | 0 | 38 | 43 |
+| Curriculum modules | 7 | 0 | 36 | 43 |
 | Projects | 0 | 0 | 40 | 40 |
 | Root documents | 17 | 0 | 0 | 17 |
 | Templates | 3 | 0 | 0 | 3 |
@@ -61,7 +61,7 @@ There is deliberately **no shallow filler content** in this repository.
 
 ---
 
-## Phase 2 — Foundation Modules 🚧
+## Phase 2 — Foundation Modules ✅ COMPLETE
 
 | Module | Status | Notes |
 | --- | --- | --- |
@@ -69,7 +69,9 @@ There is deliberately **no shallow filler content** in this repository.
 | [01 Python Foundations](01-python-foundations/README.md) | ✅ | **Complete: all 14 topics authored and verified**, plus a 74-question quiz with explained answers and 6 assignments. Every documented example is executed by CI. |
 | [02 Mathematics for AI](02-mathematics-for-ai/README.md) | ✅ | **Complete: all 9 topics authored and verified**, plus a 60-question quiz with explained answers and 4 assignments. Every example executed by CI. |
 | [03 Data Foundations](03-data-foundations/README.md) | ✅ | **Complete: all 9 topics authored and verified**, plus a 65-question quiz with explained answers and 4 assignments. Every example executed by CI. |
-| [04 AI Foundations](04-ai-foundations/README.md) | 📋 | **Next to build** |
+| [04 AI Foundations](04-ai-foundations/README.md) | ✅ | **Complete: all 6 topics authored and verified**, plus a 60-question quiz with explained answers and 3 assignments. Every example executed by CI. |
+
+**Phase 2 is complete.** Phase 3 has begun with [05 Machine Learning](05-machine-learning/README.md).
 
 > **Also complete, built out of phase order on request:**
 > [38 Interview Preparation](38-interview-preparation/README.md) — 7 question banks, 126 questions
@@ -86,12 +88,12 @@ There is deliberately **no shallow filler content** in this repository.
 
 ---
 
-## Phase 3 — Core Machine Learning 📋
+## Phase 3 — Core Machine Learning 🚧
 
 | Module | Status |
 | --- | --- |
-| [05 Machine Learning](05-machine-learning/README.md) | 📋 |
-| [06 Feature Engineering](06-feature-engineering/README.md) | 📋 |
+| [05 Machine Learning](05-machine-learning/README.md) | ✅ **Complete: all 10 topics authored and verified**, plus a 66-question quiz with explained answers and 4 assignments. Every example executed by CI and checked identical under a generic CPU math kernel. |
+| [06 Feature Engineering](06-feature-engineering/README.md) | 📋 **Next to build** |
 | [07 Model Evaluation](07-model-evaluation/README.md) | 📋 |
 | Beginner projects B1–B10 | 📋 |
 
