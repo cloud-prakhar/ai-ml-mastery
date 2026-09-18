@@ -28,11 +28,15 @@ If you read nothing else in this file:
 Before you finish:
 
 ```bash
-python scripts/check_links.py              # internal links
-python scripts/check_links.py --external   # also HTTP-check external links
+CI=true python scripts/check_examples.py --strict   # every documented example, run as CI runs it
+python scripts/check_links.py                       # internal links
+python scripts/check_links.py --external            # also HTTP-check external links
 pytest -q
 ruff check .
 ```
+
+When CI fails, read its `::error` annotations through the public checks API before guessing —
+`scripts/check_examples.py` writes the file, line and first differing output line into them.
 
 ---
 
@@ -130,6 +134,29 @@ Every module and topic file carries a difficulty label (🟢🟡🔴🟣) and an
 - Set random seeds where determinism helps the learner match the expected output.
 - **Show the expected output.** A code block without its output is half a lesson.
 - Keep datasets small. Do not require an expensive GPU unless the file is explicitly marked 🟣.
+- **A heavy dependency gets its own pinned requirements file**, never `requirements.txt` — see
+  `requirements-dl.txt` for PyTorch. Install it in the CI `examples` job, add it to both
+  `pip-audit` steps, and install it into a clean environment on the oldest supported Python.
+  A library that is not pinned at all appears only as labelled reference code behind
+  `<!-- check-examples: skip -->`.
+
+### Documented output must be identical on every machine
+
+CI compares printed output character for character, on different CPUs from yours. Every
+rule below exists because breaking it failed CI while every local run passed:
+
+- Never print a timing, or a result that depends on one.
+- Never print roundoff digits. Linear-algebra residuals, condition numbers and chaotic
+  training runs print a **band** instead (`below 1e-9: True`, `did not learn (below 0.25)`).
+- PyTorch training examples call `torch.set_default_dtype(torch.float64)`; float32 rounding
+  differs between CPU kernels and training amplifies it. Say why in the module overview.
+- Before committing numeric examples, run them under alternative CPU kernels and confirm
+  identical output: `OPENBLAS_CORETYPE=Prescott`, and for PyTorch `ATEN_CPU_CAPABILITY=default`
+  and `MKL_CBWR=COMPATIBLE`.
+- Keep every block well under the 60-second timeout; the checker warns above 15 seconds, and
+  CI runners are slower than a laptop.
+- The checker already runs examples single-threaded and without CI environment variables; do
+  not work around either.
 
 ### Tests
 Any code in `src/` or a project needs a test in `tests/`. Run them before claiming completion:
@@ -147,7 +174,10 @@ restart-and-run-all before committing.
 ## 6. Diagram rules
 
 - **Mermaid is the default.** Do not use ASCII art where Mermaid renders better.
-- Validate that every diagram renders on GitHub before committing. No unsupported syntax.
+- Validate that every diagram renders before committing: render it with mermaid-cli (the
+  `minlag/mermaid-cli` Docker image works where a local headless browser does not) **and look at
+  the image** — valid syntax can still lay out badly. Long subgraph titles wrap over nodes;
+  subgraphs need `direction LR` inside a `flowchart TB`. No unsupported syntax.
 - Short labels. Avoid parentheses and unescaped special characters inside node labels — they
   break Mermaid parsing. Prefer `M15[15 Embeddings and Vector Search]` over
   `M15[15 Embeddings & Vector Search (ANN)]`.
@@ -191,9 +221,11 @@ Every content change must also:
 - [ ] Update `IMPLEMENTATION_TRACKER.md` — always
 - [ ] Add new terms to `GLOSSARY.md`
 - [ ] Add an entry to `CHANGELOG.md`
-- [ ] Update `memory.md` if a *decision* changed (not for routine content additions)
+- [ ] Update `memory.md` if a *decision* changed, and its build status when a module is completed
+- [ ] Update this file when a new working rule is learned — a CI failure, a verification step, a
+      dependency convention
 - [ ] Update "Previous / Next" navigation links in affected files
-- [ ] Run `python scripts/check_links.py` and `pytest -q`
+- [ ] Run the checks under "Before you finish" at the top of this file
 
 ---
 

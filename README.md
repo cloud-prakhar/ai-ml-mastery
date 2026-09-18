@@ -8,7 +8,7 @@ engineering, and as a production system.
 
 > **Repository status:** 🚧 Under active construction. Phase 1 (blueprint), **Getting Started**,
 > **Python Foundations**, **Mathematics for AI**, **Data Foundations**, **AI Foundations** — the whole
-> Level 0 foundation — plus **Machine Learning**, **Feature Engineering**, **Model Evaluation** and the **Interview Preparation** question banks are complete. Everything else is a defined backlog entry —
+> Level 0 foundation — plus **Machine Learning**, **Feature Engineering**, **Model Evaluation**, **Deep Learning** and the **Interview Preparation** question banks are complete. Everything else is a defined backlog entry —
 > see [`IMPLEMENTATION_TRACKER.md`](IMPLEMENTATION_TRACKER.md) for exactly what exists today.
 > We deliberately publish *no* shallow placeholder content.
 
@@ -44,6 +44,9 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 python scripts/verify_setup.py
+
+# From module 08 onwards, also install PyTorch (CPU build; on macOS omit --index-url):
+# pip install -r requirements-dl.txt --index-url https://download.pytorch.org/whl/cpu
 ```
 
 Do not run those commands blind — **[`00-getting-started/`](00-getting-started/README.md)** explains
@@ -147,7 +150,7 @@ Full ordering, dependencies and effort bands: **[`ROADMAP.md`](ROADMAP.md)**.
 ### Level 2 — Deep Learning 🟡
 | # | Module | What it covers |
 | --- | --- | --- |
-| 08 | [Deep Learning](08-deep-learning/README.md) | Neurons → backpropagation → modern architectures (PyTorch) |
+| 08 | **[Deep Learning](08-deep-learning/README.md)** ✅ | Neurons, autograd, training, normalisation, activations, CNNs, RNNs, VAEs, GANs, diffusion, GNNs (PyTorch) — *all 8 topics* |
 | 09 | [Computer Vision](09-computer-vision/README.md) | Convolution, CNNs, detection, segmentation, ViT, CLIP |
 | 10 | [Natural Language Processing](10-natural-language-processing/README.md) | Preprocessing, TF-IDF, word vectors, NLP tasks |
 | 11 | [Transformers](11-transformers/README.md) | Attention from first principles, with worked numerical examples |

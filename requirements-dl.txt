@@ -1,0 +1,14 @@
+# Deep-learning stack for modules 08 onwards, installed ON TOP of requirements.txt.
+#
+# Kept separate so learners on modules 00-07 never download it: PyTorch is the largest
+# dependency in the repository. PyTorch is the primary deep-learning framework (memory.md).
+#
+# CPU-only build - every example in this repository runs on a laptop CPU, and the default
+# Linux wheel on PyPI also pulls in several gigabytes of CUDA libraries you do not need:
+#
+#   pip install -r requirements-dl.txt --index-url https://download.pytorch.org/whl/cpu
+#
+# macOS: plain `pip install -r requirements-dl.txt` (the macOS wheel has no CUDA).
+# With an NVIDIA GPU: follow the selector at https://pytorch.org/get-started/locally/
+# instead - same version number, different build.
+torch==2.14.0

@@ -12,7 +12,7 @@ The honest state of this repository. Updated with **every** content change.
 
 | Category | ✅ | 🚧 | 📋 | Total |
 | --- | --- | --- | --- | --- |
-| Curriculum modules | 9 | 0 | 34 | 43 |
+| Curriculum modules | 10 | 0 | 33 | 43 |
 | Projects | 0 | 0 | 40 | 40 |
 | Root documents | 17 | 0 | 0 | 17 |
 | Templates | 3 | 0 | 0 | 3 |
@@ -71,7 +71,7 @@ There is deliberately **no shallow filler content** in this repository.
 | [03 Data Foundations](03-data-foundations/README.md) | ✅ | **Complete: all 9 topics authored and verified**, plus a 65-question quiz with explained answers and 4 assignments. Every example executed by CI. |
 | [04 AI Foundations](04-ai-foundations/README.md) | ✅ | **Complete: all 6 topics authored and verified**, plus a 60-question quiz with explained answers and 3 assignments. Every example executed by CI. |
 
-**Phase 2 is complete.** Phase 3's three modules — [05](05-machine-learning/README.md), [06](06-feature-engineering/README.md) and [07](07-model-evaluation/README.md) — are complete; its beginner projects remain.
+**Phase 2 is complete.** Phase 3's three modules — [05](05-machine-learning/README.md), [06](06-feature-engineering/README.md) and [07](07-model-evaluation/README.md) — are complete; its beginner projects remain. Phase 4 has begun with [08 Deep Learning](08-deep-learning/README.md).
 
 > **Also complete, built out of phase order on request:**
 > [38 Interview Preparation](38-interview-preparation/README.md) — 7 question banks, 126 questions
@@ -97,12 +97,12 @@ There is deliberately **no shallow filler content** in this repository.
 | [07 Model Evaluation](07-model-evaluation/README.md) | ✅ **Complete: all 8 topics authored and verified**, plus a 70-question quiz with explained answers and 4 assignments. Every example executed by CI; all 11 Mermaid diagrams rendered with mermaid-cli. Every metric section includes "when this metric misleads". |
 | Beginner projects B1–B10 | 📋 |
 
-## Phase 4 — Deep Learning 📋
+## Phase 4 — Deep Learning 🚧
 
 | Module | Status |
 | --- | --- |
-| [08 Deep Learning](08-deep-learning/README.md) | 📋 |
-| [09 Computer Vision](09-computer-vision/README.md) | 📋 |
+| [08 Deep Learning](08-deep-learning/README.md) | ✅ **Complete: all 8 topics authored and verified**, plus a 64-question quiz with explained answers and 4 assignments. PyTorch examples run in float64 and were checked identical under three CPU arithmetic kernels; all 12 Mermaid diagrams rendered. Adds `requirements-dl.txt` (torch 2.14.0, CPU build), installed by CI. |
+| [09 Computer Vision](09-computer-vision/README.md) | 📋 **Next to build** |
 | [10 Natural Language Processing](10-natural-language-processing/README.md) | 📋 |
 | [11 Transformers](11-transformers/README.md) | 📋 |
 

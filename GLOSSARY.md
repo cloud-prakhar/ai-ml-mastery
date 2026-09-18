@@ -28,7 +28,7 @@ blind to which kind of mistake was made.
 
 **Activation function** — A non-linear function applied to a neuron's output, which is what lets a
 neural network learn anything more interesting than a straight line.
-→ [08 Deep Learning](08-deep-learning/README.md)
+→ [08 Deep Learning](08-deep-learning/05-activation-functions.md)
 
 **Adam (Adaptive Moment Estimation)** — An optimiser that adapts the learning rate per parameter
 using running averages of the gradient and its square. The common default for deep learning.
@@ -78,6 +78,14 @@ cognitive tasks. Discussed mainly in connection with alignment and oversight.
 random positive scores above a random negative. Misleading on heavily imbalanced data.
 → [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
 
+**Autoencoder** — A network trained to reconstruct its input through a narrow bottleneck; the
+bottleneck code is a learned compression.
+→ [08 Deep Learning](08-deep-learning/07-autoencoders-vaes-and-gans.md)
+
+**Autograd (automatic differentiation)** — Computing exact gradients by recording a computation's
+operations and applying the chain rule to them in reverse.
+→ [08 Deep Learning](08-deep-learning/02-loss-functions-computational-graphs-and-autograd.md)
+
 **Autoregressive** — Generating a sequence one element at a time, each conditioned on what came
 before. How text-generating language models work. → [11 Transformers](11-transformers/README.md)
 
@@ -88,7 +96,11 @@ precision at each rank holding a relevant item. MAP is its mean over queries.
 ## B
 
 **Backpropagation** — The algorithm that computes how much each weight contributed to the error,
-by applying the chain rule backwards through the network. → [08 Deep Learning](08-deep-learning/README.md)
+by applying the chain rule backwards through the network. → [08 Deep Learning](08-deep-learning/02-loss-functions-computational-graphs-and-autograd.md)
+
+**Backpropagation through time** — Training a recurrent network by unrolling it into one layer per
+time step and backpropagating through all of them.
+→ [08 Deep Learning](08-deep-learning/06-cnns-rnns-and-sequence-models.md)
 
 **Bag of words** — Representing text by how often each vocabulary word appears, ignoring order.
 Simple and strong on small data, blind to negation unless n-grams are added.
@@ -106,7 +118,11 @@ constant, a simple model, or the current process.
 → [07 Model Evaluation](07-model-evaluation/04-learning-curves-and-baselines.md)
 
 **Batch** — A group of samples processed together in one training step. Larger batches are more
-stable and more memory-hungry. → [08 Deep Learning](08-deep-learning/README.md)
+stable and more memory-hungry. → [08 Deep Learning](08-deep-learning/03-training-loop-batches-and-initialisation.md)
+
+**Batch normalisation** — Normalising each feature across the examples in a batch; needs running
+statistics at inference and fails with a batch of one.
+→ [08 Deep Learning](08-deep-learning/04-vanishing-gradients-normalisation-dropout-and-residuals.md)
 
 **Bayes' theorem** — Updating a belief with evidence: posterior is proportional to likelihood
 times prior. The base rate dominates for rare events.
@@ -159,6 +175,10 @@ stretching size-1 dimensions. Shapes are compared from the right.
 about 80% should be positive.
 → [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
 
+**Capsule network** — An architecture using groups of neurons to encode entities and their pose,
+with routing by agreement; influential but not widely adopted.
+→ [08 Deep Learning](08-deep-learning/08-other-architectures.md)
+
 **Cardinality** — The number of distinct values in a column. High cardinality rules out one-hot
 encoding and pushes you toward hashing, target encoding or embeddings.
 → [03 Data Foundations](03-data-foundations/04-encoding-and-data-validation.md)
@@ -175,6 +195,10 @@ open-world assumption treats it as unknown, as most knowledge graphs do.
 
 **CNN (Convolutional Neural Network)** — A network that uses sliding filters to detect local
 patterns, which made modern computer vision work. → [09 Computer Vision](09-computer-vision/README.md)
+
+**Computational graph** — The record of operations that produced a value, which reverse-mode
+automatic differentiation walks backwards.
+→ [08 Deep Learning](08-deep-learning/02-loss-functions-computational-graphs-and-autograd.md)
 
 **Condition number** — The ratio of largest to smallest eigenvalue, measuring how elongated a
 loss surface or how ill-behaved a matrix inverse is. Large means numerically untrustworthy.
@@ -195,6 +219,10 @@ plus retrieved documents plus output must all fit inside it.
 **Contrastive learning** — Self-supervised learning that pulls embeddings of two views of the same example
 together and pushes different examples apart. → [05 Machine Learning](05-machine-learning/10-semi-and-self-supervised-learning.md)
 
+**Convolution** — Sliding a small kernel of shared weights across an input and computing a weighted
+sum at each position.
+→ [08 Deep Learning](08-deep-learning/06-cnns-rnns-and-sequence-models.md)
+
 **Corrected resampled t-test** — A t-test for comparing models on cross-validation folds that
 inflates the variance to account for overlapping training sets (Nadeau and Bengio).
 → [07 Model Evaluation](07-model-evaluation/01-cross-validation-and-comparing-models.md)
@@ -202,6 +230,10 @@ inflates the variance to account for overlapping training sets (Nadeau and Bengi
 **Cosine similarity** — Similarity measured as the cosine of the angle between two vectors, ignoring
 their magnitudes. The default metric for embedding search.
 → [15 Embeddings and Vector Search](15-embeddings-and-vector-search/README.md)
+
+**Cross-entropy loss** — The negative log-probability assigned to the correct class; the standard
+classification loss, computed from raw logits.
+→ [08 Deep Learning](08-deep-learning/02-loss-functions-computational-graphs-and-autograd.md)
 
 **Cross-fitting** — Computing a data-dependent feature for each training fold from the other folds
 only, so no row's feature contains its own label. Essential for target encoding.
@@ -227,6 +259,10 @@ producing scores that collapse in production. The most expensive beginner mistak
 **DBSCAN (Density-Based Spatial Clustering of Applications with Noise)** — Clustering that groups dense
 regions of any shape and labels sparse points as noise; it finds the number of clusters itself.
 → [05 Machine Learning](05-machine-learning/07-clustering.md)
+
+**Dead ReLU** — A ReLU unit whose input is negative for every training example, so it receives zero
+gradient and never learns again.
+→ [08 Deep Learning](08-deep-learning/05-activation-functions.md)
 
 **Decision threshold** — The score above which a classifier predicts positive. It should be chosen
 from error costs, not left at 0.5.
@@ -254,7 +290,7 @@ an integer array truncates it silently.
 training a separate reward model as RLHF does. → [17 Fine-Tuning](17-fine-tuning/README.md)
 
 **Dropout** — Randomly disabling neurons during training so the network cannot rely on any single
-path. A regularisation technique. → [08 Deep Learning](08-deep-learning/README.md)
+path. A regularisation technique. → [08 Deep Learning](08-deep-learning/04-vanishing-gradients-normalisation-dropout-and-residuals.md)
 
 ## E
 
@@ -288,11 +324,15 @@ The GPS-coordinate-for-meaning idea.
 factor; the eigenvectors of a covariance matrix are PCA's components.
 → [02 Mathematics for AI](02-mathematics-for-ai/03-norms-eigenvalues-and-pca.md)
 
-**Epoch** — One full pass over the training dataset.
+**Epoch** — One full pass over the training dataset. → [08 Deep Learning](08-deep-learning/03-training-loop-batches-and-initialisation.md)
 
 **Expected improvement** — An acquisition function for Bayesian optimisation: the expected amount by
 which a setting beats the best score so far.
 → [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
+
+**Exploding gradient** — Gradients that grow exponentially as they are backpropagated through many
+layers or time steps, producing inf or nan.
+→ [08 Deep Learning](08-deep-learning/04-vanishing-gradients-normalisation-dropout-and-residuals.md)
 
 ## F
 
@@ -355,11 +395,19 @@ gradients and optimiser states across devices to fit larger models.
 ## G
 
 **GAN (Generative Adversarial Network)** — Two networks trained against each other, a generator
-producing samples and a discriminator judging them. → [12 Generative AI](12-generative-ai/README.md)
+producing samples and a discriminator judging them. → [08 Deep Learning](08-deep-learning/07-autoencoders-vaes-and-gans.md)
+
+**GELU (Gaussian Error Linear Unit)** — A smooth ReLU-like activation, z times the normal CDF of z;
+standard in transformers.
+→ [08 Deep Learning](08-deep-learning/05-activation-functions.md)
 
 **Generator** — A Python function using `yield` that produces values one at a time on demand,
 holding constant memory. Single-pass: consuming it empties it.
 → [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
+
+**GNN (Graph Neural Network)** — A network that updates each node's representation from its
+neighbours' by message passing along the graph's edges.
+→ [08 Deep Learning](08-deep-learning/08-other-architectures.md)
 
 **Gradient** — The vector of partial derivatives. It points in the direction of steepest
 *increase*, which is why training subtracts it.
@@ -379,6 +427,10 @@ hyperparameters matter.
 **Grounding** — Tying a model's output to verifiable source material, usually via retrieval, so
 claims can be checked. → [16 RAG](16-rag/README.md)
 
+**GRU (Gated Recurrent Unit)** — A recurrent cell with an update gate and a reset gate, lighter than
+an LSTM and often similar in results.
+→ [08 Deep Learning](08-deep-learning/06-cnns-rnns-and-sequence-models.md)
+
 **Guardrails** — Checks around a model that block unsafe or invalid inputs and outputs.
 → [30 LLMOps](30-llmops/README.md)
 
@@ -386,6 +438,10 @@ claims can be checked. → [16 RAG](16-rag/README.md)
 
 **Hallucination** — A model producing fluent, confident output that is not true. A consequence of
 optimising for plausible next tokens, not for truth. → [12 Generative AI](12-generative-ai/README.md)
+
+**He initialisation** — Initial weights with variance 2 / fan-in, which keeps signal size steady
+through ReLU layers.
+→ [08 Deep Learning](08-deep-learning/03-training-loop-batches-and-initialisation.md)
 
 **Hit rate@k** — Whether at least one relevant item appears in the top k results, averaged over
 queries.
@@ -448,6 +504,10 @@ correlated features its choice is arbitrary. → [05 Machine Learning](05-machin
 
 **Latency** — Time from request to response. Distinguish average from p95 and p99; users feel the tail.
 
+**Layer normalisation** — Normalising each example across its own features; independent of the
+batch, and used in transformers.
+→ [08 Deep Learning](08-deep-learning/04-vanishing-gradients-normalisation-dropout-and-residuals.md)
+
 **Lazy evaluation** — Producing values only when they are asked for, rather than all at once. What
 lets a data loader stream a dataset larger than memory.
 → [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
@@ -483,10 +543,17 @@ probabilities. Punishes confident mistakes without limit.
 **Logistic regression** — A linear classifier that turns a weighted sum into a probability with the sigmoid
 function and trains on log loss. → [05 Machine Learning](05-machine-learning/04-classification.md)
 
+**Logit** — A raw, unbounded model score before a sigmoid or softmax turns it into a probability.
+→ [08 Deep Learning](08-deep-learning/02-loss-functions-computational-graphs-and-autograd.md)
+
 **LoRA (Low-Rank Adaptation)** — Fine-tuning by training small low-rank matrices alongside frozen
 weights, cutting memory cost dramatically. → [17 Fine-Tuning](17-fine-tuning/README.md)
 
 **Loss function** — The number that measures how wrong the model is, and which training minimises.
+
+**LSTM (Long Short-Term Memory)** — A recurrent cell with a separately updated cell state and
+forget, input and output gates, giving gradients an additive path through time.
+→ [08 Deep Learning](08-deep-learning/06-cnns-rnns-and-sequence-models.md)
 
 ## M
 
@@ -513,12 +580,24 @@ using all four confusion-matrix cells; 0 means no skill.
 **MDP (Markov Decision Process)** — The formal framing of reinforcement learning: states, actions,
 transitions, rewards. → [19 Reinforcement Learning](19-reinforcement-learning/README.md)
 
+**Mixture-of-experts (MoE)** — A layer with many expert sub-networks and a router that sends each
+input to only a few, so compute grows with the experts used, not stored.
+→ [08 Deep Learning](08-deep-learning/08-other-architectures.md)
+
 **MLE (Maximum Likelihood Estimation)** — Choosing parameters that make the observed data most
 probable. Minimising MSE is MLE under Gaussian errors; cross-entropy under Bernoulli.
 → [02 Mathematics for AI](02-mathematics-for-ai/06-probability.md)
 
 **MLOps (Machine Learning Operations)** — Engineering practice for the model lifecycle: tracking,
 versioning, deployment, monitoring, retraining. → [29 MLOps](29-mlops/README.md)
+
+**MLP (Multilayer Perceptron)** — A feedforward network of fully connected layers with non-linear
+activations between them.
+→ [08 Deep Learning](08-deep-learning/01-neurons-perceptrons-and-layers.md)
+
+**Mode collapse** — A generative model producing only part of the data's variety, such as one of
+several modes; common in GANs.
+→ [08 Deep Learning](08-deep-learning/07-autoencoders-vaes-and-gans.md)
 
 **MoE (Mixture of Experts)** — An architecture routing each token to a few specialist sub-networks,
 so capacity grows without proportional compute.
@@ -606,6 +685,10 @@ row's prediction time. Implemented with an as-of join.
 $\binom{n+d}{d}$, so most generated columns are noise.
 → [06 Feature Engineering](06-feature-engineering/04-crosses-polynomial-and-date-time-features.md)
 
+**Pooling** — Summarising a neighbourhood of a feature map by its maximum or average, adding
+tolerance to small shifts.
+→ [08 Deep Learning](08-deep-learning/06-cnns-rnns-and-sequence-models.md)
+
 **Precision** — Of the items you flagged positive, what fraction really were. Pair it with recall
 or it is meaningless. → [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
 
@@ -634,6 +717,9 @@ without a dedicated vector database.
 a reference, summed over bins. Common rule-of-thumb thresholds are 0.1 and 0.25.
 → [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
 
+**PyTorch** — The open-source deep-learning framework this repository uses as its primary framework.
+→ [08 Deep Learning](08-deep-learning/README.md)
+
 ## Q–R
 
 **Quantile transformation** — Replacing each value by its rank, mapped to a uniform or normal
@@ -656,9 +742,25 @@ decorrelates the trees. → [05 Machine Learning](05-machine-learning/05-decisio
 size.
 → [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
 
+**ReLU (Rectified Linear Unit)** — The activation max(0, z): gradient 1 for positive inputs and 0
+otherwise; the default in hidden layers.
+→ [08 Deep Learning](08-deep-learning/05-activation-functions.md)
+
+**Reparameterisation trick** — Writing a sample as mean plus standard deviation times fixed noise,
+so gradients can flow through the sampling step of a VAE.
+→ [08 Deep Learning](08-deep-learning/07-autoencoders-vaes-and-gans.md)
+
+**Residual connection** — Adding a block's input to its output, x + F(x), which gives gradients a
+direct path and makes very deep networks trainable.
+→ [08 Deep Learning](08-deep-learning/04-vanishing-gradients-normalisation-dropout-and-residuals.md)
+
 **RFE (Recursive Feature Elimination)** — Fitting a model, dropping its weakest feature, and
 repeating until the requested number remain.
 → [06 Feature Engineering](06-feature-engineering/06-feature-selection-and-importance.md)
+
+**RNN (Recurrent Neural Network)** — A network that processes a sequence step by step, carrying a
+hidden state forward with the same weights at every step.
+→ [08 Deep Learning](08-deep-learning/06-cnns-rnns-and-sequence-models.md)
 
 **Rolling-window feature** — A statistic over a recent window of a series, such as a 7-day mean.
 Shift before rolling, or the window includes the value being predicted.
@@ -705,12 +807,24 @@ such as predicting masked or next tokens. How foundation models are pretrained.
 it at load time. Schema on read defers problems rather than removing them.
 → [03 Data Foundations](03-data-foundations/08-storage-sql-nosql-warehouses-and-lakes.md)
 
+**Siamese network** — One shared encoder applied to two inputs whose embeddings are compared,
+learning similarity rather than fixed classes.
+→ [08 Deep Learning](08-deep-learning/08-other-architectures.md)
+
+**Sigmoid** — The squashing function 1 / (1 + e^-z), mapping any number into (0, 1); its gradient is
+at most 0.25.
+→ [08 Deep Learning](08-deep-learning/05-activation-functions.md)
+
 **Silhouette score** — For each point, how much closer it is to its own cluster than to the nearest other,
 from −1 to 1; averaged to compare clusterings. → [05 Machine Learning](05-machine-learning/07-clustering.md)
 
 **Smearing estimator** — A correction for predictions back-transformed from a log target: multiply
 by the mean of the exponentiated residuals, so predictions estimate the mean rather than the median.
 → [06 Feature Engineering](06-feature-engineering/02-transformations-log-power-and-binning.md)
+
+**Softmax** — Turns a vector of logits into probabilities summing to 1; computed stably by
+subtracting the maximum logit first.
+→ [08 Deep Learning](08-deep-learning/05-activation-functions.md)
 
 **Specificity** — Of the truly negative cases, the fraction correctly predicted negative; the true
 negative rate.
@@ -734,6 +848,10 @@ requires four times the data.
 **Successive halving** — Hyperparameter search that starts many configurations on a small budget and
 repeatedly keeps the best fraction with more budget.
 → [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
+
+**Symmetry breaking** — Random weight initialisation so that neurons in a layer start different;
+identical starting weights keep them identical forever.
+→ [08 Deep Learning](08-deep-learning/03-training-loop-batches-and-initialisation.md)
 
 ## T
 
@@ -794,11 +912,15 @@ training data. → [07 Model Evaluation](07-model-evaluation/03-bias-variance-an
 usually faster than t-SNE and able to embed new points. → [05 Machine Learning](05-machine-learning/08-dimensionality-reduction.md)
 
 **VAE (Variational Autoencoder)** — An autoencoder that learns a probability distribution over a
-latent space, allowing sampling of new data. → [12 Generative AI](12-generative-ai/README.md)
+latent space, allowing sampling of new data. → [08 Deep Learning](08-deep-learning/07-autoencoders-vaes-and-gans.md)
 
 **Validation curve** — Training and validation scores plotted against one hyperparameter; shows
 underfitting and overfitting regions.
 → [07 Model Evaluation](07-model-evaluation/04-learning-curves-and-baselines.md)
+
+**Vanishing gradient** — Gradients shrinking exponentially as they pass back through many layers or
+time steps, so early layers stop learning.
+→ [08 Deep Learning](08-deep-learning/04-vanishing-gradients-normalisation-dropout-and-residuals.md)
 
 **Variance** — Error from a model being too sensitive to the particular training sample. The
 "overfitting" half of the bias-variance trade-off.
@@ -811,9 +933,17 @@ with metadata filtering and persistence.
 **ViT (Vision Transformer)** — A transformer applied to image patches rather than text tokens.
 → [09 Computer Vision](09-computer-vision/README.md)
 
+**Weight sharing** — Using the same weights at many positions — across an image in a CNN, across
+time in an RNN.
+→ [08 Deep Learning](08-deep-learning/06-cnns-rnns-and-sequence-models.md)
+
 **Wrapper method** — Feature selection that searches subsets by fitting the model on each, such as
 RFE or sequential selection. Sees redundancy, and overfits the selection on small data.
 → [06 Feature Engineering](06-feature-engineering/06-feature-selection-and-importance.md)
+
+**Xavier initialisation** — Initial weights with variance 2 / (fan-in + fan-out), suited to tanh and
+sigmoid layers. Also called Glorot.
+→ [08 Deep Learning](08-deep-learning/03-training-loop-batches-and-initialisation.md)
 
 **Yeo-Johnson transformation** — A power transformation like Box-Cox that also accepts zero and
 negative values.
