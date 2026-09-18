@@ -188,8 +188,6 @@ each step is cautious. The practical recipe: pick a smallish learning rate you c
 ## 💻 5. Code example — four ensembles and early stopping
 
 ```python
-import time
-
 from sklearn.datasets import make_classification
 from sklearn.ensemble import (AdaBoostClassifier, GradientBoostingClassifier,
                               HistGradientBoostingClassifier, RandomForestClassifier)
@@ -200,25 +198,18 @@ X, y = make_classification(n_samples=2000, n_features=10, n_informative=6, n_red
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0, stratify=y)
 
 print("test accuracy")
-seconds = {}
 for name, model in [
     ("AdaBoost, 200 stumps", AdaBoostClassifier(n_estimators=200, algorithm="SAMME", random_state=0)),
     ("random forest, 200", RandomForestClassifier(n_estimators=200, random_state=0)),
     ("gradient boosting, 200", GradientBoostingClassifier(n_estimators=200, random_state=0)),
     ("hist gradient boosting", HistGradientBoostingClassifier(random_state=0)),
 ]:
-    start = time.perf_counter()
     model.fit(X_train, y_train)
-    seconds[name] = time.perf_counter() - start
     print(f"  {name:<24} {model.score(X_test, y_test):.3f}")
-
-# Timings vary by machine; the relationship between these two does not.
-print(f"\nhistogram boosting trained faster than classic gradient boosting: "
-      f"{seconds['hist gradient boosting'] < seconds['gradient boosting, 200']}")
 
 early = HistGradientBoostingClassifier(max_iter=1000, early_stopping=True, validation_fraction=0.15,
                                        n_iter_no_change=20, random_state=0).fit(X_train, y_train)
-print(f"early stopping: asked for up to 1000 rounds, stopped after {early.n_iter_}, "
+print(f"\nearly stopping: asked for up to 1000 rounds, stopped after {early.n_iter_}, "
       f"test accuracy {early.score(X_test, y_test):.3f}")
 ```
 
@@ -230,14 +221,15 @@ test accuracy
   gradient boosting, 200   0.893
   hist gradient boosting   0.915
 
-histogram boosting trained faster than classic gradient boosting: True
 early stopping: asked for up to 1000 rounds, stopped after 62, test accuracy 0.893
 ```
 
 **AdaBoost with stumps is clearly weakest**, at 0.848. One-split trees cannot capture interactions between
 features, and the flipped labels attract ever-growing weights.
 
-**Histogram gradient boosting is the most accurate and the fastest.** `HistGradientBoostingClassifier` first
+**Histogram gradient boosting is the most accurate here.** On 1,400 rows, training time is too small and too
+machine-dependent to compare meaningfully — an earlier draft of this example printed a speed comparison, and it
+flipped between machines. The speed advantage is real at scale, and comes from design: `HistGradientBoostingClassifier` first
 buckets each feature into at most 255 bins, so finding a split means scanning bins instead of every sorted
 value. This is the technique LightGBM popularised, and scikit-learn's documentation recommends it over
 `GradientBoostingClassifier` for datasets beyond roughly ten thousand rows. It also handles missing values
@@ -417,7 +409,7 @@ the choice.
 - **Boosting builds trees sequentially, each correcting the ensemble's remaining errors**; it reduces bias.
 - **Gradient boosting is gradient descent where each step is a tree** fitted to the negative gradient.
 - **Learning rate and tree count trade off**: rate 1.0 peaked at 8 trees then ended worse than a coin.
-- **Histogram boosting** was the most accurate and fastest here, and is scikit-learn's recommended implementation.
+- **Histogram boosting** was the most accurate here, is built to be much faster on large data, and is scikit-learn's recommended implementation.
 - **Early stopping is not free**: on small data it cost two points of accuracy. Compare, do not assume.
 - XGBoost, LightGBM and CatBoost differ in engineering; **benchmark on your data**, and expect features to matter more.
 

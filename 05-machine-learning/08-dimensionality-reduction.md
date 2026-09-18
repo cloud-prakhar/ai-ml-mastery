@@ -137,9 +137,9 @@ print(f"\nPCA 2-D keeps {PCA(n_components=2).fit(X).explained_variance_ratio_.su
 64 pixels -> 2 dimensions, 5-NN accuracy in the embedding
   original 64 dimensions:  0.93
   PCA 2-D:                 0.51
-  t-SNE 2-D, perplexity 5  : 0.94   distance between digit-0 and digit-1 centres: 99
-  t-SNE 2-D, perplexity 30 : 0.93   distance between digit-0 and digit-1 centres: 56
-  t-SNE 2-D, perplexity 100: 0.92   distance between digit-0 and digit-1 centres: 20
+  t-SNE 2-D, perplexity 5  : 0.94   distance between digit-0 and digit-1 centres: 96
+  t-SNE 2-D, perplexity 30 : 0.93   distance between digit-0 and digit-1 centres: 57
+  t-SNE 2-D, perplexity 100: 0.91   distance between digit-0 and digit-1 centres: 25
 
 PCA 2-D keeps 28% of the variance; t-SNE has no transform() for new points: True
 ```
@@ -149,11 +149,11 @@ PCA 2-D keeps 28% of the variance; t-SNE has no transform() for new points: True
 scatter plot of digits looks like overlapping smudges — not because the digits are inseparable, but because
 two straight projections cannot show it.
 
-**t-SNE keeps local structure almost perfectly**: 0.92–0.94, matching the original 64 dimensions. In a plot,
+**t-SNE keeps local structure almost perfectly**: 0.91–0.94, matching the original 64 dimensions. In a plot,
 you would see ten distinct islands.
 
 **Now the right-hand column — the lesson that most t-SNE plots get wrong.** Same data, same digits, and the
-distance between the digit-0 island and the digit-1 island is **99, 56 or 20** depending only on perplexity.
+distance between the digit-0 island and the digit-1 island is **96, 57 or 25** depending only on perplexity.
 Local neighbourhoods barely changed. **Distances between clusters in a t-SNE plot are not meaningful**, and
 neither are cluster sizes or densities: t-SNE expands dense clusters and contracts sparse ones. Never conclude
 "these two groups are far apart" or "this group is more spread out" from a t-SNE plot.
@@ -279,7 +279,7 @@ separating audio sources, and removing interference from sensor arrays.
 
 | Mistake | Why it happens | Fix |
 | --- | --- | --- |
-| Reading distances between t-SNE clusters | The plot looks like a map | The digit-0 to digit-1 gap was 99, 56 or 20 by perplexity alone |
+| Reading distances between t-SNE clusters | The plot looks like a map | The digit-0 to digit-1 gap was 96, 57 or 25 by perplexity alone |
 | Reading cluster size or density from t-SNE | Visual intuition | t-SNE equalises densities |
 | Using t-SNE output as model features | It looks well separated | No `transform()` for new data; use PCA, UMAP or learned embeddings |
 | Judging separability from a PCA plot | Two components look like "the data" | PCA 2-D kept 28% of variance; neighbours dropped to 51% |
@@ -310,7 +310,7 @@ preprocessing. t-SNE is a non-linear embedding that preserves local neighbourhoo
 probabilities between the original and low-dimensional spaces. It is excellent for visualising cluster
 structure, but it is stochastic, slower, has no transform for new points, and distances between clusters and
 cluster sizes in its output are not meaningful. In the example, PCA 2-D kept neighbour agreement at 51% while
-t-SNE kept 93%, yet t-SNE's inter-cluster distance changed from 99 to 20 with perplexity alone.
+t-SNE kept 93%, yet t-SNE's inter-cluster distance changed from 96 to 25 with perplexity alone.
 </details>
 
 <details>
@@ -338,8 +338,8 @@ Gaussian sources and returns components in arbitrary order, scale and sign.
 ## ✅ Key takeaways
 
 - **PCA** is linear, fast and reusable; in 2-D it kept 28% of variance and only 51% neighbour agreement on digits.
-- **t-SNE** keeps local neighbourhoods (0.92–0.94) and is for **visualisation only**.
-- **Distances between t-SNE clusters mean nothing**: 99, 56 or 20 depending on perplexity.
+- **t-SNE** keeps local neighbourhoods (0.91–0.94) and is for **visualisation only**.
+- **Distances between t-SNE clusters mean nothing**: 96, 57 or 25 depending on perplexity.
 - t-SNE has **no `transform()`**; UMAP does, is faster, and shares the same interpretation warnings.
 - **ICA separates independent mixed sources** — 1.0 and 0.99 — where PCA cannot.
 - Dimensionality reduction does not anonymise, and plots of personal data are personal data.

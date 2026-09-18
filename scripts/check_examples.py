@@ -29,6 +29,7 @@ Exit code 0 if every checked block matches, 1 otherwise.
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import subprocess
 import sys
@@ -59,6 +60,17 @@ SKIP_MARKER = "# check-examples: skip"
 HTML_SKIP_MARKER = "<!-- check-examples: skip -->"
 
 TIMEOUT_SECONDS = 60
+
+# Parallel numeric code sums in an order that depends on the thread count, so the last printed digit
+# of an iterative fit (t-SNE, lbfgs, k-NN distances) can differ between a 16-core laptop and a 4-core
+# CI runner. That is exactly what kept CI red while every local run passed. Examples therefore run
+# single-threaded, which makes documented output independent of the machine's core count.
+SINGLE_THREAD_ENV = {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+}
 
 # Hosted CI runners are markedly slower than a developer laptop. A block that takes 52 seconds
 # locally timed out on every GitHub runner while passing everywhere else, so anything above this
@@ -99,6 +111,29 @@ def is_skipped(text: str, match: re.Match) -> bool:
     return preceding.endswith(HTML_SKIP_MARKER)
 
 
+def annotate(path: Path, line: int, title: str, message: str) -> None:
+    """Emit a GitHub Actions error annotation, so a failure is visible without opening the log.
+
+    Annotations appear inline on pull requests and in the public checks API. Job logs, by contrast,
+    need a signed-in account - which once left a CI failure undiagnosable for weeks.
+    """
+    if os.environ.get("GITHUB_ACTIONS") != "true":
+        return
+    escaped = message[:1500].replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+    print(f"::error file={path.relative_to(REPO_ROOT)},line={line},title={title}::{escaped}")
+
+
+def first_difference(expected: str, actual: str) -> str:
+    """Describe the first line where documented and actual output disagree."""
+    expected_lines, actual_lines = expected.splitlines(), actual.splitlines()
+    # strict=False on purpose: differing lengths are one of the failures being described.
+    for number, (want, got) in enumerate(zip(expected_lines, actual_lines, strict=False), start=1):
+        if want != got:
+            return f"output line {number}\ndocument: {want}\nactual:   {got}"
+    return (f"document has {len(expected_lines)} lines, code printed {len(actual_lines)}\n"
+            f"last actual line: {actual_lines[-1] if actual_lines else '(none)'}")
+
+
 def check_file(path: Path, strict: bool = False) -> tuple[int, int]:
     """Run every example in one file. Returns (checked, failed)."""
     text = path.read_text(encoding="utf-8")
@@ -114,6 +149,7 @@ def check_file(path: Path, strict: bool = False) -> tuple[int, int]:
             continue
 
         checked += 1
+        line = text.count("\n", 0, match.start()) + 1      # the line of the opening fence
         started = time.perf_counter()
         try:
             result = subprocess.run(
@@ -122,9 +158,11 @@ def check_file(path: Path, strict: bool = False) -> tuple[int, int]:
                 text=True,
                 timeout=TIMEOUT_SECONDS,
                 cwd=REPO_ROOT,
+                env={**os.environ, **SINGLE_THREAD_ENV},
             )
         except subprocess.TimeoutExpired:
             print(f"\n{path.relative_to(REPO_ROOT)} block {index}: TIMED OUT")
+            annotate(path, line, "Example timed out", f"block {index} exceeded {TIMEOUT_SECONDS}s")
             failed += 1
             continue
 
@@ -138,6 +176,7 @@ def check_file(path: Path, strict: bool = False) -> tuple[int, int]:
         if result.returncode != 0:
             print(f"\n{path.relative_to(REPO_ROOT)} block {index}: CRASHED")
             print(textwrap.indent(result.stderr.strip()[:600], "    "))
+            annotate(path, line, "Example crashed", result.stderr.strip()[-1200:])
             failed += 1
             continue
 
@@ -150,6 +189,8 @@ def check_file(path: Path, strict: bool = False) -> tuple[int, int]:
             print(textwrap.indent(expected.rstrip("\n"), "    | "))
             print("  code actually printed:")
             print(textwrap.indent(result.stdout.rstrip("\n"), "    | "))
+            annotate(path, line, "Example output mismatch",
+                     first_difference(expected.rstrip("\n"), result.stdout.rstrip("\n")))
             failed += 1
 
     return checked, failed

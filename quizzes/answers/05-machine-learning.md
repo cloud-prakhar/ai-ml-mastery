@@ -191,7 +191,7 @@ and it changes a decision.
 plot can make well-separated classes look inseparable.
 
 **50. t-SNE** — it preserves local neighbourhoods. Do not interpret distances between clusters (the digit-0 to
-digit-1 gap was 99, 56 or 20 depending on perplexity) or cluster sizes and densities.
+digit-1 gap was 96, 57 or 25 depending on perplexity) or cluster sizes and densities.
 
 **51. t-SNE as features** — it has no `transform()`: it optimises positions for the given points only, is
 seed-dependent, and cannot map new data consistently.

@@ -9,6 +9,25 @@ This repository versions **content**, not software, so releases are milestones r
 
 ## [Unreleased]
 
+### Fixed — the real cause of the failing `examples` job: thread count
+The previous fix removed a genuine timeout risk, but CI stayed red on 3.10, 3.11 and 3.12 while every local
+and Docker run passed. Reproducing the runner's differences one at a time found it: **documented output
+depended on how many CPU threads the machine had.** Parallel numeric code sums in a thread-dependent order, so
+with 2 threads instead of 16 three examples printed a different last digit (a count of 462 instead of 463,
+t-SNE distances, a k-NN R²). GitHub's 4-core runners saw their own variant. Forcing the Zen OpenBLAS kernel, by
+contrast, changed nothing.
+- `scripts/check_examples.py` now runs every example with `OMP_NUM_THREADS`, `OPENBLAS_NUM_THREADS`,
+  `MKL_NUM_THREADS` and `NUMEXPR_NUM_THREADS` set to 1. Single-threaded output was verified identical on the
+  native and Zen kernels, and the full run takes the same time.
+- Documented outputs regenerated under that setting: t-SNE distances in
+  `05-machine-learning/08-dimensionality-reduction.md` (now 96, 57 and 25, with the prose, takeaways and quiz
+  answer updated) and one R² in `05-machine-learning/10-semi-and-self-supervised-learning.md`.
+- A timing comparison in `05-machine-learning/06-boosting.md` was removed: it flipped when NumPy's CPU paths
+  changed. No example may print a timing result.
+- **Failures are now diagnosable without the log.** Job logs need a signed-in account, which is why this took
+  so long to find. The checker now emits GitHub `::error` annotations with the file, line and first differing
+  output line, which appear inline on pull requests and in the public checks API.
+
 ### Added — module 05 Machine Learning, complete (all 10 topics)
 - `05-machine-learning/` authored as real content. Every example executed, verified by
   `scripts/check_examples.py --strict`, and checked to produce identical output under a generic OpenBLAS
@@ -32,7 +51,7 @@ This repository versions **content**, not software, so releases are milestones r
   - Topic 7: Clustering — five algorithms on blobs and moons with no algorithm winning both, choosing k, soft
     assignments, and k-means on unscaled data scoring ARI 0.011
   - Topic 8: Dimensionality Reduction — PCA in context, t-SNE preserving neighbourhoods while **its inter-cluster
-    distances change from 99 to 20 with perplexity alone**, UMAP, and ICA unmixing signals
+    distances change from 96 to 25 with perplexity alone**, UMAP, and ICA unmixing signals
   - Topic 9: Anomaly Detection and Association Rules — detectors on the repository's sensor faults, where
     **no detector found the stuck sensor even with a rolling-std feature, and a one-line rule found all three
     windows**; contamination as an alarm budget; support, confidence and lift

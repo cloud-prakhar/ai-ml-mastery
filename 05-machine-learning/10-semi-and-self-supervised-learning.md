@@ -267,7 +267,7 @@ for name, pretext in [("linear (ridge)", Ridge(alpha=1.0)), ("non-linear (10-NN)
 
 pretext linear (ridge)      bottom-half R^2 0.358
   30 labels, top half plus pretext features: 0.702
-pretext non-linear (10-NN)  bottom-half R^2 0.574
+pretext non-linear (10-NN)  bottom-half R^2 0.573
   30 labels, top half plus pretext features: 0.763
 ```
 
