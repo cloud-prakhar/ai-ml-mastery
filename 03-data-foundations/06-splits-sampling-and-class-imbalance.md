@@ -383,7 +383,7 @@ always predict majority     0.9560   0.0000    0.5000   0.0440
 logistic regression         0.9573   0.1467    0.8544   0.2922
 ```
 
-**The do-nothing baseline scores 98% accuracy and an F1 of zero.** That is the imbalance trap in one
+**The do-nothing baseline scores 95.6% accuracy and an F1 of zero.** That is the imbalance trap in one
 line: accuracy is uninformative here, and any threshold-based metric depends on a threshold nobody
 chose deliberately.
 

@@ -9,6 +9,78 @@ This repository versions **content**, not software, so releases are milestones r
 
 ## [Unreleased]
 
+### Added — module 07 Model Training and Evaluation, complete (all 8 topics)
+- `07-model-evaluation/` authored as real content. Every example executed and verified by
+  `scripts/check_examples.py --strict`; every Mermaid diagram rendered with mermaid-cli. As the backlog required,
+  every metric section has a "when this metric misleads" subsection. Builds on module 03's split and imbalance
+  topic rather than repeating it.
+  - Topic 1: Cross-Validation and Comparing Models — one model scoring 0.939 to 1.000 over 200 splits; shuffled
+    folds understating a forecasting error threefold; **a naive t-test on 50 folds giving p = 1.6e-08 where the
+    corrected test gives 0.072**
+  - Topic 2: Hyperparameter Search — random beating a same-size grid in 92% of runs; Bayesian optimisation built
+    from a Gaussian process and expected improvement; **a search reporting 0.600 for a model scoring 0.546 on fresh
+    data**, with nested cross-validation estimating 0.560
+  - Topic 3: Bias, Variance and the Trade-Off — the decomposition measured directly over 300 training sets, adding up
+    row by row; degree 9 on 30 points with variance 134
+  - Topic 4: Learning Curves and Baselines — high bias and high variance read from real curves; **linear regression
+    beating a forest and boosting** on the diabetes data
+  - Topic 5: Regression Metrics — one miss quadrupling RMSE; the same errors giving R² of 0.895 and 0.111; **adjusted
+    R² of 0.849 for a model at −2.494 on new data**; MAPE rewarding under-forecasting
+  - Topic 6: Classification Metrics — the default threshold catching 36% of positives; cost-chosen thresholds beating
+    F1-chosen and textbook ones; micro F1 of 0.916 hiding a rare class at 0.261
+  - Topic 7: ROC, Precision-Recall and Probability Metrics — AUC verified as a pair count; **ROC AUC flat at 0.85 while
+    precision fell from 86% to 3%**; sharpened probabilities doubling log loss at identical AUC; isotonic calibration;
+    an approve-everything model at F1 0.974 and MCC 0
+  - Topic 8: Ranking Metrics — six metrics from scratch, NDCG checked against scikit-learn, two systems swapping
+    places between MAP and NDCG, and unjudged documents reversing a comparison
+- `quizzes/07-model-evaluation.md` (70 questions) with explained answers, and `assignments/07-model-evaluation.md`
+  (4 assignments).
+- 30 glossary terms added, from accuracy to validation curve; 15 existing evaluation entries now link to the topic
+  that teaches them.
+
+### Fixed
+- `03-data-foundations/06-splits-sampling-and-class-imbalance.md` said the do-nothing baseline scored 98% accuracy;
+  its own output shows 95.6%.
+
+### Added — module 06 Feature Engineering, complete (all 7 topics)
+- `06-feature-engineering/` authored as real content. Every example executed and verified by
+  `scripts/check_examples.py --strict`; every Mermaid diagram rendered with mermaid-cli before committing.
+  The module builds on module 03's encoding, leakage and feature-store topics rather than repeating them.
+  - Topic 1: Features and the Feature Pipeline — scaling moving an SVM from 0.663 to 0.983 and a forest not at
+    all; a `ColumnTransformer` over nested JSON; **a scaler refitted per request making every prediction the
+    same class**
+  - Topic 2: Transformations — Box-Cox choosing λ = 0.025 (the log) by itself; identical tree scores under every
+    monotonic transform; **a log target with the best typical error forecasting totals 26% low**, and its correction
+  - Topic 3: Encoding — ordinal codes worth nothing to a linear model; naive target encoding of a noise ID dropping
+    test AUC below having no ID; **`TargetEncoder.fit().transform()` leaking exactly like the naive version**;
+    hashing collisions from the birthday problem
+  - Topic 4: Crosses, Polynomial and Date-Time Features — one product term taking XOR from 0.585 to 0.935;
+    degree-3 polynomials losing to degree 2; sine–cosine hours falling short on a two-peak day; **leaky rolling
+    windows flattering a chronological backtest by 37%**
+  - Topic 5: Text, Image and Domain Features — TF-IDF by hand, bigrams fixing negation, a 100% text score traced
+    to template fragments, a one-pixel shift taking pixel accuracy from 0.972 to 0.389, and a distance feature
+    worth four times more with 200 rows than with 1,500
+  - Topic 6: Feature Selection — **selection before cross-validation scoring 87% on random labels**; the strongest
+    feature having correlation −0.019; six selectors all preferring a redundant twin; 8 different "best" sets in 30
+    resamples
+  - Topic 7: Leakage Hunting and Features in Production — a single-feature scan, a future-perturbation test and
+    adversarial validation, each with what it misses; PSI; feature store components, versioning and monitoring
+- `quizzes/06-feature-engineering.md` (68 questions) with explained answers, and
+  `assignments/06-feature-engineering.md` (4 assignments, including a leakage test suite).
+- 32 glossary terms, from adversarial validation to Yeo-Johnson; the TF-IDF entry now points to module 06.
+- Tracker, README and memory updated; `07-model-evaluation` is next.
+
+### Fixed — the last two CI-only example failures, found by the new annotations
+The annotations added in the previous fix named both remaining failures on the first run after they landed:
+- **pytest prints more when it detects CI.** With `CI` set, pytest 8 stops truncating its short test summary,
+  so the example in `01-python-foundations/09-testing-and-package-management.md` printed one extra line on
+  every GitHub runner and on no laptop. `scripts/check_examples.py` now runs examples without `CI`,
+  `BUILD_NUMBER` and `GITHUB_ACTIONS`, because examples document what a learner sees; the lesson now explains
+  the CI difference too.
+- **A condition number printed to the unit.** `02-mathematics-for-ai/02-linear-algebra-vectors-and-matrices.md`
+  printed `250,000,001`, and the 3.10 runner's BLAS kernel computed `249,999,999`. It now prints `2.50e+08`.
+- Verified with `CI=true` under the Haswell, Sandybridge and Nehalem OpenBLAS kernels: 429/429 each.
+
 ### Fixed — the real cause of the failing `examples` job: thread count
 The previous fix removed a genuine timeout risk, but CI stayed red on 3.10, 3.11 and 3.12 while every local
 and Docker run passed. Reproducing the runner's differences one at a time found it: **documented output

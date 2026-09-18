@@ -72,6 +72,17 @@ SINGLE_THREAD_ENV = {
     "NUMEXPR_NUM_THREADS": "1",
 }
 
+# Tools change their output when they detect a CI server: pytest stops truncating its failure
+# summary when CI or BUILD_NUMBER is set, which failed a documented example on every GitHub runner
+# and on no laptop. Examples document what a learner sees, so they run without these markers.
+CI_DETECTION_VARIABLES = {"CI", "BUILD_NUMBER", "GITHUB_ACTIONS"}
+
+
+def example_environment() -> dict[str, str]:
+    """The environment an example runs in: a learner's machine, single-threaded."""
+    inherited = {key: value for key, value in os.environ.items() if key not in CI_DETECTION_VARIABLES}
+    return {**inherited, **SINGLE_THREAD_ENV}
+
 # Hosted CI runners are markedly slower than a developer laptop. A block that takes 52 seconds
 # locally timed out on every GitHub runner while passing everywhere else, so anything above this
 # is reported long before it can reach the hard limit.
@@ -158,7 +169,7 @@ def check_file(path: Path, strict: bool = False) -> tuple[int, int]:
                 text=True,
                 timeout=TIMEOUT_SECONDS,
                 cwd=REPO_ROOT,
-                env={**os.environ, **SINGLE_THREAD_ENV},
+                env=example_environment(),
             )
         except subprocess.TimeoutExpired:
             print(f"\n{path.relative_to(REPO_ROOT)} block {index}: TIMED OUT")

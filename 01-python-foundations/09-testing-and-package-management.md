@@ -106,6 +106,11 @@ Look at what the failure told you: not "assertion failed", but `assert 0.86 == 0
 `0.86` came from. That is pytest rewriting your `assert` statement to explain itself. It is the
 reason pytest needs no special assertion methods.
 
+**On a CI server the summary line is longer.** When the `CI` environment variable is set — as it is on
+GitHub Actions — pytest stops truncating the short test summary, so the `+  where 0.86 = accuracy(43, 50)`
+line appears under `FAILED` as well. Same test, same result; only the report changes. Tools that detect
+CI and change their output are common, which is one reason a pipeline can fail where a laptop passes.
+
 ### ⚠️ `assert` in tests, `raise` in code
 
 [Topic 8](08-type-hints-dataclasses-logging-debugging.md) said never to validate input with

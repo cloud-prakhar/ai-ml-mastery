@@ -4,7 +4,7 @@ The honest state of this repository. Updated with **every** content change.
 
 **Legend:** ✅ complete · 🚧 in progress · 📋 backlog (scoped, not written) · ⛔ blocked
 
-**Last updated:** 2026-09-14
+**Last updated:** 2026-09-18
 
 ---
 
@@ -12,7 +12,7 @@ The honest state of this repository. Updated with **every** content change.
 
 | Category | ✅ | 🚧 | 📋 | Total |
 | --- | --- | --- | --- | --- |
-| Curriculum modules | 7 | 0 | 36 | 43 |
+| Curriculum modules | 9 | 0 | 34 | 43 |
 | Projects | 0 | 0 | 40 | 40 |
 | Root documents | 17 | 0 | 0 | 17 |
 | Templates | 3 | 0 | 0 | 3 |
@@ -71,7 +71,7 @@ There is deliberately **no shallow filler content** in this repository.
 | [03 Data Foundations](03-data-foundations/README.md) | ✅ | **Complete: all 9 topics authored and verified**, plus a 65-question quiz with explained answers and 4 assignments. Every example executed by CI. |
 | [04 AI Foundations](04-ai-foundations/README.md) | ✅ | **Complete: all 6 topics authored and verified**, plus a 60-question quiz with explained answers and 3 assignments. Every example executed by CI. |
 
-**Phase 2 is complete.** Phase 3 has begun with [05 Machine Learning](05-machine-learning/README.md).
+**Phase 2 is complete.** Phase 3's three modules — [05](05-machine-learning/README.md), [06](06-feature-engineering/README.md) and [07](07-model-evaluation/README.md) — are complete; its beginner projects remain.
 
 > **Also complete, built out of phase order on request:**
 > [38 Interview Preparation](38-interview-preparation/README.md) — 7 question banks, 126 questions
@@ -93,8 +93,8 @@ There is deliberately **no shallow filler content** in this repository.
 | Module | Status |
 | --- | --- |
 | [05 Machine Learning](05-machine-learning/README.md) | ✅ **Complete: all 10 topics authored and verified**, plus a 66-question quiz with explained answers and 4 assignments. Every example executed by CI and checked identical under a generic CPU math kernel. |
-| [06 Feature Engineering](06-feature-engineering/README.md) | 📋 **Next to build** |
-| [07 Model Evaluation](07-model-evaluation/README.md) | 📋 |
+| [06 Feature Engineering](06-feature-engineering/README.md) | ✅ **Complete: all 7 topics authored and verified**, plus a 68-question quiz with explained answers and 4 assignments. Every example executed by CI; all 9 Mermaid diagrams rendered with mermaid-cli. |
+| [07 Model Evaluation](07-model-evaluation/README.md) | ✅ **Complete: all 8 topics authored and verified**, plus a 70-question quiz with explained answers and 4 assignments. Every example executed by CI; all 11 Mermaid diagrams rendered with mermaid-cli. Every metric section includes "when this metric misleads". |
 | Beginner projects B1–B10 | 📋 |
 
 ## Phase 4 — Deep Learning 📋

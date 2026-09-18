@@ -503,7 +503,7 @@ almost = np.array([[1.0, 2.0],
 
 print(f"determinant: {np.linalg.det(almost):.12f}")
 print(f"rank: {np.linalg.matrix_rank(almost)}")
-print(f"condition number: {np.linalg.cond(almost):,.0f}")
+print(f"condition number: {np.linalg.cond(almost):.2e}")   # the last digits are roundoff
 
 inverse = np.linalg.inv(almost)
 print(f"inverse has huge entries:\n{inverse.round(0)}")
@@ -513,7 +513,7 @@ print(f"inverse has huge entries:\n{inverse.round(0)}")
 ```
 determinant: 0.000000100000
 rank: 2
-condition number: 250,000,001
+condition number: 2.50e+08
 inverse has huge entries:
 [[ 40000001. -20000000.]
  [-20000000.  10000000.]]

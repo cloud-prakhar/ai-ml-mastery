@@ -8,7 +8,7 @@ engineering, and as a production system.
 
 > **Repository status:** 🚧 Under active construction. Phase 1 (blueprint), **Getting Started**,
 > **Python Foundations**, **Mathematics for AI**, **Data Foundations**, **AI Foundations** — the whole
-> Level 0 foundation — plus **Machine Learning** and the **Interview Preparation** question banks are complete. Everything else is a defined backlog entry —
+> Level 0 foundation — plus **Machine Learning**, **Feature Engineering**, **Model Evaluation** and the **Interview Preparation** question banks are complete. Everything else is a defined backlog entry —
 > see [`IMPLEMENTATION_TRACKER.md`](IMPLEMENTATION_TRACKER.md) for exactly what exists today.
 > We deliberately publish *no* shallow placeholder content.
 
@@ -141,8 +141,8 @@ Full ordering, dependencies and effort bands: **[`ROADMAP.md`](ROADMAP.md)**.
 | # | Module | What it covers |
 | --- | --- | --- |
 | 05 | **[Machine Learning](05-machine-learning/README.md)** ✅ | Regression, classification, trees, boosting, clustering, dimensionality reduction, anomalies, semi- and self-supervised — *all 10 topics* |
-| 06 | [Feature Engineering](06-feature-engineering/README.md) | Selection, encoding, transformation, importance, leakage |
-| 07 | [Model Evaluation](07-model-evaluation/README.md) | Splits, cross-validation, bias-variance, every metric family |
+| 06 | **[Feature Engineering](06-feature-engineering/README.md)** ✅ | Pipelines, transformations, encoding, crosses and time features, text and image features, selection, leakage hunting — *all 7 topics* |
+| 07 | **[Model Evaluation](07-model-evaluation/README.md)** ✅ | Cross-validation, hyperparameter search, bias-variance, baselines, regression, classification, probability and ranking metrics — *all 8 topics* |
 
 ### Level 2 — Deep Learning 🟡
 | # | Module | What it covers |

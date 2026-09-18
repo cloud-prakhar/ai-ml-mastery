@@ -22,6 +22,10 @@ cost-to-go. Returns an optimal path when its heuristic is admissible.
 metric difference. The standard way to tell whether a model change actually helped.
 → [07 Model Evaluation](07-model-evaluation/README.md)
 
+**Accuracy** — The fraction of predictions that are correct. Uninformative on imbalanced data and
+blind to which kind of mistake was made.
+→ [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
+
 **Activation function** — A non-linear function applied to a neuron's output, which is what lets a
 neural network learn anything more interesting than a straight line.
 → [08 Deep Learning](08-deep-learning/README.md)
@@ -30,8 +34,17 @@ neural network learn anything more interesting than a straight line.
 using running averages of the gradient and its square. The common default for deep learning.
 → [02 Mathematics for AI](02-mathematics-for-ai/README.md)
 
+**Adjusted R²** — R² with a penalty for the number of features. Still an in-sample number; it can
+look good for a model that fails on new data.
+→ [07 Model Evaluation](07-model-evaluation/05-regression-metrics.md)
+
 **Admissible heuristic** — A cost estimate that never overestimates the true remaining cost to a goal.
 The condition that keeps A\* optimal. → [04 AI Foundations](04-ai-foundations/05-search-planning-reasoning-and-perception.md)
+
+**Adversarial validation** — Training a classifier to tell training rows from test or production
+rows. An AUC near 0.5 means the two look alike; a high AUC means something differs, and its features
+show what.
+→ [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
 
 **AGI (Artificial General Intelligence)** — Hypothetical AI matching human breadth across arbitrary
 tasks. Everything shipping today is narrow AI. → [04 AI Foundations](04-ai-foundations/README.md)
@@ -63,18 +76,34 @@ cognitive tasks. Discussed mainly in connection with alignment and oversight.
 
 **AUC (Area Under the Curve)** — Usually the area under the ROC curve: the probability that a
 random positive scores above a random negative. Misleading on heavily imbalanced data.
-→ [07 Model Evaluation](07-model-evaluation/README.md)
+→ [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
 
 **Autoregressive** — Generating a sequence one element at a time, each conditioned on what came
 before. How text-generating language models work. → [11 Transformers](11-transformers/README.md)
+
+**Average precision (AP)** — A summary of the precision-recall curve; for ranking, the mean of
+precision at each rank holding a relevant item. MAP is its mean over queries.
+→ [07 Model Evaluation](07-model-evaluation/08-ranking-metrics.md)
 
 ## B
 
 **Backpropagation** — The algorithm that computes how much each weight contributed to the error,
 by applying the chain rule backwards through the network. → [08 Deep Learning](08-deep-learning/README.md)
 
+**Bag of words** — Representing text by how often each vocabulary word appears, ignoring order.
+Simple and strong on small data, blind to negation unless n-grams are added.
+→ [06 Feature Engineering](06-feature-engineering/05-text-image-and-domain-features.md)
+
 **Bagging (bootstrap aggregating)** — Training many models on bootstrap resamples of the data and averaging
 them, which mainly reduces variance. → [05 Machine Learning](05-machine-learning/05-decision-trees-and-random-forests.md)
+
+**Balanced accuracy** — The mean of recall across classes, so no class can be ignored. 0.5 for a
+binary classifier with no skill.
+→ [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
+
+**Baseline** — The simplest reasonable approach, evaluated exactly like the candidate model — a
+constant, a simple model, or the current process.
+→ [07 Model Evaluation](07-model-evaluation/04-learning-curves-and-baselines.md)
 
 **Batch** — A group of samples processed together in one training step. Larger batches are more
 stable and more memory-hungry. → [08 Deep Learning](08-deep-learning/README.md)
@@ -83,15 +112,28 @@ stable and more memory-hungry. → [08 Deep Learning](08-deep-learning/README.md
 times prior. The base rate dominates for rare events.
 → [02 Mathematics for AI](02-mathematics-for-ai/06-probability.md)
 
+**Bayesian optimisation** — Hyperparameter search that fits a surrogate model to past trials and
+chooses the next setting with an acquisition function such as expected improvement.
+→ [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
+
 **BERT (Bidirectional Encoder Representations from Transformers)** — An encoder-only transformer
 trained by masked-token prediction, strong at understanding tasks rather than generation.
 → [11 Transformers](11-transformers/README.md)
 
 **Bias (statistical)** — Error from a model being too simple to capture the true pattern. The
 "under-fitting" half of the bias-variance trade-off.
+→ [07 Model Evaluation](07-model-evaluation/03-bias-variance-and-the-trade-off.md)
 
 **Bias (fairness)** — Systematic unfairness in outcomes across groups. A different concept from
 statistical bias, sharing an unfortunate name. → [26 Responsible AI](26-responsible-ai/README.md)
+
+**Bias-variance trade-off** — Expected squared error equals bias² plus variance plus noise; making a
+model more flexible usually lowers bias and raises variance.
+→ [07 Model Evaluation](07-model-evaluation/03-bias-variance-and-the-trade-off.md)
+
+**Binning (discretisation)** — Replacing a numeric value by the interval it falls in. Loses
+information within each bin; right for genuine steps and explainable scorecards.
+→ [06 Feature Engineering](06-feature-engineering/02-transformations-log-power-and-binning.md)
 
 **BM25** — A classic keyword-ranking function used in search engines and as the sparse half of
 hybrid retrieval. → [16 RAG](16-rag/README.md)
@@ -99,11 +141,23 @@ hybrid retrieval. → [16 RAG](16-rag/README.md)
 **Boosting** — Training weak models sequentially, each correcting the errors of those before it, which mainly
 reduces bias. Gradient-boosted trees dominate tabular data. → [05 Machine Learning](05-machine-learning/06-boosting.md)
 
+**Box-Cox transformation** — A family of power transforms, $(x^\lambda - 1)/\lambda$ with the log at
+$\lambda = 0$, whose power is chosen from the data. Requires strictly positive values.
+→ [06 Feature Engineering](06-feature-engineering/02-transformations-log-power-and-binning.md)
+
+**Brier score** — The mean squared difference between predicted probabilities and outcomes. A proper
+scoring rule; looks deceptively small for rare events.
+→ [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
+
 **Broadcasting** — NumPy applying an operation between different-shaped arrays by virtually
 stretching size-1 dimensions. Shapes are compared from the right.
 → [01 Python Foundations](01-python-foundations/11-numpy-essentials.md)
 
 ## C
+
+**Calibration** — Whether predicted probabilities match observed frequencies: of cases scored 0.8,
+about 80% should be positive.
+→ [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
 
 **Cardinality** — The number of distinct values in a column. High cardinality rules out one-hot
 encoding and pushes you toward hashing, target encoding or embeddings.
@@ -126,6 +180,10 @@ patterns, which made modern computer vision work. → [09 Computer Vision](09-co
 loss surface or how ill-behaved a matrix inverse is. Large means numerically untrustworthy.
 → [02 Mathematics for AI](02-mathematics-for-ai/02-linear-algebra-vectors-and-matrices.md)
 
+**Confusion matrix** — A table of true positives, false positives, false negatives and true
+negatives at a given threshold; every threshold metric is computed from it.
+→ [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
+
 **Context manager** — A Python object used with `with` that guarantees cleanup runs even if the
 block raises. `torch.no_grad()` is one.
 → [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
@@ -137,12 +195,24 @@ plus retrieved documents plus output must all fit inside it.
 **Contrastive learning** — Self-supervised learning that pulls embeddings of two views of the same example
 together and pushes different examples apart. → [05 Machine Learning](05-machine-learning/10-semi-and-self-supervised-learning.md)
 
+**Corrected resampled t-test** — A t-test for comparing models on cross-validation folds that
+inflates the variance to account for overlapping training sets (Nadeau and Bengio).
+→ [07 Model Evaluation](07-model-evaluation/01-cross-validation-and-comparing-models.md)
+
 **Cosine similarity** — Similarity measured as the cosine of the angle between two vectors, ignoring
 their magnitudes. The default metric for embedding search.
 → [15 Embeddings and Vector Search](15-embeddings-and-vector-search/README.md)
 
+**Cross-fitting** — Computing a data-dependent feature for each training fold from the other folds
+only, so no row's feature contains its own label. Essential for target encoding.
+→ [06 Feature Engineering](06-feature-engineering/03-encoding-categorical-features.md)
+
 **Cross-validation** — Rotating which slice of data is held out, so the estimate of performance
-does not depend on one lucky split. → [07 Model Evaluation](07-model-evaluation/README.md)
+does not depend on one lucky split. → [07 Model Evaluation](07-model-evaluation/01-cross-validation-and-comparing-models.md)
+
+**Cyclical encoding** — Encoding a repeating quantity such as hour of day so that its ends meet, for
+example as sine and cosine of an angle or with a periodic spline.
+→ [06 Feature Engineering](06-feature-engineering/04-crosses-polynomial-and-date-time-features.md)
 
 ## D
 
@@ -158,12 +228,20 @@ producing scores that collapse in production. The most expensive beginner mistak
 regions of any shape and labels sparse points as noise; it finds the number of clusters itself.
 → [05 Machine Learning](05-machine-learning/07-clustering.md)
 
+**Decision threshold** — The score above which a classifier predicts positive. It should be chosen
+from error costs, not left at 0.5.
+→ [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
+
 **Decorator** — A Python function that wraps another function to add behaviour without editing it.
 `@decorator` is exactly `f = decorator(f)`.
 → [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
 
 **Diffusion model** — A generative model that learns to reverse a gradual noising process, used
 for most current image generation. → [12 Generative AI](12-generative-ai/README.md)
+
+**Double descent** — Test error that rises near the point where a very large model exactly fits the
+training data, then falls again as capacity grows.
+→ [07 Model Evaluation](07-model-evaluation/03-bias-variance-and-the-trade-off.md)
 
 **Drift** — When live data (data drift) or the input-output relationship (concept drift) moves away
 from what the model was trained on. → [29 MLOps](29-mlops/README.md)
@@ -184,6 +262,10 @@ path. A regularisation technique. → [08 Deep Learning](08-deep-learning/README
 dtype allowed per column.
 → [01 Python Foundations](01-python-foundations/12-pandas-essentials.md)
 
+**Early stopping** — Stopping iterative training when validation error stops improving; a form of
+regularisation that spends rows on a validation split.
+→ [07 Model Evaluation](07-model-evaluation/04-learning-curves-and-baselines.md)
+
 **Elastic net** — Linear regression penalised by a mix of L1 and L2 terms: it shares weight across correlated
 features like ridge and zeroes some like lasso. → [05 Machine Learning](05-machine-learning/03-regression.md)
 
@@ -193,6 +275,10 @@ Weizenbaum's 1966 pattern-matching chatbot. → [04 AI Foundations](04-ai-founda
 **ELT / ETL** — Extract-Load-Transform keeps raw data and transforms inside the warehouse;
 Extract-Transform-Load transforms first. ELT lets you fix a bug by re-running SQL.
 → [03 Data Foundations](03-data-foundations/09-batch-versus-stream-processing.md)
+
+**Embedded feature selection** — Selection that happens while the model fits, such as lasso's zero
+coefficients or tree importances.
+→ [06 Feature Engineering](06-feature-engineering/06-feature-selection-and-importance.md)
 
 **Embedding** — A dense vector representing meaning, arranged so similar things sit close together.
 The GPS-coordinate-for-meaning idea.
@@ -204,20 +290,49 @@ factor; the eigenvectors of a covariance matrix are PCA's components.
 
 **Epoch** — One full pass over the training dataset.
 
+**Expected improvement** — An acquisition function for Bayesian optimisation: the expected amount by
+which a setting beats the best score so far.
+→ [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
+
 ## F
 
 **Expert system** — Software that gives specialist advice by applying hand-written rules from a
 knowledge base through an inference engine. → [04 AI Foundations](04-ai-foundations/04-symbolic-ai-and-expert-systems.md)
 
 **F1-score** — The harmonic mean of precision and recall, used when you care about both and the
-classes are imbalanced. → [07 Model Evaluation](07-model-evaluation/README.md)
+classes are imbalanced. → [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
 
 **FAISS (Facebook AI Similarity Search)** — A library for efficient similarity search over dense
 vectors. → [15 Embeddings and Vector Search](15-embeddings-and-vector-search/README.md)
 
+**Feature cross** — A new feature combining two or more others — a product or a combined category —
+so that a linear model can represent an interaction.
+→ [06 Feature Engineering](06-feature-engineering/04-crosses-polynomial-and-date-time-features.md)
+
+**Feature engineering** — Choosing and shaping the inputs a model sees: selection, extraction,
+transformation and construction.
+→ [06 Feature Engineering](06-feature-engineering/README.md)
+
+**Feature hashing (hashing trick)** — Mapping category values straight to a fixed number of columns
+with a hash function, with no stored vocabulary. Handles unseen values; different values can
+collide.
+→ [06 Feature Engineering](06-feature-engineering/03-encoding-categorical-features.md)
+
+**Feature registry** — The catalogue in a feature store recording each feature's name, definition,
+owner, version and source, so features are found and reused rather than rewritten.
+→ [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
+
+**Feature selection** — Choosing a subset of features to keep. It must run inside cross-validation,
+or it reports skill on noise.
+→ [06 Feature Engineering](06-feature-engineering/06-feature-selection-and-importance.md)
+
 **Feature store** — Infrastructure providing one feature definition with both an offline path for
 training and an online path for serving, preventing train/serve skew.
 → [03 Data Foundations](03-data-foundations/07-synthetic-data-augmentation-and-feature-stores.md)
+
+**Filter method** — Feature selection that scores each feature against the target on its own, such
+as an F-test or mutual information. Fast, and blind to redundancy.
+→ [06 Feature Engineering](06-feature-engineering/06-feature-selection-and-importance.md)
 
 **Fine-tuning** — Continuing to train a pretrained model on your own data so it adapts to your
 task, domain or style. → [17 Fine-Tuning](17-fine-tuning/README.md)
@@ -228,6 +343,10 @@ conclusion, or backward from a goal to the evidence it needs.
 
 **Foundation model** — A large model pretrained broadly, intended to be adapted to many downstream
 tasks. → [12 Generative AI](12-generative-ai/README.md)
+
+**Frequency encoding** — Replacing a category by how often it occurs. Useful only when frequency
+itself carries signal.
+→ [06 Feature Engineering](06-feature-engineering/03-encoding-categorical-features.md)
 
 **FSDP (Fully Sharded Data Parallel)** — A distributed-training strategy that shards parameters,
 gradients and optimiser states across devices to fit larger models.
@@ -253,6 +372,10 @@ for squared error, the residuals. → [05 Machine Learning](05-machine-learning/
 The engine underneath essentially all model training.
 → [02 Mathematics for AI](02-mathematics-for-ai/README.md)
 
+**Grid search** — Trying every combination of listed hyperparameter values. Wasteful when only a few
+hyperparameters matter.
+→ [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
+
 **Grounding** — Tying a model's output to verifiable source material, usually via retrieval, so
 claims can be checked. → [16 RAG](16-rag/README.md)
 
@@ -264,6 +387,10 @@ claims can be checked. → [16 RAG](16-rag/README.md)
 **Hallucination** — A model producing fluent, confident output that is not true. A consequence of
 optimising for plausible next tokens, not for truth. → [12 Generative AI](12-generative-ai/README.md)
 
+**Hit rate@k** — Whether at least one relevant item appears in the top k results, averaged over
+queries.
+→ [07 Model Evaluation](07-model-evaluation/08-ranking-metrics.md)
+
 **HNSW (Hierarchical Navigable Small World)** — A graph-based approximate-nearest-neighbour index
 offering high recall at low latency, at a memory cost.
 → [15 Embeddings and Vector Search](15-embeddings-and-vector-search/README.md)
@@ -272,7 +399,7 @@ offering high recall at low latency, at a memory cost.
 rankings. Usually beats either alone. → [16 RAG](16-rag/README.md)
 
 **Hyperparameter** — A setting you choose before training (learning rate, depth, number of trees),
-as opposed to a weight the model learns. → [07 Model Evaluation](07-model-evaluation/README.md)
+as opposed to a weight the model learns. → [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
 
 ## I–K
 
@@ -312,6 +439,10 @@ recomputation during generation. Often the dominant memory cost at serving time.
 
 ## L
 
+**Lag feature** — A past value of a series used as a feature, such as yesterday's sales. Must be
+shifted to match what is known at prediction time.
+→ [06 Feature Engineering](06-feature-engineering/04-crosses-polynomial-and-date-time-features.md)
+
 **Lasso** — Linear regression with an L1 penalty, which sets some coefficients exactly to zero. Among
 correlated features its choice is arbitrary. → [05 Machine Learning](05-machine-learning/03-regression.md)
 
@@ -320,6 +451,10 @@ correlated features its choice is arbitrary. → [05 Machine Learning](05-machin
 **Lazy evaluation** — Producing values only when they are asked for, rather than all at once. What
 lets a data loader stream a dataset larger than memory.
 → [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
+
+**Learning curve** — Training and validation scores plotted against training-set size; shows whether
+more data would help.
+→ [07 Model Evaluation](07-model-evaluation/04-learning-curves-and-baselines.md)
 
 **Learning rate** — How large a step gradient descent takes. Too high diverges, too low crawls.
 → [02 Mathematics for AI](02-mathematics-for-ai/README.md)
@@ -341,6 +476,10 @@ generation, reasoning-like behaviour and instruction following.
 **LLMOps (Large Language Model Operations)** — Operating LLM applications: prompt lifecycle,
 routing, tracing, evaluation, cost and guardrails. → [30 LLMOps](30-llmops/README.md)
 
+**Log loss (cross-entropy)** — The negative log-likelihood of the true labels under predicted
+probabilities. Punishes confident mistakes without limit.
+→ [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
+
 **Logistic regression** — A linear classifier that turns a weighted sum into a probability with the sigmoid
 function and trains on log loss. → [05 Machine Learning](05-machine-learning/04-classification.md)
 
@@ -351,13 +490,25 @@ weights, cutting memory cost dramatically. → [17 Fine-Tuning](17-fine-tuning/R
 
 ## M
 
+**MAPE (Mean Absolute Percentage Error)** — The mean absolute error as a percentage of the actual
+value. Explodes near zero and rewards under-forecasting.
+→ [07 Model Evaluation](07-model-evaluation/05-regression-metrics.md)
+
+**Materialisation** — The scheduled job in a feature store that copies fresh feature values from the
+offline store to the online store. It determines how stale a served value can be.
+→ [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
+
 **MCAR / MAR / MNAR** — Why data is missing: completely at random, at random given other
 columns, or not at random. **Imputation cannot fix MNAR.**
 → [03 Data Foundations](03-data-foundations/03-cleaning-missing-duplicates-outliers.md)
 
 **MAE / MSE / RMSE (Mean Absolute Error / Mean Squared Error / Root Mean Squared Error)** —
 Regression error metrics. MSE and RMSE punish large errors harder than MAE.
-→ [07 Model Evaluation](07-model-evaluation/README.md)
+→ [07 Model Evaluation](07-model-evaluation/05-regression-metrics.md)
+
+**MCC (Matthews Correlation Coefficient)** — The correlation between predicted and actual labels,
+using all four confusion-matrix cells; 0 means no skill.
+→ [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
 
 **MDP (Markov Decision Process)** — The formal framing of reinforcement learning: states, actions,
 transitions, rewards. → [19 Reinforcement Learning](19-reinforcement-learning/README.md)
@@ -373,19 +524,43 @@ versioning, deployment, monitoring, retraining. → [29 MLOps](29-mlops/README.m
 so capacity grows without proportional compute.
 → [13 Large Language Models](13-large-language-models/README.md)
 
+**MRR (Mean Reciprocal Rank)** — The mean over queries of one divided by the rank of the first
+relevant result.
+→ [07 Model Evaluation](07-model-evaluation/08-ranking-metrics.md)
+
+**Mutual information** — A measure of how much knowing one variable reduces uncertainty about
+another, zero only for independence. Detects non-linear relationships that correlation misses.
+→ [06 Feature Engineering](06-feature-engineering/06-feature-selection-and-importance.md)
+
 ## N–O
+
+**N-gram** — A sequence of n consecutive words or characters used as a feature; bigrams such as "not
+good" recover some word order.
+→ [06 Feature Engineering](06-feature-engineering/05-text-image-and-domain-features.md)
 
 **Naive Bayes** — A classifier applying Bayes' theorem with the assumption that features are independent given
 the class; fast and strong for text, but overconfident. → [05 Machine Learning](05-machine-learning/04-classification.md)
 
 **NDCG (Normalized Discounted Cumulative Gain)** — A ranking metric rewarding relevant results
-placed near the top. → [07 Model Evaluation](07-model-evaluation/README.md)
+placed near the top. → [07 Model Evaluation](07-model-evaluation/08-ranking-metrics.md)
+
+**Nested cross-validation** — An outer cross-validation loop whose training parts each run a full
+hyperparameter search; estimates the tuned procedure honestly.
+→ [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
 
 **NLP (Natural Language Processing)** — Getting computers to work with human language.
 → [10 Natural Language Processing](10-natural-language-processing/README.md)
 
+**Offline store** — The part of a feature store holding the full history of feature values with
+timestamps, used to build point-in-time-correct training sets.
+→ [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
+
 **Online learning** — Updating a model continuously as new data arrives, instead of retraining on a fixed batch.
 Adapts to drift; noisier and easier to poison. → [05 Machine Learning](05-machine-learning/01-types-of-learning.md)
+
+**Online store** — The part of a feature store holding the latest feature values per entity in a
+low-latency database, for real-time prediction.
+→ [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
 
 **ONNX (Open Neural Network Exchange)** — An open format for exchanging models between frameworks
 and runtimes. → [32 Model Optimization](32-model-optimization/README.md)
@@ -398,7 +573,7 @@ The substrate under pandas, scikit-learn and PyTorch.
 sample left out. → [05 Machine Learning](05-machine-learning/05-decision-trees-and-random-forests.md)
 
 **Overfitting** — Learning the training data's noise rather than its pattern; excellent training
-scores, poor real-world scores. → [07 Model Evaluation](07-model-evaluation/README.md)
+scores, poor real-world scores. → [07 Model Evaluation](07-model-evaluation/03-bias-variance-and-the-trade-off.md)
 
 ## P
 
@@ -427,14 +602,26 @@ hypothesis is true*. Not the probability that the null is true.
 row's prediction time. Implemented with an as-of join.
 → [03 Data Foundations](03-data-foundations/07-synthetic-data-augmentation-and-feature-stores.md)
 
+**Polynomial features** — All products of input features up to a chosen degree. The count grows as
+$\binom{n+d}{d}$, so most generated columns are noise.
+→ [06 Feature Engineering](06-feature-engineering/04-crosses-polynomial-and-date-time-features.md)
+
 **Precision** — Of the items you flagged positive, what fraction really were. Pair it with recall
-or it is meaningless. → [07 Model Evaluation](07-model-evaluation/README.md)
+or it is meaningless. → [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
+
+**Precision@k** — The fraction of the top k results that are relevant. Recall@k is the fraction of
+all relevant items that appear in the top k.
+→ [07 Model Evaluation](07-model-evaluation/08-ranking-metrics.md)
 
 **Pretext task** — A task built from unlabelled data whose answer is known automatically, solved to learn
 useful representations. → [05 Machine Learning](05-machine-learning/10-semi-and-self-supervised-learning.md)
 
 **Prompt injection** — An attack where text in the input or in a retrieved document manipulates the
 model into ignoring its instructions. → [28 AI Security](28-ai-security/README.md)
+
+**Proper scoring rule** — A score for probabilistic predictions, such as log loss or Brier, that is
+optimised in expectation by reporting the true probability.
+→ [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
 
 **Pseudo-labelling (self-training)** — Adding a model's confident predictions on unlabelled data as training
 labels. Can reinforce the model's own mistakes. → [05 Machine Learning](05-machine-learning/10-semi-and-self-supervised-learning.md)
@@ -443,7 +630,15 @@ labels. Can reinforce the model's own mistakes. → [05 Machine Learning](05-mac
 without a dedicated vector database.
 → [15 Embeddings and Vector Search](15-embeddings-and-vector-search/README.md)
 
+**PSI (Population Stability Index)** — A measure of how far a feature's distribution has moved from
+a reference, summed over bins. Common rule-of-thumb thresholds are 0.1 and 0.25.
+→ [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
+
 ## Q–R
+
+**Quantile transformation** — Replacing each value by its rank, mapped to a uniform or normal
+distribution. Ignores how extreme outliers are.
+→ [06 Feature Engineering](06-feature-engineering/02-transformations-log-power-and-binning.md)
 
 **Quantisation** — Storing weights and activations at lower numeric precision to cut memory and
 increase speed, at some accuracy cost. → [32 Model Optimization](32-model-optimization/README.md)
@@ -457,18 +652,30 @@ prompt so the model answers from real sources rather than memory. → [16 RAG](1
 **Random forest** — Bagged decision trees that also consider a random subset of features at each split, which
 decorrelates the trees. → [05 Machine Learning](05-machine-learning/05-decision-trees-and-random-forests.md)
 
+**Random search** — Sampling hyperparameters at random from ranges; usually beats a grid of the same
+size.
+→ [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
+
+**RFE (Recursive Feature Elimination)** — Fitting a model, dropping its weakest feature, and
+repeating until the requested number remain.
+→ [06 Feature Engineering](06-feature-engineering/06-feature-selection-and-importance.md)
+
+**Rolling-window feature** — A statistic over a recent window of a series, such as a 7-day mean.
+Shift before rolling, or the window includes the value being predicted.
+→ [06 Feature Engineering](06-feature-engineering/04-crosses-polynomial-and-date-time-features.md)
+
 **R² (coefficient of determination)** — The fraction of variance a regression model explains
 beyond predicting the mean. 0 equals the mean baseline; negative is worse than it.
-→ [07 Model Evaluation](07-model-evaluation/README.md)
+→ [07 Model Evaluation](07-model-evaluation/05-regression-metrics.md)
 
 **Recall** — Of the items that really were positive, what fraction you found.
-→ [07 Model Evaluation](07-model-evaluation/README.md)
+→ [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
 
 **Re-ranking** — A second, more accurate scoring pass over the top retrieved candidates, usually
 with a cross-encoder. → [16 RAG](16-rag/README.md)
 
 **Regularisation** — Any technique that discourages a model from fitting noise (L1/L2 penalties,
-dropout, early stopping). → [07 Model Evaluation](07-model-evaluation/README.md)
+dropout, early stopping). → [07 Model Evaluation](07-model-evaluation/04-learning-curves-and-baselines.md)
 
 **Ridge regression** — Linear regression with a squared L2 penalty, shrinking coefficients and sharing weight
 across correlated features. → [05 Machine Learning](05-machine-learning/03-regression.md)
@@ -477,7 +684,7 @@ across correlated features. → [05 Machine Learning](05-machine-learning/03-reg
 data via a learned reward model. → [13 Large Language Models](13-large-language-models/README.md)
 
 **ROC (Receiver Operating Characteristic) curve** — True-positive rate plotted against
-false-positive rate across thresholds. → [07 Model Evaluation](07-model-evaluation/README.md)
+false-positive rate across thresholds. → [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
 
 ## S
 
@@ -501,12 +708,32 @@ it at load time. Schema on read defers problems rather than removing them.
 **Silhouette score** — For each point, how much closer it is to its own cluster than to the nearest other,
 from −1 to 1; averaged to compare clusterings. → [05 Machine Learning](05-machine-learning/07-clustering.md)
 
+**Smearing estimator** — A correction for predictions back-transformed from a log target: multiply
+by the mean of the exponentiated residuals, so predictions estimate the mean rather than the median.
+→ [06 Feature Engineering](06-feature-engineering/02-transformations-log-power-and-binning.md)
+
+**Specificity** — Of the truly negative cases, the fraction correctly predicted negative; the true
+negative rate.
+→ [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
+
+**Spline features** — Smooth, local basis curves that let a linear model fit a smooth non-linear
+effect; periodic splines also handle cycles.
+→ [06 Feature Engineering](06-feature-engineering/02-transformations-log-power-and-binning.md)
+
+**Stability selection** — Running feature selection on many resamples and keeping the features
+chosen most often, instead of trusting one selected set.
+→ [06 Feature Engineering](06-feature-engineering/06-feature-selection-and-importance.md)
+
 **Standard error** — The standard deviation of a sample statistic, `σ/√n` for a mean. Halving it
 requires four times the data.
 → [02 Mathematics for AI](02-mathematics-for-ai/07-descriptive-statistics-and-sampling.md)
 
 **SFT (Supervised Fine-Tuning)** — Fine-tuning on labelled instruction-response pairs.
 → [17 Fine-Tuning](17-fine-tuning/README.md)
+
+**Successive halving** — Hyperparameter search that starts many configurations on a small budget and
+repeatedly keeps the best fraction with more budget.
+→ [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
 
 ## T
 
@@ -516,6 +743,10 @@ learns non-linear boundaries. Needs scaled features. → [05 Machine Learning](0
 **Symbolic AI** — AI built from explicit symbols and hand-written rules, logic and search rather than
 learning from data. AI, but not machine learning. → [04 AI Foundations](04-ai-foundations/04-symbolic-ai-and-expert-systems.md)
 
+**Target encoding** — Replacing a category by the mean target of its training rows, shrunk towards
+the global mean. Leaks unless cross-fitted.
+→ [06 Feature Engineering](06-feature-engineering/03-encoding-categorical-features.md)
+
 **Temperature** — A sampling parameter controlling randomness: lower is more deterministic, higher
 is more varied. → [11 Transformers](11-transformers/README.md)
 
@@ -524,11 +755,15 @@ cases. → [02 Mathematics for AI](02-mathematics-for-ai/README.md)
 
 **TF-IDF (Term Frequency-Inverse Document Frequency)** — Weighting words by how often they appear
 in a document against how rare they are overall.
-→ [10 Natural Language Processing](10-natural-language-processing/README.md)
+→ [06 Feature Engineering](06-feature-engineering/05-text-image-and-domain-features.md)
 
 **Token** — The unit a language model actually processes: roughly a word-piece, not a word.
 Billing, context limits and latency are all counted in tokens.
 → [11 Transformers](11-transformers/README.md)
+
+**Top-k accuracy** — A prediction counts as correct if the true class is among the model's k
+highest-scoring classes.
+→ [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
 
 **Train/serve skew** — Training and serving features computed by different code that has drifted
 apart. Nothing errors; accuracy quietly degrades and the model is blamed.
@@ -538,6 +773,10 @@ apart. Nothing errors; accuracy quietly degrades and the model is blamed.
 
 **Transformer** — The attention-based architecture underpinning modern language, vision and
 multimodal models. → [11 Transformers](11-transformers/README.md)
+
+**TTL (Time To Live)** — How long a stored value remains valid before it must be refreshed or
+treated as missing — in a feature store, the limit on how stale a served feature may be.
+→ [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
 
 ## U–Z
 
@@ -549,7 +788,7 @@ person? It measures conversational plausibility, not correctness.
 → [04 AI Foundations](04-ai-foundations/06-turing-test-history-and-ai-winters.md)
 
 **Underfitting** — The model is too simple to capture the pattern; it performs poorly even on
-training data. → [07 Model Evaluation](07-model-evaluation/README.md)
+training data. → [07 Model Evaluation](07-model-evaluation/03-bias-variance-and-the-trade-off.md)
 
 **UMAP (Uniform Manifold Approximation and Projection)** — A non-linear dimensionality-reduction method,
 usually faster than t-SNE and able to embed new points. → [05 Machine Learning](05-machine-learning/08-dimensionality-reduction.md)
@@ -557,8 +796,13 @@ usually faster than t-SNE and able to embed new points. → [05 Machine Learning
 **VAE (Variational Autoencoder)** — An autoencoder that learns a probability distribution over a
 latent space, allowing sampling of new data. → [12 Generative AI](12-generative-ai/README.md)
 
+**Validation curve** — Training and validation scores plotted against one hyperparameter; shows
+underfitting and overfitting regions.
+→ [07 Model Evaluation](07-model-evaluation/04-learning-curves-and-baselines.md)
+
 **Variance** — Error from a model being too sensitive to the particular training sample. The
 "overfitting" half of the bias-variance trade-off.
+→ [07 Model Evaluation](07-model-evaluation/03-bias-variance-and-the-trade-off.md)
 
 **Vector database** — A database built for storing embeddings and searching them by similarity,
 with metadata filtering and persistence.
@@ -566,6 +810,14 @@ with metadata filtering and persistence.
 
 **ViT (Vision Transformer)** — A transformer applied to image patches rather than text tokens.
 → [09 Computer Vision](09-computer-vision/README.md)
+
+**Wrapper method** — Feature selection that searches subsets by fitting the model on each, such as
+RFE or sequential selection. Sees redundancy, and overfits the selection on small data.
+→ [06 Feature Engineering](06-feature-engineering/06-feature-selection-and-importance.md)
+
+**Yeo-Johnson transformation** — A power transformation like Box-Cox that also accepts zero and
+negative values.
+→ [06 Feature Engineering](06-feature-engineering/02-transformations-log-power-and-binning.md)
 
 **Zero-shot** — Asking a model to do a task with no examples in the prompt.
 → [14 Prompt Engineering](14-prompt-engineering/README.md)
