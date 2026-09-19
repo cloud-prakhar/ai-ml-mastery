@@ -120,8 +120,8 @@ not show that a normalised plain network can never train; with tuning it might. 
 **34. Dead ReLU** — a unit whose input is negative for every training example: zero output, zero gradient, no further
 learning. Usually caused by a large update, such as a learning-rate spike, pushing its bias negative.
 
-**35. Leaky ReLU** — its negative slope of 0.01 passes 100 times less gradient; within 500 steps it revived none of the
-units. Prevention — sensible learning rate, warm-up, clipping, He initialisation — beats repair.
+**35. Leaky ReLU** — its negative slope of 0.01 passes 100 times less gradient; within 500 steps over 80% of the
+units stayed dead. Prevention — sensible learning rate, warm-up, clipping, He initialisation — beats repair.
 
 **36. GELU and Swish** — in transformers and some image models. They are smooth and let a little gradient through for
 negative inputs, with slightly negative slopes in part of that range, unlike ReLU's hard zero.

@@ -142,7 +142,12 @@ def train(model, learning_rate, steps):
         optimiser.step()
 
 
-print(f"{'hidden activation':<20}{'dead at start':>14}{'after lr 5':>12}{'after recovery':>16}{'accuracy':>10}")
+def share_band(share):
+    """A learning rate of 5 makes training chaotic, so report a band, not digits."""
+    return "over 80%" if share > 0.8 else "under 10%" if share < 0.1 else "10% to 80%"
+
+
+print(f"{'hidden activation':<18}{'dead at start':>14}{'after lr 5':>12}{'after recovery':>16}{'accuracy':>13}")
 for name, activation, burst in [("ReLU", nn.ReLU(), True), ("leaky ReLU", nn.LeakyReLU(0.01), True),
                                 ("ReLU, no burst", nn.ReLU(), False)]:
     torch.manual_seed(0)
@@ -154,20 +159,28 @@ for name, activation, burst in [("ReLU", nn.ReLU(), True), ("leaky ReLU", nn.Lea
     train(model, learning_rate=0.1, steps=500 if burst else 520)   # then a sensible rate
     with torch.no_grad():
         accuracy = (model(X).argmax(dim=1) == y).double().mean().item()
-    print(f"{name:<20}{at_start:>14.1%}{after_burst:>12.1%}{dead_share(model):>16.1%}{accuracy:>10.3f}")
+    accuracy_band = "above 0.9" if accuracy > 0.9 else "below 0.9"
+    print(f"{name:<18}{at_start:>14.1%}{share_band(after_burst):>12}{share_band(dead_share(model)):>16}"
+          f"{accuracy_band:>13}")
 ```
 
 **Output:**
 ```
-hidden activation    dead at start  after lr 5  after recovery  accuracy
-ReLU                          4.7%       86.7%           86.7%     0.703
-leaky ReLU                    4.7%       88.3%           89.1%     0.708
-ReLU, no burst                4.7%        4.7%            5.5%     0.966
+hidden activation  dead at start  after lr 5  after recovery     accuracy
+ReLU                        4.7%    over 80%        over 80%    below 0.9
+leaky ReLU                  4.7%    over 80%        over 80%    below 0.9
+ReLU, no burst              4.7%   under 10%       under 10%    above 0.9
 ```
 
-**Twenty steps at a learning rate of 5 killed most of the hidden layer — and 500 steps at a sensible rate did not bring
-a single unit back.** The surviving units carried on, so the network still learned something, but it was far below the
+**Twenty steps at a learning rate of 5 killed over 80% of the hidden layer — and 500 steps at a sensible rate did not
+bring them back.** The surviving units carried on, so the network still learned something, but it was far below the
 same network trained sensibly from the start.
+
+**Why bands instead of exact figures?** After the burst, the exact numbers depend on the processor. The leaky ReLU
+run's accuracy was 0.52 on one CPU arithmetic kernel and 0.74 on another, from the same seed and the same code, in
+64-bit precision. A learning rate that high makes training *chaotic*: rounding differences in the last digit grow
+until they change which units survive. That is a production lesson too: a run that cannot be reproduced on another
+machine is a symptom of an unstable learning rate, not bad luck.
 
 **Leaky ReLU did not rescue it either.** Its negative slope of 0.01 means dead units still receive *some* gradient in
 theory, but a gradient 100 times smaller did not revive them within 500 steps. **Prevention beats cure:** a sensible

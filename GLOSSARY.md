@@ -60,6 +60,14 @@ were two: roughly the mid-1970s, and the late 1980s to mid-1990s.
 **Agent** — An AI system that pursues a goal over multiple steps using tools, memory and a control
 loop, rather than answering in a single turn. → [18 AI Agents](18-ai-agents/README.md)
 
+**Aliasing** — Fine detail that is sampled too coarsely reappearing as a false, coarser pattern —
+such as moiré when an image is shrunk without antialiasing.
+→ [09 Computer Vision](09-computer-vision/01-images-as-tensors-and-preprocessing.md)
+
+**Anchor box** — A preset box of a given size and shape at each feature-map position, which a
+detector scores and adjusts. Anchor-free detectors predict box edges directly instead.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
+
 **ANI (Artificial Narrow Intelligence)** — AI that performs within a bounded task or set of conditions,
 with no guaranteed behaviour outside it. Every deployed system is narrow in this engineering sense.
 → [04 AI Foundations](04-ai-foundations/03-narrow-general-and-superintelligence.md)
@@ -187,14 +195,21 @@ encoding and pushes you toward hashing, target encoding or embeddings.
 under-rated determinant of RAG quality. → [16 RAG](16-rag/README.md)
 
 **CLIP (Contrastive Language-Image Pretraining)** — A model trained to place matching images and
-captions near each other in a shared embedding space. → [09 Computer Vision](09-computer-vision/README.md)
+captions near each other in a shared embedding space, enabling classification by written captions.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
 
 **Closed-world assumption** — Treating anything not recorded as false, as databases do. The
 open-world assumption treats it as unknown, as most knowledge graphs do.
 → [04 AI Foundations](04-ai-foundations/05-search-planning-reasoning-and-perception.md)
 
 **CNN (Convolutional Neural Network)** — A network that uses sliding filters to detect local
-patterns, which made modern computer vision work. → [09 Computer Vision](09-computer-vision/README.md)
+patterns, which made modern computer vision work.
+→ [08 Deep Learning](08-deep-learning/06-cnns-rnns-and-sequence-models.md)
+→ [09 Computer Vision](09-computer-vision/05-classic-cnn-architectures.md)
+
+**Colour space** — A way of describing colours with numbers — RGB, BGR, grayscale, HSV, YCbCr. The
+same image in the wrong one is a silent bug.
+→ [09 Computer Vision](09-computer-vision/01-images-as-tensors-and-preprocessing.md)
 
 **Computational graph** — The record of operations that produced a value, which reverse-mode
 automatic differentiation walks backwards.
@@ -242,11 +257,19 @@ only, so no row's feature contains its own label. Essential for target encoding.
 **Cross-validation** — Rotating which slice of data is held out, so the estimate of performance
 does not depend on one lucky split. → [07 Model Evaluation](07-model-evaluation/01-cross-validation-and-comparing-models.md)
 
+**CTC (Connectionist Temporal Classification)** — A loss that trains a sequence model from unaligned
+labels by summing over every alignment; lets OCR read whole lines without character positions.
+→ [09 Computer Vision](09-computer-vision/04-faces-text-captions-and-restoration.md)
+
 **Cyclical encoding** — Encoding a repeating quantity such as hour of day so that its ends meet, for
 example as sine and cosine of an angle or with a periodic spline.
 → [06 Feature Engineering](06-feature-engineering/04-crosses-polynomial-and-date-time-features.md)
 
 ## D
+
+**Data augmentation** — Training on randomly transformed copies of each example. It encodes a claim
+that the label is unchanged, so a transformation that changes the label hurts.
+→ [09 Computer Vision](09-computer-vision/02-convolution-pooling-and-augmentation.md)
 
 **Data lake / lakehouse** — A lake stores raw data of any shape with schema applied on read; a
 lakehouse adds transactions and schema enforcement over lake storage.
@@ -268,9 +291,25 @@ gradient and never learns again.
 from error costs, not left at 0.5.
 → [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
 
+**Decompression bomb** — A small compressed file that declares an enormous image, so decoding it
+exhausts memory. Refuse it from the header, before decoding.
+→ [09 Computer Vision](09-computer-vision/01-images-as-tensors-and-preprocessing.md)
+
 **Decorator** — A Python function that wraps another function to add behaviour without editing it.
 `@decorator` is exactly `f = decorator(f)`.
 → [01 Python Foundations](01-python-foundations/07-pythonic-patterns.md)
+
+**Depthwise separable convolution** — A convolution split into a per-channel spatial filter and a
+1×1 channel mix, costing roughly a ninth of a standard 3×3 layer. The basis of MobileNet.
+→ [09 Computer Vision](09-computer-vision/05-classic-cnn-architectures.md)
+
+**DETR (Detection Transformer)** — A detector that predicts a set of boxes with one-to-one matching
+during training, needing neither anchors nor non-maximum suppression.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
+
+**Dice coefficient** — Twice the overlap of two masks divided by their total size; a segmentation
+metric closely related to IoU and always at least as large.
+→ [09 Computer Vision](09-computer-vision/03-classification-detection-segmentation-and-pose.md)
 
 **Diffusion model** — A generative model that learns to reverse a gradual noising process, used
 for most current image generation. → [12 Generative AI](12-generative-ai/README.md)
@@ -326,6 +365,10 @@ factor; the eigenvectors of a covariance matrix are PCA's components.
 
 **Epoch** — One full pass over the training dataset. → [08 Deep Learning](08-deep-learning/03-training-loop-batches-and-initialisation.md)
 
+**EXIF (Exchangeable Image File Format)** — Metadata stored inside photos — camera, time,
+orientation and often GPS location. Strip it from uploads after applying the orientation.
+→ [09 Computer Vision](09-computer-vision/01-images-as-tensors-and-preprocessing.md)
+
 **Expected improvement** — An acquisition function for Bayesian optimisation: the expected amount by
 which a setting beats the best score so far.
 → [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
@@ -342,6 +385,11 @@ knowledge base through an inference engine. → [04 AI Foundations](04-ai-founda
 **F1-score** — The harmonic mean of precision and recall, used when you care about both and the
 classes are imbalanced. → [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
 
+**Face verification / identification** — Verification checks a claimed identity (1:1);
+identification searches a gallery (1:N). Both compare embeddings against a threshold, and both are
+regulated uses.
+→ [09 Computer Vision](09-computer-vision/04-faces-text-captions-and-restoration.md)
+
 **FAISS (Facebook AI Similarity Search)** — A library for efficient similarity search over dense
 vectors. → [15 Embeddings and Vector Search](15-embeddings-and-vector-search/README.md)
 
@@ -357,6 +405,10 @@ transformation and construction.
 with a hash function, with no stored vocabulary. Handles unseen values; different values can
 collide.
 → [06 Feature Engineering](06-feature-engineering/03-encoding-categorical-features.md)
+
+**Feature map** — The output of a convolutional layer: a grid of responses showing where a filter's
+pattern appears.
+→ [09 Computer Vision](09-computer-vision/02-convolution-pooling-and-augmentation.md)
 
 **Feature registry** — The catalogue in a feature store recording each feature's name, definition,
 owner, version and source, so features are found and reused rather than rewritten.
@@ -377,12 +429,20 @@ as an F-test or mutual information. Fast, and blind to redundancy.
 **Fine-tuning** — Continuing to train a pretrained model on your own data so it adapts to your
 task, domain or style. → [17 Fine-Tuning](17-fine-tuning/README.md)
 
+**Focal loss** — A loss that down-weights examples a model already classifies confidently, so
+training concentrates on hard ones. Made one-stage detectors competitive.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
+
 **Forward and backward chaining** — Two ways to reason with rules: forward from known facts to every
 conclusion, or backward from a goal to the evidence it needs.
 → [04 AI Foundations](04-ai-foundations/04-symbolic-ai-and-expert-systems.md)
 
 **Foundation model** — A large model pretrained broadly, intended to be adapted to many downstream
 tasks. → [12 Generative AI](12-generative-ai/README.md)
+
+**FPN (Feature Pyramid Network)** — A detector component that combines feature maps from several
+depths, so objects of different sizes are found at suitable resolutions.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
 
 **Frequency encoding** — Replacing a category by how often it occurs. Useful only when frequency
 itself carries signal.
@@ -469,6 +529,14 @@ duplicate delivery harmless rather than impossible.
 **Inference** — Using a trained model to produce a prediction. Where nearly all production cost
 and latency lives.
 
+**Instance segmentation** — Predicting a separate mask for each object, so touching objects stay
+apart.
+→ [09 Computer Vision](09-computer-vision/03-classification-detection-segmentation-and-pose.md)
+
+**IoU (Intersection over Union)** — The overlap of two boxes or masks divided by the area they cover
+together. The threshold on it defines what counts as a correct detection.
+→ [09 Computer Vision](09-computer-vision/03-classification-detection-segmentation-and-pose.md)
+
 **Isolation forest** — Anomaly detection using random trees: unusual points are isolated in fewer random
 splits. → [05 Machine Learning](05-machine-learning/09-anomaly-detection-and-association-rules.md)
 
@@ -484,6 +552,10 @@ mean; assumes round, similar-sized clusters. → [05 Machine Learning](05-machin
 
 **k-NN (k-Nearest Neighbours)** — An instance-based method predicting from the k most similar stored
 examples; needs scaled features and degrades in high dimensions. → [05 Machine Learning](05-machine-learning/02-parametric-and-instance-based-models.md)
+
+**Keypoint** — A point a pose model locates, such as a wrist or a knee, usually decoded from a
+predicted heatmap.
+→ [09 Computer Vision](09-computer-vision/03-classification-detection-segmentation-and-pose.md)
 
 **Knowledge graph** — Facts stored as entities and relationships, often as (subject, relation, object)
 triples, that programs can query and reason over.
@@ -523,6 +595,10 @@ more data would help.
 gradients and adaptive-optimiser moment estimates are unreliable.
 → [02 Mathematics for AI](02-mathematics-for-ai/09-optimisation-algorithms.md)
 
+**Letterboxing** — Making an image square by padding it with a plain border instead of stretching or
+cropping it.
+→ [09 Computer Vision](09-computer-vision/01-images-as-tensors-and-preprocessing.md)
+
 **Lift** — In association rules, confidence divided by the consequent's overall frequency. Above 1 means a
 positive association; confidence alone rewards popular items. → [05 Machine Learning](05-machine-learning/09-anomaly-detection-and-association-rules.md)
 
@@ -557,6 +633,14 @@ forget, input and output gates, giving gradients an additive path through time.
 
 ## M
 
+**MAC (Multiply-Accumulate)** — One multiplication added into a running sum: the unit of work in
+convolution and linear layers. "FLOPs" figures sometimes count one MAC as two operations.
+→ [09 Computer Vision](09-computer-vision/05-classic-cnn-architectures.md)
+
+**mAP (mean Average Precision)** — Average precision averaged over classes. COCO also averages over
+IoU thresholds 0.5 to 0.95, so check which variant is reported.
+→ [09 Computer Vision](09-computer-vision/03-classification-detection-segmentation-and-pose.md)
+
 **MAPE (Mean Absolute Percentage Error)** — The mean absolute error as a percentage of the actual
 value. Explodes near zero and rewards under-forecasting.
 → [07 Model Evaluation](07-model-evaluation/05-regression-metrics.md)
@@ -579,6 +663,10 @@ using all four confusion-matrix cells; 0 means no skill.
 
 **MDP (Markov Decision Process)** — The formal framing of reinforcement learning: states, actions,
 transitions, rewards. → [19 Reinforcement Learning](19-reinforcement-learning/README.md)
+
+**Meta device** — A PyTorch device that tracks tensor shapes without allocating memory or computing,
+used to count a model's parameters and operations without running it.
+→ [09 Computer Vision](09-computer-vision/05-classic-cnn-architectures.md)
 
 **Mixture-of-experts (MoE)** — A layer with many expert sub-networks and a router that sends each
 input to only a few, so compute grows with the experts used, not stored.
@@ -620,6 +708,10 @@ good" recover some word order.
 **Naive Bayes** — A classifier applying Bayes' theorem with the assumption that features are independent given
 the class; fast and strong for text, but overconfident. → [05 Machine Learning](05-machine-learning/04-classification.md)
 
+**NCHW** — The tensor layout PyTorch vision models expect: batch, channels, height, width. Image
+libraries use height, width, channels.
+→ [09 Computer Vision](09-computer-vision/01-images-as-tensors-and-preprocessing.md)
+
 **NDCG (Normalized Discounted Cumulative Gain)** — A ranking metric rewarding relevant results
 placed near the top. → [07 Model Evaluation](07-model-evaluation/08-ranking-metrics.md)
 
@@ -629,6 +721,14 @@ hyperparameter search; estimates the tuned procedure honestly.
 
 **NLP (Natural Language Processing)** — Getting computers to work with human language.
 → [10 Natural Language Processing](10-natural-language-processing/README.md)
+
+**NMS (Non-Maximum Suppression)** — Keeping the highest-scoring detection and deleting boxes that
+overlap it above a threshold, repeatedly. Too low merges nearby objects; too high keeps duplicates.
+→ [09 Computer Vision](09-computer-vision/03-classification-detection-segmentation-and-pose.md)
+
+**OCR (Optical Character Recognition)** — Turning images of text into text: detect text regions,
+recognise each line, understand the layout.
+→ [09 Computer Vision](09-computer-vision/04-faces-text-captions-and-restoration.md)
 
 **Offline store** — The part of a feature store holding the full history of feature values with
 timestamps, used to build point-in-time-correct training sets.
@@ -648,6 +748,10 @@ and runtimes. → [32 Model Optimization](32-model-optimization/README.md)
 The substrate under pandas, scikit-learn and PyTorch.
 → [01 Python Foundations](01-python-foundations/11-numpy-essentials.md)
 
+**Open-set recognition** — Recognition that must handle classes never seen in training and reject
+unknown inputs, as face recognition must.
+→ [09 Computer Vision](09-computer-vision/04-faces-text-captions-and-restoration.md)
+
 **Out-of-bag (OOB) estimate** — A validation score for bagged ensembles computed on the rows each bootstrap
 sample left out. → [05 Machine Learning](05-machine-learning/05-decision-trees-and-random-forests.md)
 
@@ -656,8 +760,20 @@ scores, poor real-world scores. → [07 Model Evaluation](07-model-evaluation/03
 
 ## P
 
+**Padding** — Extra border values added around a convolution's input, usually zeros, to control the
+output size.
+→ [09 Computer Vision](09-computer-vision/02-convolution-pooling-and-augmentation.md)
+
+**Panoptic segmentation** — Labelling every pixel with a class, and giving pixels of countable
+objects an instance identity as well.
+→ [09 Computer Vision](09-computer-vision/03-classification-detection-segmentation-and-pose.md)
+
 **Parametric model** — A model with a fixed number of parameters and an assumed form, such as linear
 regression. Non-parametric models grow with the data. → [05 Machine Learning](05-machine-learning/02-parametric-and-instance-based-models.md)
+
+**Patch embedding** — A vision transformer's first layer: each image patch is flattened and
+projected to a token vector — a convolution whose kernel size equals its stride.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
 
 **PCA (Principal Component Analysis)** — Projecting data onto the directions of greatest variance
 to reduce dimensionality. → [02 Mathematics for AI](02-mathematics-for-ai/README.md)
@@ -689,6 +805,9 @@ $\binom{n+d}{d}$, so most generated columns are noise.
 tolerance to small shifts.
 → [08 Deep Learning](08-deep-learning/06-cnns-rnns-and-sequence-models.md)
 
+**Pose estimation** — Locating the keypoints of a body or object, such as joints, in an image.
+→ [09 Computer Vision](09-computer-vision/03-classification-detection-segmentation-and-pose.md)
+
 **Precision** — Of the items you flagged positive, what fraction really were. Pair it with recall
 or it is meaningless. → [07 Model Evaluation](07-model-evaluation/06-classification-metrics.md)
 
@@ -717,6 +836,10 @@ without a dedicated vector database.
 a reference, summed over bins. Common rule-of-thumb thresholds are 0.1 and 0.25.
 → [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
 
+**PSNR (Peak Signal-to-Noise Ratio)** — A restoration metric in decibels, from the mean squared
+error; +3 dB halves the error. It rewards cautious, blurry outputs.
+→ [09 Computer Vision](09-computer-vision/04-faces-text-captions-and-restoration.md)
+
 **PyTorch** — The open-source deep-learning framework this repository uses as its primary framework.
 → [08 Deep Learning](08-deep-learning/README.md)
 
@@ -742,6 +865,10 @@ decorrelates the trees. → [05 Machine Learning](05-machine-learning/05-decisio
 size.
 → [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
 
+**Receptive field** — The region of the input that can influence one output value. It grows with
+every layer, and fastest after downsampling.
+→ [09 Computer Vision](09-computer-vision/02-convolution-pooling-and-augmentation.md)
+
 **ReLU (Rectified Linear Unit)** — The activation max(0, z): gradient 1 for positive inputs and 0
 otherwise; the default in hidden layers.
 → [08 Deep Learning](08-deep-learning/05-activation-functions.md)
@@ -766,6 +893,10 @@ hidden state forward with the same weights at every step.
 Shift before rolling, or the window includes the value being predicted.
 → [06 Feature Engineering](06-feature-engineering/04-crosses-polynomial-and-date-time-features.md)
 
+**RPN (Region Proposal Network)** — The first stage of Faster R-CNN: scores anchor boxes for "object
+or not" and proposes regions for the second stage.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
+
 **R² (coefficient of determination)** — The fraction of variance a regression model explains
 beyond predicting the mean. 0 equals the mean baseline; negative is worse than it.
 → [07 Model Evaluation](07-model-evaluation/05-regression-metrics.md)
@@ -789,6 +920,14 @@ data via a learned reward model. → [13 Large Language Models](13-large-languag
 false-positive rate across thresholds. → [07 Model Evaluation](07-model-evaluation/07-roc-pr-and-probability-metrics.md)
 
 ## S
+
+**SAM (Segment Anything Model)** — A promptable segmentation model that returns masks for a clicked
+point or a box, without class labels.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
+
+**Semantic segmentation** — Labelling every pixel with a class, without separating individual
+objects.
+→ [09 Computer Vision](09-computer-vision/03-classification-detection-segmentation-and-pose.md)
 
 **SHAP (SHapley Additive exPlanations)** — Attributing a prediction to each feature using a
 game-theoretic allocation. → [27 Explainable AI](27-explainable-ai/README.md)
@@ -845,9 +984,17 @@ requires four times the data.
 **SFT (Supervised Fine-Tuning)** — Fine-tuning on labelled instruction-response pairs.
 → [17 Fine-Tuning](17-fine-tuning/README.md)
 
+**Stride** — How far a convolution or pooling window moves between positions; stride 2 halves the
+output size.
+→ [09 Computer Vision](09-computer-vision/02-convolution-pooling-and-augmentation.md)
+
 **Successive halving** — Hyperparameter search that starts many configurations on a small budget and
 repeatedly keeps the best fraction with more budget.
 → [07 Model Evaluation](07-model-evaluation/02-hyperparameter-search.md)
+
+**Super-resolution** — Producing a higher-resolution image from a lower-resolution one. Learned
+models invent plausible detail, which is not evidence.
+→ [09 Computer Vision](09-computer-vision/04-faces-text-captions-and-restoration.md)
 
 **Symmetry breaking** — Random weight initialisation so that neurons in a layer start different;
 identical starting weights keep them identical forever.
@@ -871,6 +1018,10 @@ is more varied. → [11 Transformers](11-transformers/README.md)
 **Tensor** — An n-dimensional array. Scalars, vectors and matrices are the 0-, 1- and 2-dimensional
 cases. → [02 Mathematics for AI](02-mathematics-for-ai/README.md)
 
+**Test-time augmentation** — Averaging a model's predictions over several transformed copies of each
+test input, for accuracy at a multiple of the inference cost.
+→ [09 Computer Vision](09-computer-vision/02-convolution-pooling-and-augmentation.md)
+
 **TF-IDF (Term Frequency-Inverse Document Frequency)** — Weighting words by how often they appear
 in a document against how rare they are overall.
 → [06 Feature Engineering](06-feature-engineering/05-text-image-and-domain-features.md)
@@ -888,13 +1039,22 @@ apart. Nothing errors; accuracy quietly degrades and the model is blamed.
 → [03 Data Foundations](03-data-foundations/07-synthetic-data-augmentation-and-feature-stores.md)
 
 **Transfer learning** — Starting from a model trained on one task and adapting it to another.
+→ [09 Computer Vision](09-computer-vision/05-classic-cnn-architectures.md)
 
 **Transformer** — The attention-based architecture underpinning modern language, vision and
 multimodal models. → [11 Transformers](11-transformers/README.md)
 
+**Transposed convolution** — A learned upsampling layer, used by decoders such as U-Net's to grow
+feature maps back to full resolution.
+→ [09 Computer Vision](09-computer-vision/05-classic-cnn-architectures.md)
+
 **TTL (Time To Live)** — How long a stored value remains valid before it must be refreshed or
 treated as missing — in a feature store, the limit on how stale a served feature may be.
 → [06 Feature Engineering](06-feature-engineering/07-leakage-hunting-and-features-in-production.md)
+
+**Typographic attack** — Changing a vision-language model's prediction by writing text into the
+scene, such as a label stuck on an object.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
 
 ## U–Z
 
@@ -904,6 +1064,10 @@ local neighbourhoods; distances between its clusters are not meaningful. → [05
 **Turing Test** — Turing's 1950 imitation game: can a judge, by text alone, tell a machine from a
 person? It measures conversational plausibility, not correctness.
 → [04 AI Foundations](04-ai-foundations/06-turing-test-history-and-ai-winters.md)
+
+**U-Net** — An encoder–decoder network with skip connections between matching levels, giving
+per-pixel output with sharp boundaries. Standard for segmentation.
+→ [09 Computer Vision](09-computer-vision/05-classic-cnn-architectures.md)
 
 **Underfitting** — The model is too simple to capture the pattern; it performs poorly even on
 training data. → [07 Model Evaluation](07-model-evaluation/03-bias-variance-and-the-trade-off.md)
@@ -930,8 +1094,12 @@ time steps, so early layers stop learning.
 with metadata filtering and persistence.
 → [15 Embeddings and Vector Search](15-embeddings-and-vector-search/README.md)
 
-**ViT (Vision Transformer)** — A transformer applied to image patches rather than text tokens.
-→ [09 Computer Vision](09-computer-vision/README.md)
+**ViT (Vision Transformer)** — A transformer applied to image patches rather than text tokens. Needs
+more data than a CNN, and its attention cost grows with the square of the number of patches.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
+
+**VQA (Visual Question Answering)** — Answering a natural-language question about an image.
+→ [09 Computer Vision](09-computer-vision/04-faces-text-captions-and-restoration.md)
 
 **Weight sharing** — Using the same weights at many positions — across an image in a CNN, across
 time in an RNN.
@@ -948,6 +1116,10 @@ sigmoid layers. Also called Glorot.
 **Yeo-Johnson transformation** — A power transformation like Box-Cox that also accepts zero and
 negative values.
 → [06 Feature Engineering](06-feature-engineering/02-transformations-log-power-and-binning.md)
+
+**YOLO (You Only Look Once)** — A family of one-stage, real-time object detectors that predict boxes
+and classes in a single pass.
+→ [09 Computer Vision](09-computer-vision/06-detectors-vit-sam-and-clip.md)
 
 **Zero-shot** — Asking a model to do a task with no examples in the prompt.
 → [14 Prompt Engineering](14-prompt-engineering/README.md)

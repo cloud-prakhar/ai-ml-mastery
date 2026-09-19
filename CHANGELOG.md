@@ -9,6 +9,47 @@ This repository versions **content**, not software, so releases are milestones r
 
 ## [Unreleased]
 
+### Added — module 09 Computer Vision, complete (all 6 topics)
+- `09-computer-vision/` authored as real content. Every example verified by `scripts/check_examples.py --strict` and
+  checked identical under the generic, MKL-compatible and Prescott CPU kernels; all 16 Mermaid diagrams rendered and
+  viewed. No example downloads a dataset or a weight file: they use scikit-learn's bundled digits and photographs,
+  synthetic images, and torchvision architectures built without weights.
+  - Topic 1: Images as Tensors — layouts and memory, `uint8` overflow, colour spaces, **12 stripes aliased to 4**, the
+    **same CNN at 0.985 or 0.131 depending only on preprocessing**, decompression bombs and EXIF stripping
+  - Topic 2: Convolution, Pooling and Augmentation — convolution by hand, the output-size formula checked against
+    PyTorch, receptive fields by formula and by gradient, **shift augmentation 0.387 → 0.898 and flips making it worse**
+  - Topic 3: Classification, Detection, Segmentation and Pose — IoU, the box-format bug scoring a perfect box 0.25, NMS
+    giving 2, 3 or 6 objects, **AP of 0.967, 0.700 or 0.601 for the same detections**, an empty segmenter at 94.3% pixel
+    accuracy, touching objects merging in semantic masks, soft-argmax keypoints
+  - Topic 4: Faces, Text, Captions and Restoration — **a verification threshold accepting 1% of impostors among known
+    identities and 36% among new ones** (digits stand in for faces), face-technology law and fairness, OCR errors
+    compounding and failing on touching characters, captioning and VQA, denoising and super-resolution by PSNR
+  - Topic 5: Classic CNN Architectures — parameters and MACs for LeNet to EfficientNet counted on the meta device and
+    matching torchvision's published figures, **ResNet-50 +4.8 points from its training recipe alone**, bottlenecks and
+    depthwise separable convolutions, a U-Net traced, transfer learning
+  - Topic 6: Detectors, ViT, SAM and CLIP — torchvision's detectors spanning 400× in compute, patch embedding as a
+    convolution, **layer hooks missing 36% of ViT-B/16's compute**, **a tiny CNN beating a tiny ViT by 29 points on 100
+    images**, a toy CLIP returning sevens for "not a seven"
+- `requirements-dl.txt` adds `torchvision==0.29.0`, the release built for `torch==2.14.0`; installed into a clean
+  environment with the pinned stack.
+- `quizzes/09-computer-vision.md` (70 questions) with explained answers, and `assignments/09-computer-vision.md`
+  (4 assignments: coding, debugging, design and a mini-project).
+- The first five image-generation prompts in `40-visual-learning/image-prompts/`: convolution, IoU and NMS, U-Net,
+  ViT patches and CLIP.
+- 42 glossary terms, from aliasing to YOLO; the CLIP, CNN, ViT and transfer-learning entries now link to module 09.
+- `CLAUDE.md` gains three rules learned here: examples never download datasets or weights; output that depends on an
+  unpinned transitive library prints a band; a Mermaid label of only `+` renders as an error. `memory.md` records the
+  torchvision decision.
+
+### Fixed — module 08's dead-ReLU example failed CI on every interpreter
+- `08-deep-learning/05-activation-functions.md` trained a leaky ReLU network through 20 steps at learning rate 5.
+  That run is chaotic even in float64: from the same seed its accuracy was 0.708 locally, 0.741 and 0.540 on GitHub's
+  runners, and 0.520 and 0.717 under the generic and MKL-compatible CPU kernels. The example now prints bands (over 80%
+  of units dead, accuracy below 0.9), which held for seeds 0–5 under every kernel, and says why. The earlier claim that
+  every module 08 example was identical under three kernels was not true of this one; the whole module has now been
+  re-run under the generic, MKL-compatible and Prescott kernels and matches.
+- Quiz answer 35 and the module overview no longer state exact figures for that run.
+
 ### Added — module 08 Deep Learning, complete (all 8 topics)
 - `08-deep-learning/` authored as real content, and the first module to execute PyTorch. Every example verified by
   `scripts/check_examples.py --strict` and checked identical under the generic, AVX2 and MKL-compatible CPU kernels;

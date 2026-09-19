@@ -123,8 +123,8 @@ Each code block was executed and shows its **real** output, enforced in continuo
 python scripts/check_examples.py --strict 08-deep-learning/
 ```
 
-Every example was also checked to produce identical output under three different CPU arithmetic kernels. Some results
-contradict common assumptions:
+Every example was also checked to produce identical output under three different CPU arithmetic kernels; the one
+chaotic training run prints bands rather than digits. Some results contradict common assumptions:
 
 - **Squared error failed to train a neuron started confidently wrong; cross-entropy fixed it within 50 steps.**
 - **Weights started at a constant left 32 hidden neurons acting as one** — 10% accuracy.

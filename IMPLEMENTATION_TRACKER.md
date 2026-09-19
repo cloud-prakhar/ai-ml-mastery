@@ -4,7 +4,7 @@ The honest state of this repository. Updated with **every** content change.
 
 **Legend:** ✅ complete · 🚧 in progress · 📋 backlog (scoped, not written) · ⛔ blocked
 
-**Last updated:** 2026-09-18
+**Last updated:** 2026-09-19
 
 ---
 
@@ -12,7 +12,7 @@ The honest state of this repository. Updated with **every** content change.
 
 | Category | ✅ | 🚧 | 📋 | Total |
 | --- | --- | --- | --- | --- |
-| Curriculum modules | 10 | 0 | 33 | 43 |
+| Curriculum modules | 11 | 0 | 32 | 43 |
 | Projects | 0 | 0 | 40 | 40 |
 | Root documents | 17 | 0 | 0 | 17 |
 | Templates | 3 | 0 | 0 | 3 |
@@ -71,7 +71,7 @@ There is deliberately **no shallow filler content** in this repository.
 | [03 Data Foundations](03-data-foundations/README.md) | ✅ | **Complete: all 9 topics authored and verified**, plus a 65-question quiz with explained answers and 4 assignments. Every example executed by CI. |
 | [04 AI Foundations](04-ai-foundations/README.md) | ✅ | **Complete: all 6 topics authored and verified**, plus a 60-question quiz with explained answers and 3 assignments. Every example executed by CI. |
 
-**Phase 2 is complete.** Phase 3's three modules — [05](05-machine-learning/README.md), [06](06-feature-engineering/README.md) and [07](07-model-evaluation/README.md) — are complete; its beginner projects remain. Phase 4 has begun with [08 Deep Learning](08-deep-learning/README.md).
+**Phase 2 is complete.** Phase 3's three modules — [05](05-machine-learning/README.md), [06](06-feature-engineering/README.md) and [07](07-model-evaluation/README.md) — are complete; its beginner projects remain. Phase 4 is under way: [08 Deep Learning](08-deep-learning/README.md) and [09 Computer Vision](09-computer-vision/README.md) are complete.
 
 > **Also complete, built out of phase order on request:**
 > [38 Interview Preparation](38-interview-preparation/README.md) — 7 question banks, 126 questions
@@ -102,8 +102,8 @@ There is deliberately **no shallow filler content** in this repository.
 | Module | Status |
 | --- | --- |
 | [08 Deep Learning](08-deep-learning/README.md) | ✅ **Complete: all 8 topics authored and verified**, plus a 64-question quiz with explained answers and 4 assignments. PyTorch examples run in float64 and were checked identical under three CPU arithmetic kernels; all 12 Mermaid diagrams rendered. Adds `requirements-dl.txt` (torch 2.14.0, CPU build), installed by CI. |
-| [09 Computer Vision](09-computer-vision/README.md) | 📋 **Next to build** |
-| [10 Natural Language Processing](10-natural-language-processing/README.md) | 📋 |
+| [09 Computer Vision](09-computer-vision/README.md) | ✅ **Complete: all 6 topics authored and verified**, plus a 70-question quiz with explained answers and 4 assignments. Examples run on scikit-learn's bundled images and synthetic data — nothing downloaded — and were checked identical under three CPU arithmetic kernels; all 16 Mermaid diagrams rendered and viewed. Adds `torchvision==0.29.0` to `requirements-dl.txt`, and the first 5 image-generation prompts. |
+| [10 Natural Language Processing](10-natural-language-processing/README.md) | 📋 **Next to build** |
 | [11 Transformers](11-transformers/README.md) | 📋 |
 
 ## Phase 5 — Generative AI 📋
@@ -150,7 +150,7 @@ There is deliberately **no shallow filler content** in this repository.
 | [37 Research Paper Learning](37-research-paper-learning/README.md) | 📋 |
 | [38 Interview Preparation](38-interview-preparation/README.md) | ✅ |
 | [39 Cheat Sheets](39-cheat-sheets/README.md) | 📋 |
-| [40 Visual Learning](40-visual-learning/README.md) | 📋 |
+| [40 Visual Learning](40-visual-learning/README.md) | 📋 Image-generation prompts exist for module 09's major concepts (5). **Known gap:** modules 00–08 have none yet, although CLAUDE.md asks for one per major concept. |
 | [41 Case Studies](41-case-studies/README.md) | 📋 |
 | [42 Capstone Projects](42-capstone-projects/README.md) | 📋 |
 | Production projects P1–P10 | 📋 |

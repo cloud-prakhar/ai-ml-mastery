@@ -25,7 +25,15 @@ on a light background.
 
 ## Available prompts
 
-None yet. Prompts are added alongside each authored module — see
+| Prompt | Concept | Module |
+| --- | --- | --- |
+| [Convolution and Feature Maps](convolution-feature-map.md) | A filter sliding over an image | 09 |
+| [IoU and Non-Maximum Suppression](iou-and-non-maximum-suppression.md) | Scoring and de-duplicating detections | 09 |
+| [U-Net Segmentation](u-net-segmentation.md) | Encoder, decoder and skip connections | 09 |
+| [Vision Transformer Patches](vision-transformer-patches.md) | Image patches as tokens | 09 |
+| [CLIP Contrastive Learning](clip-contrastive-learning.md) | Matching images and captions | 09 |
+
+Earlier modules, 00–08, do not have prompts yet; that gap is recorded in
 [`IMPLEMENTATION_TRACKER.md`](../../IMPLEMENTATION_TRACKER.md).
 
 ---

@@ -45,7 +45,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python scripts/verify_setup.py
 
-# From module 08 onwards, also install PyTorch (CPU build; on macOS omit --index-url):
+# From module 08 onwards, also install PyTorch and torchvision (CPU build; on macOS omit --index-url):
 # pip install -r requirements-dl.txt --index-url https://download.pytorch.org/whl/cpu
 ```
 
@@ -151,7 +151,7 @@ Full ordering, dependencies and effort bands: **[`ROADMAP.md`](ROADMAP.md)**.
 | # | Module | What it covers |
 | --- | --- | --- |
 | 08 | **[Deep Learning](08-deep-learning/README.md)** ✅ | Neurons, autograd, training, normalisation, activations, CNNs, RNNs, VAEs, GANs, diffusion, GNNs (PyTorch) — *all 8 topics* |
-| 09 | [Computer Vision](09-computer-vision/README.md) | Convolution, CNNs, detection, segmentation, ViT, CLIP |
+| 09 | **[Computer Vision](09-computer-vision/README.md)** ✅ | Images as tensors, convolution and augmentation, detection and segmentation metrics, faces and OCR, LeNet to EfficientNet and U-Net, detectors, ViT, SAM, CLIP — *all 6 topics* |
 | 10 | [Natural Language Processing](10-natural-language-processing/README.md) | Preprocessing, TF-IDF, word vectors, NLP tasks |
 | 11 | [Transformers](11-transformers/README.md) | Attention from first principles, with worked numerical examples |
 

@@ -139,6 +139,9 @@ Every module and topic file carries a difficulty label (🟢🟡🔴🟣) and an
   `pip-audit` steps, and install it into a clean environment on the oldest supported Python.
   A library that is not pinned at all appears only as labelled reference code behind
   `<!-- check-examples: skip -->`.
+- **Examples never download datasets or weights.** Use scikit-learn's bundled data or generate
+  data in the code. Build torchvision architectures with `weights=None` — on the `meta` device
+  when only shapes and counts are needed — and read published accuracy from the weights' metadata.
 
 ### Documented output must be identical on every machine
 
@@ -152,7 +155,11 @@ rule below exists because breaking it failed CI while every local run passed:
   differs between CPU kernels and training amplifies it. Say why in the module overview.
 - Before committing numeric examples, run them under alternative CPU kernels and confirm
   identical output: `OPENBLAS_CORETYPE=Prescott`, and for PyTorch `ATEN_CPU_CAPABILITY=default`
-  and `MKL_CBWR=COMPATIBLE`.
+  and `MKL_CBWR=COMPATIBLE`. **Run it on the final version of every block** and do not claim it
+  otherwise: float64 does not tame a deliberately unstable run. Module 08's learning-rate-5 burst
+  printed 0.52, 0.72 and 0.74 accuracy from one seed on different kernels.
+- Never print output that depends on an **unpinned transitive library**: compressed file sizes
+  (zlib) or exact pixel statistics that a codec might change. Print a band (`under 100 KB: True`).
 - Keep every block well under the 60-second timeout; the checker warns above 15 seconds, and
   CI runners are slower than a laptop.
 - The checker already runs examples single-threaded and without CI environment variables; do
@@ -180,7 +187,8 @@ restart-and-run-all before committing.
   subgraphs need `direction LR` inside a `flowchart TB`. No unsupported syntax.
 - Short labels. Avoid parentheses and unescaped special characters inside node labels — they
   break Mermaid parsing. Prefer `M15[15 Embeddings and Vector Search]` over
-  `M15[15 Embeddings & Vector Search (ANN)]`.
+  `M15[15 Embeddings & Vector Search (ANN)]`. A label that is only `+` or `-` is read as a Markdown
+  list and renders as "Unsupported markdown: list" — use a word such as `add`.
 - Keep styling consistent with existing diagrams (see [`templates/DIAGRAM_TEMPLATE.md`](templates/DIAGRAM_TEMPLATE.md)).
 - For every major concept also add: a simple analogy diagram, and an image-generation prompt in
   `40-visual-learning/image-prompts/`.

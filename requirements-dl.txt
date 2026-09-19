@@ -12,3 +12,9 @@
 # With an NVIDIA GPU: follow the selector at https://pytorch.org/get-started/locally/
 # instead - same version number, different build.
 torch==2.14.0
+#
+# torchvision (module 09 onwards): reference definitions of the standard vision architectures,
+# instantiated WITHOUT pretrained weights so nothing is downloaded, and the reference
+# implementations of box IoU and non-maximum suppression. 0.29.0 is the release that
+# requires exactly torch==2.14.0.
+torchvision==0.29.0
